@@ -30,6 +30,7 @@ for n in "${sizes[@]}"; do
  done
 done
 mkdir -p "$out/fuentes/src" "$out/fuentes/scripts"
-cp src/bench_utils.c src/bench_utils.h src/cholesky.c src/cholesky.h src/cholesky_mpi.c src/cholesky_mpi.h src/compare_blocks.c "$out/fuentes/src/"
+cp src/experimentos/bench_utils.c src/experimentos/bench_utils.h src/implementacion_final/cholesky.c src/implementacion_final/cholesky.h src/implementacion_final/cholesky_mpi.c src/implementacion_final/cholesky_mpi.h src/experimentos/compare_blocks.c "$out/fuentes/src/"
 cp Makefile "$out/fuentes/";cp scripts/campana_cluster.sh "$out/fuentes/scripts/"
-sha256sum src/cholesky.c src/cholesky.h src/cholesky_mpi.c src/cholesky_mpi.h src/compare_blocks.c Makefile > "$out/fuentes.sha256"
+sha256sum src/implementacion_final/cholesky.c src/implementacion_final/cholesky.h src/implementacion_final/cholesky_mpi.c src/implementacion_final/cholesky_mpi.h src/experimentos/compare_blocks.c Makefile > "$out/fuentes.sha256"
+

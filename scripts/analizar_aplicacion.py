@@ -58,3 +58,4 @@ for n in NS:
     for p in PS:
         print(n,p,[(m,round(lookup[n,p,m]['total_median_s']*1000,3)) for m in METHODS])
 print('Shares 2048 P6', {m:{k:round(100*lookup[2048,6,m][k+'_share_median'],2) for k in PHASES} for m in METHODS})
+

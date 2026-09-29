@@ -37,8 +37,8 @@ for name,expected_hash in json.loads((measured/'sha256.json').read_text()).items
 refactor=json.loads((ROOT/'docs/checks/refactor_equivalence.json').read_text())
 assert refactor['status']=='PASS'
 assert refactor['source_hash_mode']=='SHA-256 after CRLF to LF normalization for Git portability'
-for name,expected_hash in refactor['current_sources'].items():
-    assert hashlib.sha256((ROOT/'src'/name).read_bytes().replace(b'\r\n',b'\n')).hexdigest()==expected_hash,name
+for relative_path,expected_hash in refactor['current_sources'].items():
+    assert hashlib.sha256((ROOT/'src'/relative_path).read_bytes().replace(b'\r\n',b'\n')).hexdigest()==expected_hash,relative_path
 links=[]
 for p in [ROOT/'README.md',ROOT/'MANIFEST.md',*(ROOT/'docs').glob('*.md')]:
     txt=p.read_text(encoding='utf-8')
@@ -57,3 +57,4 @@ assert all(p.with_suffix('.svg').exists() for p in figs)
 out=dict(copies_verified=len(copies),summary_groups_verified=len(summary),formal_cluster_useful=formal,measured_cluster_sources_match=True,current_cluster_sources_match=all(all(r['current_source_byte_matches'].values()) for r in audits),local_links_verified=len(links),png_figures=len(figs),svg_figures=len(figs),pdf_pages=len(reader.pages),narrative_words=len(text.split()),python=sys.version,platform=platform.platform(),packages={k:importlib.metadata.version(k) for k in ('matplotlib','reportlab','pypdf')},scope='Checks of original copies, independent quantiles, ratios, grids, links and PDF text; visual review and Linux compilation are recorded separately.')
 (ROOT/'docs/verificacion_entrega.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
 print(json.dumps(out,ensure_ascii=False,indent=2))
+

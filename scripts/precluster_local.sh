@@ -14,7 +14,8 @@ for n in 512 1024 2048 3072; do
  OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 /usr/bin/time -v -o "$out/lapack/n${n}_resource.txt" taskset -c 0 ./build/compare_lapack "$n" "$reps" > "$out/lapack/n${n}.csv" 2> "$out/lapack/n${n}_library.log"
 done
 mkdir -p "$out/fuentes/src" "$out/fuentes/scripts"
-cp src/bench_utils.c src/bench_utils.h src/cholesky.c src/cholesky.h src/compare_lapack.c "$out/fuentes/src/"
+cp src/experimentos/bench_utils.c src/experimentos/bench_utils.h src/implementacion_final/cholesky.c src/implementacion_final/cholesky.h src/experimentos/compare_lapack.c "$out/fuentes/src/"
 cp Makefile "$out/fuentes/";cp scripts/precluster_local.sh "$out/fuentes/scripts/"
-sha256sum src/cholesky.c src/cholesky.h src/compare_lapack.c Makefile scripts/precluster_local.sh > "$out/fuentes.sha256"
+sha256sum src/implementacion_final/cholesky.c src/implementacion_final/cholesky.h src/experimentos/compare_lapack.c Makefile scripts/precluster_local.sh > "$out/fuentes.sha256"
 printf '%s\n' 'Confirmacion independiente de fecha previa: B1/B4, n1024/2048 P6, 8 repeticiones.' 'Mayor: n3072 P6 dos repeticiones por bloque; exploratorio.' 'LAPACK: sin MPI, afinidad CPU0, OpenBLAS 1 hilo comprobado; 6 repeticiones n512/1024/2048, 2 n3072.' 'Generador y entrada identicos; alias column-major U equivale a L row-major, sin transposicion.' 'Total LAPACK: reserva+generacion+factorizacion; validacion/liberacion fuera; ambos algoritmos reservan workspace n.' 'time -v incluye referencias, validacion y calentamientos; no usarlo como speedup de una factorizacion. RSS no suma memoria de todos los rangos.' > "$out/protocolo.txt"
+

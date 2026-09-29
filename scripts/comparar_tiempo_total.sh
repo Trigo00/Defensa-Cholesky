@@ -13,7 +13,7 @@ mkdir -p "$(dirname "$out")";mkdir "$out"
   printf 'Tres algoritmos; seis permutaciones repetidas dos veces\n'
   printf 'Reserva, generacion, validacion y arranque de procesos fuera del tiempo\n'
 } > "$out/protocolo.txt"
-sha256sum src/cholesky.c src/cholesky.h src/cholesky_mpi.c src/cholesky_mpi.h src/cholesky_left_mpi.c src/compare_mpi_total.c Makefile scripts/comparar_tiempo_total.sh > "$out/fuentes.sha256"
+sha256sum src/implementacion_final/cholesky.c src/implementacion_final/cholesky.h src/implementacion_final/cholesky_mpi.c src/implementacion_final/cholesky_mpi.h src/experimentos/cholesky_left_mpi.c src/experimentos/compare_mpi_total.c Makefile scripts/comparar_tiempo_total.sh > "$out/fuentes.sha256"
 index=0
 for n in 64 128 256 512 1024; do
   for offset in 0 1 2 3; do
@@ -23,3 +23,4 @@ for n in 64 128 256 512 1024; do
   index=$((index+1))
 done
 printf 'Resultados: %s\n' "$out"
+

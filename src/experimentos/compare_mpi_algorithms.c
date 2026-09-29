@@ -181,11 +181,12 @@ static int run_case(int n, int reps, int profile_mode, int test)
             /* Toma una marca o diferencia temporal en esta frontera; conserva el alcance del banco original. */
             double start = MPI_Wtime();
             /* Define status: codigo devuelto por la factorizacion. */
-            int status = algorithm
-                             /* Rama left-looking: reduce productos parciales y completa la columna en su propietario. */
-                             ? cholesky_left_mpi(local, partial, reduced, &d, profile_mode ? &lp : NULL)
-                             /* Rama right-looking con vector local; el perfil se activa solo si se solicito. */
-                             : cholesky_mpi_local(local, column, workspace, &d, profile_mode ? &rp : NULL);
+            int status =
+                algorithm
+                    /* Rama left-looking: reduce productos parciales y completa la columna en su propietario. */
+                    ? cholesky_left_mpi(local, partial, reduced, &d, profile_mode ? &lp : NULL)
+                    /* Rama right-looking con vector local; el perfil se activa solo si se solicito. */
+                    : cholesky_mpi_local(local, column, workspace, &d, profile_mode ? &rp : NULL);
             /* Toma una marca o diferencia temporal en esta frontera; conserva el alcance del banco original. */
             double elapsed = MPI_Wtime() - start, maximum = 0.0;
             /* Obtiene en rango 0 el maximo de cada duracion local; no se suman esos maximos. */
@@ -229,11 +230,12 @@ static int run_case(int n, int reps, int profile_mode, int test)
             if (rep > 0 && profile_mode)
             {
                 /* Define values: campos del perfil local. */
-                double values[5] = {elapsed, algorithm ? lp.compute : rp.compute, algorithm ? lp.reduce : 0.0,
-                                    /* Selecciona el tiempo de difusion del algoritmo que se acaba de ejecutar. */
-                                    algorithm ? lp.broadcast : rp.broadcast,
-                                    /* Exporta el contador de trabajo del algoritmo como un campo numerico del perfil. */
-                                    (double)(algorithm ? lp.products : rp.updates)};
+                double values[5] = {
+                    elapsed, algorithm ? lp.compute : rp.compute, algorithm ? lp.reduce : 0.0,
+                    /* Selecciona el tiempo de difusion del algoritmo que se acaba de ejecutar. */
+                    algorithm ? lp.broadcast : rp.broadcast,
+                    /* Exporta el contador de trabajo del algoritmo como un campo numerico del perfil. */
+                    (double)(algorithm ? lp.products : rp.updates)};
                 /* Reserva los buffers indicados; el tamano usa elementos por sizeof(tipo) para obtener bytes. */
                 double *all = !rank ? allocate((size_t)p * 5 * sizeof(double)) : NULL;
                 /* Reune la misma cantidad de campos por rango para publicar el perfil individual. */

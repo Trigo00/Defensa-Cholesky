@@ -221,9 +221,11 @@ static int run_case(int n, int reps, int test)
                 /* Toma una marca o diferencia temporal en esta frontera; conserva el alcance del banco original. */
                 t1 = MPI_Wtime();
                 /* Ejecuta el kernel elegido y conserva su codigo de retorno. */
-                status = algorithm == LEFT ? cholesky_left_mpi(local, partial, reduced, &d, NULL)
-                                           /* Rama right-looking con vector local; el perfil se activa solo si se solicito. */
-                                           : cholesky_mpi_local(local, column, rightwork, &d, NULL);
+                status =
+                    algorithm == LEFT
+                        ? cholesky_left_mpi(local, partial, reduced, &d, NULL)
+                        /* Rama right-looking con vector local; el perfil se activa solo si se solicito. */
+                        : cholesky_mpi_local(local, column, rightwork, &d, NULL);
                 /* Toma una marca o diferencia temporal en esta frontera; conserva el alcance del banco original. */
                 t2 = MPI_Wtime();
                 /* Reune cantidades distintas de columnas en rango 0, en los segmentos indicados. */

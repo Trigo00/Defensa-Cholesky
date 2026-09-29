@@ -52,3 +52,4 @@ for ax,field in zip(axes,('factor','total')):
 fig.savefig(D/'lapack.png',dpi=180);plt.close(fig)
 for r in summary:print(r['experiment'],r['N'],r['method'],'factor_ms',round(1000*r['factor_median_s'],3),'total_ms',round(1000*r['total_median_s'],3))
 print('VALIDACION',observations,maxres,maxdiff)
+

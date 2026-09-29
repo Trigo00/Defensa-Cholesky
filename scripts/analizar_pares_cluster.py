@@ -26,3 +26,4 @@ if not out:raise ValueError('No hay mediciones')
 with (D/'resumen_pares.csv').open('w',newline='') as stream:
     w=csv.DictWriter(stream,fieldnames=list(out[0]));w.writeheader();w.writerows(out)
 print(f'{len(out)} configuraciones resumidas en {D}/resumen_pares.csv')
+

@@ -1,6 +1,6 @@
 # Inventario técnico y evolución del código
 
-`src` se mantiene plano para conservar includes y reglas del Makefile. Los grupos siguientes distinguen el candidato, los bancos y las variantes. Compartir un archivo no significa que todas sus funciones sean parte del camino ejecutado por el candidato.
+`src/implementacion_final` contiene el candidato que se presenta; `src/experimentos` contiene bancos, variantes y utilidades. El Makefile conserva los mismos objetivos mediante ambas rutas de inclusión. Compartir un archivo no significa que todas sus funciones sean parte del camino ejecutado por el candidato.
 
 La revisión didáctica del 29/09/2026 explica las instrucciones y extrae utilidades repetidas en `bench_utils.c`, además de dos auxiliares privados de generación/preparación de columnas. El mapa de lectura está en [guia_codigo.md](guia_codigo.md). Los originales medidos se preservan en `archive/src_medidos_20260928`; la comparación funcional reproducible se implementa en `scripts/verify_code_refactor.py`. El control de Layout nulo de left MPI se hace ahora antes de desreferenciarlo.
 
@@ -8,11 +8,11 @@ La revisión didáctica del 29/09/2026 explica las instrucciones y extrae utilid
 
 | Archivo | Papel actual y origen de la decisión |
 |---|---|
-| `src/main_candidate.c` | Entrada consolidada. Dos compilaciones: MPI y secuencial. Generación, factor, reunión, relojes y comprobación; reemplaza los bancos como programa de uso principal |
-| `src/cholesky.c` | Generación SPD reproducible centralizada/indexada; right con vector, variantes left/right y residuos. El candidato usa un subconjunto; las variantes se mantienen para contrastes |
-| `src/cholesky.h` | Contratos de representación, generación y validación. La entrada debe ser simétrica y el triángulo superior no es L |
-| `src/cholesky_mpi.c` | Mapas de propiedad y dos kernels right. El elegido es cholesky_mpi_local con layout cíclico b=1. El original y los mapas para grupos de columnas permanecen para experimentos |
-| `src/cholesky_mpi.h` | Layout, perfiles y contratos colectivos. No implica que el candidato active perfiles o todas las variantes |
+| `src/implementacion_final/main_candidate.c` | Entrada consolidada. Dos compilaciones: MPI y secuencial. Generación, factor, reunión, relojes y comprobación; reemplaza los bancos como programa de uso principal |
+| `src/implementacion_final/cholesky.c` | Generación SPD reproducible centralizada/indexada; right con vector, variantes left/right y residuos. El candidato usa un subconjunto; las variantes se mantienen para contrastes |
+| `src/implementacion_final/cholesky.h` | Contratos de representación, generación y validación. La entrada debe ser simétrica y el triángulo superior no es L |
+| `src/implementacion_final/cholesky_mpi.c` | Mapas de propiedad y dos kernels right. El elegido es cholesky_mpi_local con layout cíclico b=1. El original y los mapas para grupos de columnas permanecen para experimentos |
+| `src/implementacion_final/cholesky_mpi.h` | Layout, perfiles y contratos colectivos. No implica que el candidato active perfiles o todas las variantes |
 
 La compilación MPI enlaza únicamente main_candidate, cholesky y cholesky_mpi. La secuencial enlaza main_candidate y cholesky. El ejecutable auxiliar de tiempo externo se construye por separado. No hay directivas OpenMP en el candidato ni dependencia LAPACK en sus reglas de compilación.
 
@@ -73,3 +73,4 @@ El inventario exacto de todos los archivos originales, tamaños y hashes es `inv
 `archive/antecedentes/cholesky_final_hpc.c` es un prototipo previo distinto, pese a su nombre. `run_local_benchmarks.sh`, `cholesky_slurm.sh`, `benchmark_real_wsl.csv` y sus gráficas pertenecen a ese antecedente. El script Slurm contiene ejemplos de cuatro nodos y estrategias forzadas que no describen las campañas reales del servicio web ni una implementación 2D ejecutada.
 
 `compile_docs.py` y `plot_real_data.py` de ese antecedente contienen rutas absolutas de otra estructura de trabajo. Se preservan para explicar procedencia, pero no se presentan como herramientas portables vigentes. El binario suelto anterior no se incorpora como ejecutable de la entrega. El ZIP de fuentes preparado antes del clúster se conserva como antecedente de preparación, no como fuente única del estado final.
+

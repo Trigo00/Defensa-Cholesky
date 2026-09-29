@@ -110,3 +110,4 @@ fig.savefig(D/'perfil.png',dpi=180);plt.close(fig)
 print(json.dumps(report))
 for n in NS:
     print(f"n={n}: "+'; '.join(f"P={p} left={R[n,p,'left']['median_s']*1000:.3f} ms right={R[n,p,'right']['median_s']*1000:.3f} ms" for p in PS))
+

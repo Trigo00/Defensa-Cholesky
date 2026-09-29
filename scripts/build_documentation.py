@@ -74,3 +74,4 @@ from publication_pdf import publish
 pdf=publish(ROOT,text)
 from pypdf import PdfReader
 print(json.dumps(dict(pdf=str(pdf),pages=len(PdfReader(pdf).pages),tables=len(TABLES),words=len(text.split()))))
+

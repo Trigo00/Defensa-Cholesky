@@ -90,3 +90,4 @@ fig.savefig(D/'speedup_total.png',dpi=180);plt.close(fig)
 print(json.dumps(report))
 for n in NS:
     print(f"n={n}: "+'; '.join(f"P={p} seq={R[n,p,'sequential']['total_median_s']*1000:.3f} right={R[n,p,'right']['total_median_s']*1000:.3f} left={R[n,p,'left']['total_median_s']*1000:.3f}" for p in PS))
+

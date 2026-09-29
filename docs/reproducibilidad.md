@@ -16,7 +16,7 @@ CPU visible, cpuset y cuota no son equivalentes. Los archivos `entorno.txt`, los
 
 ## Compilación del candidato
 
-Desde el 29/09/2026, `src/` es la versión comentada y refactorizada. La copia exacta previa está en `archive/src_medidos_20260928`, con hashes de sus fuentes y Makefile. El análisis compara los fuentes de las campañas con esa copia medida; registra por separado que los fuentes actuales ya no coinciden byte a byte. La guía [del código](guia_codigo.md) describe los cambios y la regresión funcional, que se repite con `python3 scripts/verify_code_refactor.py`. No se atribuyen los tiempos históricos a una medición nueva de la refactorización.
+Desde el 29/09/2026, `src/implementacion_final/` y `src/experimentos/` forman la versión comentada y refactorizada. La copia exacta previa está en `archive/src_medidos_20260928`, con hashes de sus fuentes y Makefile. El análisis compara los fuentes de las campañas con esa copia medida; registra por separado que los fuentes actuales ya no coinciden byte a byte. La guía [del código](guia_codigo.md) describe los cambios y la regresión funcional, que se repite con `python3 scripts/verify_code_refactor.py`. No se atribuyen los tiempos históricos a una medición nueva de la refactorización.
 
 Desde la raíz de esta entrega, en Linux/WSL:
 
@@ -24,7 +24,7 @@ Desde la raíz de esta entrega, en Linux/WSL:
 make candidate test
 ```
 
-El Makefile conservado utiliza `-O3 -std=c11 -Wall -Wextra -Wpedantic`, `-Isrc` y `-lm`. La versión MPI agrega `-DUSE_MPI` y usa `mpicc`; la referencia usa `gcc`. No se agregó `-ffast-math`, OpenMP ni BLAS al candidato. No se debe reemplazar una instantánea histórica por otra versión y seguir atribuyéndole sus mediciones.
+El Makefile utiliza `-O3 -std=c11 -Wall -Wextra -Wpedantic`, las inclusiones `-Isrc/implementacion_final -Isrc/experimentos` y `-lm`. La versión MPI agrega `-DUSE_MPI` y usa `mpicc`; la referencia usa `gcc`. No se agregó `-ffast-math`, OpenMP ni BLAS al candidato. No se debe reemplazar una instantánea histórica por otra versión y seguir atribuyéndole sus mediciones.
 
 Para una prueba breve:
 
@@ -50,8 +50,8 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ./build/compare_lapack 128 6
 Si Conda proporciona las dependencias, verificar primero `$CONDA_PREFIX/include/lapacke.h`, `cblas.h` y las bibliotecas enlazadas. Ejemplo de compilación adaptada, sin instalar nada automáticamente:
 
 ```bash
-gcc -O3 -std=c11 -Wall -Wextra -Wpedantic -Isrc -I"$CONDA_PREFIX/include" \
-  src/compare_lapack.c src/cholesky.c src/bench_utils.c -L"$CONDA_PREFIX/lib" \
+gcc -O3 -std=c11 -Wall -Wextra -Wpedantic -Isrc/implementacion_final -Isrc/experimentos -I"$CONDA_PREFIX/include" \
+  src/experimentos/compare_lapack.c src/implementacion_final/cholesky.c src/experimentos/bench_utils.c -L"$CONDA_PREFIX/lib" \
   -Wl,-rpath,"$CONDA_PREFIX/lib" -llapacke -lopenblas -lm -o build/compare_lapack
 ldd build/compare_lapack
 ./build/compare_lapack --test
@@ -108,3 +108,4 @@ Los hashes fijan contenido; no certifican veracidad experimental o fecha por sí
 Registrar compilador, flags, fuentes con hashes, bibliotecas dinámicas, quota/memoria, cpuset, afinidad efectiva, fecha, orden real y salida de cada ejecución. Mantener warmups separados y capturar códigos de salida. Ejecutar referencias contemporáneas y conservar las salidas fallidas para auditoría, sin incorporarlas como tiempos válidos. Un cambio de fuente o de reloj exige identificar otra campaña.
 
 No hace falta repetir toda la investigación para defender los resultados actuales. Una futura prueba de OpenMP, bloqueo o varios nodos debe formularse como una comparación nueva, con el mismo presupuesto de recursos cuando esa sea la variable controlada.
+

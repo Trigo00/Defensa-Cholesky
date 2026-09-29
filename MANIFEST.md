@@ -4,7 +4,9 @@
 
 | Ruta | Propósito | Origen | Tipo | Campaña |
 |---|---|---|---|---|
-| `src`, `tests`, `Makefile` | Código comentado y refactorizado; pruebas conservadas | Revisión didáctica del árbol `desde_cero` | source/build | Estado candidato y bancos |
+| `src/implementacion_final` | Implementación final comentada: entrada, Cholesky secuencial y MPI | Revisión didáctica del árbol `desde_cero` | source | Estado candidato |
+| `src/experimentos` | Bancos, cronómetro y utilidades comunes comentados | Revisión didáctica del árbol `desde_cero` | source | Bancos experimentales |
+| `tests`, `Makefile` | Pruebas conservadas y compilación de ambas carpetas | Revisión didáctica del árbol `desde_cero` | source/build | Estado candidato y bancos |
 | `archive/formato_previo_20260929` | Cuatro copias con formato previo; mismos tokens que los medidos | Estado recibido antes de comentar | source_snapshot | Revisión didáctica |
 | `archive/src_medidos_20260928` | Fuentes y Makefile exactos anteriores a la refactorización, con hashes | Copia del estado medido conservado en la entrega | measured_source | Referencia histórica |
 | `scripts/verify_code_refactor.py` | Regresión funcional entre fuentes anteriores y actuales | Creado para esta revisión | validation | Revisión didáctica |
@@ -47,3 +49,4 @@ La entrega previa `output/entrega_precluster_20260924` permanece intacta en el �
 El mayor archivo del inventario inicial ocupa 1.044.565 bytes, alrededor de 1 MiB. El volumen es manejable y no requiere una migración a Git LFS. Las bibliotecas temporales y los binarios recompilados quedan fuera de la entrega versionable. Los tar.gz pequeños preservan la evidencia con menos duplicación; los PDF históricos se mantienen porque documentan la evolución. No se eliminó ningún original.
 
 No se inicializó otro repositorio, no se configuró remoto y no se publicó. La carpeta puede revisarse antes de subirla. Las rutas o nombres de host registrados en logs forman parte de la evidencia original y no se reescribieron.
+

@@ -33,6 +33,7 @@ for rep in $(seq 0 7); do
  printf 'Completed repetition %s of 7 (0 = warmup)\n' "$rep"
 done
 mkdir -p "$out/fuentes/src" "$out/fuentes/scripts"
-cp src/main_candidate.c src/measure_command.c src/cholesky.c src/cholesky.h src/cholesky_mpi.c src/cholesky_mpi.h "$out/fuentes/src/"
+cp src/implementacion_final/main_candidate.c src/experimentos/measure_command.c src/implementacion_final/cholesky.c src/implementacion_final/cholesky.h src/implementacion_final/cholesky_mpi.c src/implementacion_final/cholesky_mpi.h "$out/fuentes/src/"
 cp scripts/cierre_local.sh "$out/fuentes/scripts/";cp Makefile "$out/fuentes/"
 (cd "$out/fuentes";find . -type f -print0 | sort -z | xargs -0 sha256sum) > "$out/fuentes.sha256"
+

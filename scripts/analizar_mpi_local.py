@@ -118,3 +118,4 @@ for n in NS:
     print(f"N={n}, referencia {R[n,1,'cyclic','local']['base_s']*1000:.3f} ms")
     for p in PS:
         print('P='+str(p)+'; '+'; '.join(f"{dist}/{k}: {R[n,p,dist,k]['median_s']*1000:.3f} ms" for dist,k in VARIANTS))
+

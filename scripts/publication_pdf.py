@@ -116,3 +116,4 @@ def publish(root,text):
     doc.addPageTemplates(PageTemplate(id='report',frames=[Frame(52,46,WIDTH,A4[1]-98,leftPadding=0,rightPadding=0,topPadding=0,bottomPadding=0)],onPage=page))
     doc.multiBuild(story)
     return output
+

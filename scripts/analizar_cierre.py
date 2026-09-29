@@ -64,3 +64,4 @@ report={'observations':len(rows),'measured':sum(r['rep']>0 for r in rows),'max_p
 print('Valid observations:',len(rows),'measured:',report['measured'])
 for r in summary:
  if r['method'] in ('seq','6'): print(r['N'],r['method'],'app ms',round(1000*r['application_s'],3),'external ms',round(1000*r['external_s'],3),'S app',round(r['application_s_speedup'],3),'S ext',round(r['external_s_speedup'],3))
+

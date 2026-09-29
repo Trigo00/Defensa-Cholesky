@@ -125,15 +125,17 @@ def main():
         # New regression: invalid Layout must be checked before reading its fields.
         contract = work/'left_contract.c'
         contract.write_text('#include "cholesky_mpi.h"\nint main(void) { double x=1; return cholesky_left_mpi(&x,&x,&x,0,0) != -1; }\n')
-        compiled = execute(['mpicc','-std=c11','-I'+str(ROOT/'src'),contract,
-                            ROOT/'src/cholesky_left_mpi.c',ROOT/'src/cholesky_mpi.c','-lm','-o',work/'left_contract'])
+        compiled = execute(['mpicc','-std=c11',
+                            '-I'+str(ROOT/'src/implementacion_final'),
+                            '-I'+str(ROOT/'src/experimentos'),contract,
+                            ROOT/'src/experimentos/cholesky_left_mpi.c',ROOT/'src/implementacion_final/cholesky_mpi.c','-lm','-o',work/'left_contract'])
         assert compiled.returncode == 0, compiled.stderr
         assert execute([work/'left_contract']).returncode == 0
         report = dict(status='PASS', comparison_cases=len(CHECKS), processes=[1,2,3,4,6],
                       numeric_csv='Exact equality of exported non-time fields on tested cases',
                       null_layout_regression='PASS', timing='Finite/nonnegative only; no performance claim',
                       source_hash_mode='SHA-256 after CRLF to LF normalization for Git portability',
-                      current_sources={p.name:hashlib.sha256(p.read_bytes().replace(b'\r\n',b'\n')).hexdigest() for p in sorted((ROOT/'src').glob('*')) if p.is_file()},
+                      current_sources={p.relative_to(ROOT/'src').as_posix():hashlib.sha256(p.read_bytes().replace(b'\r\n',b'\n')).hexdigest() for p in sorted((ROOT/'src').rglob('*')) if p.is_file()},
                       cases=CHECKS)
         (ROOT/'docs/checks/refactor_equivalence.json').write_text(json.dumps(report,indent=2))
         print(f'PASS: {len(CHECKS)} comparaciones y contrato de Layout nulo.',flush=True)
@@ -141,3 +143,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

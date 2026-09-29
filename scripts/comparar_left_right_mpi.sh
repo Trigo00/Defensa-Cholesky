@@ -12,7 +12,7 @@ mkdir -p "$(dirname "$out")";mkdir "$out"
   printf 'Tiempo del kernel: maximo por proceso; Scatterv, Gatherv y validacion fuera\n'
   printf 'Perfil separado N=1024 P=3, 4 repeticiones por algoritmo\n'
 } > "$out/protocolo.txt"
-sha256sum src/cholesky.c src/cholesky.h src/cholesky_mpi.c src/cholesky_mpi.h src/cholesky_left_mpi.c src/compare_mpi_algorithms.c Makefile scripts/comparar_left_right_mpi.sh > "$out/fuentes.sha256"
+sha256sum src/implementacion_final/cholesky.c src/implementacion_final/cholesky.h src/implementacion_final/cholesky_mpi.c src/implementacion_final/cholesky_mpi.h src/experimentos/cholesky_left_mpi.c src/experimentos/compare_mpi_algorithms.c Makefile scripts/comparar_left_right_mpi.sh > "$out/fuentes.sha256"
 index=0
 for n in 64 128 256 512 1024; do
   for offset in 0 1 2 3; do
@@ -23,3 +23,4 @@ for n in 64 128 256 512 1024; do
 done
 mpirun --bind-to core --map-by core -np 3 ./build/compare_mpi_algorithms 1024 4 profile > "$out/profile_n1024_p3.csv" 2>> "$out/placement.log"
 printf 'Resultados: %s\n' "$out"
+

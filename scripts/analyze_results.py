@@ -80,8 +80,9 @@ def archive(path):
         info['cpu_stat_delta']={k:int(b[k])-int(v) for k,v in a.items()}
     source_matches={}; measured_matches={}
     for n,b in fs.items():
-        if Path(n).suffix in ('.c','.h') and (ROOT/'src'/Path(n).name).exists():
-            source_matches[Path(n).name]=b==(ROOT/'src'/Path(n).name).read_bytes()
+        current=list((ROOT/'src').rglob(Path(n).name))
+        if Path(n).suffix in ('.c','.h') and len(current)==1:
+            source_matches[Path(n).name]=b==current[0].read_bytes()
             measured=ROOT/'archive/src_medidos_20260928'/Path(n).name
             measured_matches[Path(n).name]=b==measured.read_bytes()
     info['current_source_byte_matches']=source_matches
@@ -270,3 +271,4 @@ for camp,label,cohort,col,m,ls in session_styles:
 save(fig,'12_propiedad_columnas_sesiones')
 generate(ROOT)
 print(json.dumps(dict(observations=len(ROWS),summary_rows=len(SUMMARY),figures=len(list(FIG.glob('*.png'))),formal_cluster_useful=210+168+24+36)))
+

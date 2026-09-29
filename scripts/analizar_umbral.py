@@ -95,3 +95,4 @@ axes[0].set_ylabel('Mejor secuencial / MPI');axes[1].legend(fontsize=8)
 fig.savefig(D/'cruce.png',dpi=180);plt.close(fig)
 print(json.dumps(report,indent=2))
 for r in focus:print(f"n={r['N']} P={r['P']}: S={r['S1']:.3f}, {r['S2']:.3f}, {r['S3']:.3f}; criterio {r['passes']}/3")
+

@@ -10,7 +10,7 @@ void generate_spd(double *a, size_t n, uint64_t seed);
  * Requiere n>0 y 0<=rank*/
 void generate_spd_columns(double *a, size_t n, uint64_t seed, int rank, int processes);
 /* Columnas arbitrarias crecientes; indices validos y sin duplicados. */
-void generate_spd_selected(double *a,size_t n,uint64_t seed,const int *columns,size_t count);
+void generate_spd_selected(double *a, size_t n, uint64_t seed, const int *columns, size_t count);
 int symmetric_finite(const double *a, size_t n);
 
 /* A debe ser simetrica y finita. Sobrescribe su triangulo inferior con L.
@@ -30,7 +30,7 @@ double relative_residual(const double *original, const double *factor, size_t n)
 /* Maximo ||Ax-L(L^T x)||_2 / ||Ax||_2 sobre probes vectores de signos.
  * O(probes*n*n); prueba reproducible, NO residuo Frobenius ni certificado.
  * workspace: 2*n long double; separado de las matrices. */
-double projected_residual(const double *a, const double *l, size_t n,
-                          unsigned probes, uint64_t seed, long double *workspace);
+double projected_residual(const double *a, const double *l, size_t n, unsigned probes, uint64_t seed,
+                          long double *workspace);
 
 #endif

@@ -171,9 +171,10 @@ static int run_case(int n, int reps, int mode, int test)
             /* Toma una marca o diferencia temporal en esta frontera; conserva el alcance del banco original. */
             double start = MPI_Wtime();
             /* Ejecuta el kernel seleccionado y guarda el estado de la factorizacion. */
-            int status = buffered ? cholesky_mpi_local(local, column, local_column, &d, mode ? &prof : NULL)
-                                  /* Rama right-looking original, que traduce los indices dentro del bucle interno. */
-                                  : cholesky_mpi(local, column, &d, mode ? &prof : NULL);
+            int status =
+                buffered ? cholesky_mpi_local(local, column, local_column, &d, mode ? &prof : NULL)
+                         /* Rama right-looking original, que traduce los indices dentro del bucle interno. */
+                         : cholesky_mpi(local, column, &d, mode ? &prof : NULL);
             /* Toma una marca o diferencia temporal en esta frontera; conserva el alcance del banco original. */
             double elapsed = MPI_Wtime() - start, maximum = 0;
             /* Obtiene en rango 0 el maximo de cada duracion local; no se suman esos maximos. */

@@ -19,7 +19,8 @@ for n in 512 1024 2048; do
   index=$((index+1))
 done
 mkdir -p "$out/fuentes/src" "$out/fuentes/scripts"
-cp src/cholesky.c src/cholesky.h src/cholesky_mpi.c src/cholesky_mpi.h src/compare_generation.c "$out/fuentes/src/"
+cp src/implementacion_final/cholesky.c src/implementacion_final/cholesky.h src/implementacion_final/cholesky_mpi.c src/implementacion_final/cholesky_mpi.h src/experimentos/compare_generation.c "$out/fuentes/src/"
 cp Makefile "$out/fuentes/"
 cp scripts/comparar_generacion.sh "$out/fuentes/scripts/"
-sha256sum src/cholesky.c src/cholesky.h src/compare_generation.c src/cholesky_mpi.c src/cholesky_mpi.h Makefile scripts/comparar_generacion.sh > "$out/fuentes.sha256"
+sha256sum src/implementacion_final/cholesky.c src/implementacion_final/cholesky.h src/experimentos/compare_generation.c src/implementacion_final/cholesky_mpi.c src/implementacion_final/cholesky_mpi.h Makefile scripts/comparar_generacion.sh > "$out/fuentes.sha256"
+

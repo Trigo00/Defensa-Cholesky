@@ -69,3 +69,4 @@ if (D/'repeticion/n2048_p6.csv').exists():
         item=dict(N=n,P=6,baseline_ms=1000*med[1],block4_ms=1000*med[4],ratio=med[1]/med[4])
         confirmation.append(item);print('CONFIRMACION',item)
     (D/'confirmacion.json').write_text(json.dumps(confirmation,indent=2))
+

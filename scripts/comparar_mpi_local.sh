@@ -20,7 +20,7 @@ mkdir "$out"
     printf 'P rota entre tamanos. Referencias secuenciales antes y despues (6+6 repeticiones)\n'
     printf 'Perfil separado N=1024 P=3, 4 repeticiones; Bcast incluye espera\n'
 } > "$out/entorno.txt"
-sha256sum src/cholesky.c src/cholesky.h src/cholesky_mpi.c src/cholesky_mpi.h src/compare_mpi_local.c src/compare_memory.c Makefile scripts/comparar_mpi_local.sh > "$out/fuentes.sha256"
+sha256sum src/implementacion_final/cholesky.c src/implementacion_final/cholesky.h src/implementacion_final/cholesky_mpi.c src/implementacion_final/cholesky_mpi.h src/experimentos/compare_mpi_local.c src/experimentos/compare_memory.c Makefile scripts/comparar_mpi_local.sh > "$out/fuentes.sha256"
 index=0
 for n in 64 256 512 1024; do
     mpirun --bind-to core --map-by core -np 1 ./build/compare_memory "$n" 6 2026 > "$out/seq_before_n${n}.csv" 2>> "$out/placement.log"
@@ -34,3 +34,4 @@ for n in 64 256 512 1024; do
 done
 mpirun --bind-to core --map-by core -np 3 ./build/compare_mpi_local 1024 4 profile > "$out/profile_p3.csv" 2>> "$out/placement.log"
 printf 'Resultados: %s\n' "$out"
+

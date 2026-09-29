@@ -43,7 +43,7 @@ static int mapping_test(int n)
         /* Construye el mapa local con el reparto de columnas indicado. */
         Layout d = layout_block_create(n, blocks[v], MPI_COMM_WORLD),
                /* Construye el reparto ciclico simple para contrastar el caso b=1. */
-               old = layout_create(n, 1, MPI_COMM_WORLD);
+            old = layout_create(n, 1, MPI_COMM_WORLD);
         /* Define count: cantidad de columnas contabilizadas. */
         int count = 0;
         /* Recorre los indices que contribuyen a esta suma o comprobacion. */
@@ -145,7 +145,7 @@ static int run(int n, int reps, int testing, int pair)
             /* Reserva los buffers indicados; el tamano usa elementos por sizeof(tipo) para obtener bytes. */
             int *columns = alloc(d.cols * sizeof(int)), *counts = alloc(p * sizeof(int)),
                 /* Reserva el vector de desplazamientos de los segmentos por rango. */
-                *displs = alloc(p * sizeof(int));
+                                                            *displs = alloc(p * sizeof(int));
             /* Recorre las columnas locales del intervalo indicado; c no es un indice global. */
             for (int c = 0; c < d.cols; ++c)
                 /* Guarda el indice global asociado a la columna local c. */
@@ -167,9 +167,10 @@ static int run(int n, int reps, int testing, int pair)
                 offset += counts[r];
             }
             /* Reserva los buffers indicados; el tamano usa elementos por sizeof(tipo) para obtener bytes. */
-            double *local = alloc((size_t)n * d.cols * sizeof(double)), *col = alloc(n * sizeof(double)),
+            double *local = alloc((size_t)n * d.cols * sizeof(double)),
+                   *col = alloc(n * sizeof(double)),
                    /* Reserva el vector auxiliar con una entrada por columna propia. */
-                   *work = alloc(d.cols * sizeof(double));
+                       *work = alloc(d.cols * sizeof(double));
             /* Reserva los buffers indicados; el tamano usa elementos por sizeof(tipo) para obtener bytes. */
             double *packed = rank ? NULL : alloc(bytes), *full = rank ? NULL : alloc(bytes);
             /* Toma una marca o diferencia temporal en esta frontera; conserva el alcance del banco original. */

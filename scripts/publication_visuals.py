@@ -81,3 +81,4 @@ def generate(root):
     ax.set(yticks=range(4),yticklabels=labels,xlabel='Factorización (ms) · mediana y Q1-Q3',xlim=(0,96),title='El vector local cambia la comparación entre repartos')
     ax.invert_yaxis();ax.grid(axis='x',alpha=.15)
     save(fig,'16_variantes_mpi_local')
+

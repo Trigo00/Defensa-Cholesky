@@ -128,3 +128,4 @@ report={'mpi_observations':len(results)*8,'sequential_observations':4*36,'profil
 print(json.dumps(report))
 for r in results:
     print(f"n={r['N']} P={r['P']} {r['distribution']}: {r['median_s']*1000:.4f} ms; Sutil={r['speedup_useful']:.3f}")
+

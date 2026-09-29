@@ -80,4 +80,3 @@ double factor_difference(const double *factor, const double *reference, size_t n
     /* Devuelve el mayor error por elemento del triangulo inferior. */
     return difference;
 }
-

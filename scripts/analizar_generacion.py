@@ -34,3 +34,4 @@ for n in (512,1024,2048):
     for p in (1,3,6):
         rr=[r for r in summary if r['N']==n and r['P']==p]
         print(n,p,[(r['method'],round(r['median_s']*1000,3)) for r in rr])
+

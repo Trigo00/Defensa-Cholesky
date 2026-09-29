@@ -2,7 +2,7 @@
 
 ## Qué versión estás leyendo
 
-Los archivos `.c` de `src/` contienen la versión didáctica del 29/09/2026: instrucciones separadas, comentarios en español y pequeñas funciones comunes. Los comentarios de los `.c` explican cada instrucción lógica; las llaves y las líneas que continúan una misma expresión comparten esa explicación. Las cabeceras de funciones describen su propósito. Los `.h` se mantienen breves: contienen las interfaces y los tipos necesarios para compilar.
+Los archivos `.c` de `src/implementacion_final/` contienen el programa que se presenta y evalúa. Los de `src/experimentos/` son bancos comparativos, el cronómetro y utilidades auxiliares. Todos contienen la versión didáctica del 29/09/2026: instrucciones separadas, comentarios en español y pequeñas funciones comunes. Los comentarios explican cada instrucción lógica; las llaves y las líneas que continúan una misma expresión comparten esa explicación. Las cabeceras de funciones describen su propósito. Los `.h` se mantienen breves: contienen las interfaces y los tipos necesarios para compilar.
 
 Los fuentes exactos anteriores están en `archive/src_medidos_20260928/`, con su Makefile y `sha256.json`. Las cuatro copias que ya tenían un formato distinto se conservan además en `archive/formato_previo_20260929`, junto con sus hashes y la comprobación de igualdad de instrucciones. Los tiempos del informe corresponden a las campañas originales, no a una nueva campaña de la versión refactorizada. Las modificaciones mantienen los algoritmos, el orden de las operaciones numéricas, los argumentos, los CSV y las fronteras de medición; esto no implica tiempos idénticos tras recompilar.
 
@@ -10,17 +10,19 @@ Se compartieron la conversión de argumentos, la diferencia entre factores, la g
 
 ## Orden recomendado de lectura
 
-1. `main_candidate.c`: qué recibe el programa y cómo organiza las fases.
-2. `cholesky.c`: generación de A, right-looking y right con vector; después left y residuos.
-3. Las funciones `layout_*` de `cholesky_mpi.c`: significado y cálculo del reparto.
-4. `cholesky_mpi.c`: mapeo de columnas, preparación, difusión y actualización local.
+1. `src/implementacion_final/main_candidate.c`: qué recibe el programa y cómo organiza las fases.
+2. `src/implementacion_final/cholesky.c`: generación de A, right-looking y right con vector; después left y residuos.
+3. Las funciones `layout_*` de `src/implementacion_final/cholesky_mpi.c`: significado y cálculo del reparto.
+4. `src/implementacion_final/cholesky_mpi.c`: mapeo de columnas, preparación, difusión y actualización local.
 5. Volver a `main_candidate.c` para seguir los relojes y la reconstrucción de L.
-6. `cholesky_left_mpi.c`: alternativa experimental y sus reducciones.
-7. Los `compare_*.c`: qué pregunta responde cada banco y cómo valida sus resultados.
+6. `src/experimentos/cholesky_left_mpi.c`: alternativa experimental y sus reducciones.
+7. Los `compare_*.c` de `src/experimentos/`: qué pregunta responde cada banco y cómo valida sus resultados.
 
 No hace falta aprender todos los bancos antes de entender el candidato. Cada banco conserva un `main` independiente porque sus opciones, relojes y salidas son distintos.
 
 ## Mapa de todos los archivos de src
+
+Los cinco primeros forman `src/implementacion_final/`; los restantes están en `src/experimentos/`.
 
 | Archivo | Papel y puntos que debes poder explicar |
 |---|---|
@@ -161,3 +163,4 @@ Los registros están en `docs/checks/refactor_build.log`, `refactor_equivalence.
 5. Qué diferencia hay entre acelerar factor_s, application_s y el comando completo.
 6. Por qué una biblioteca local optimizada puede superar al kernel propio distribuido.
 7. Qué comprueban los tests y qué no demuestran sobre rendimiento o matrices mal condicionadas.
+

@@ -22,7 +22,7 @@ mkdir "$out"
     printf 'Tiempo del kernel; copia local incluida; distribucion inicial y validacion excluidas\n'
     printf 'Flags -O3 -std=c11 -Wall -Wextra -Wpedantic; afinidad --bind-to core --map-by core\n'
 } > "$out/protocolo.txt"
-sha256sum src/cholesky.c src/cholesky.h src/cholesky_mpi.c src/cholesky_mpi.h src/compare_mpi_local.c src/compare_memory.c Makefile scripts/medir_umbral.sh > "$out/fuentes.sha256"
+sha256sum src/implementacion_final/cholesky.c src/implementacion_final/cholesky.h src/implementacion_final/cholesky_mpi.c src/implementacion_final/cholesky_mpi.h src/experimentos/compare_mpi_local.c src/experimentos/compare_memory.c Makefile scripts/medir_umbral.sh > "$out/fuentes.sha256"
 for round in 1 2 3; do
     mkdir "$out/r${round}"
     case "$round" in
@@ -45,3 +45,4 @@ for round in 1 2 3; do
     done
 done
 printf 'Resultados: %s\n' "$out"
+
