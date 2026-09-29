@@ -1,0 +1,11 @@
+metric,before,after,delta
+usage_usec,526052549,610609329,84556780
+user_usec,429860276,450075033,20214757
+system_usec,96192273,160534295,64342022
+nice_usec,0,0,0
+core_sched.force_idle_usec,0,0,0
+nr_periods,36903,37844,941
+nr_throttled,154,154,0
+throttled_usec,790260,790260,0
+nr_bursts,0,0,0
+burst_usec,0,0,0

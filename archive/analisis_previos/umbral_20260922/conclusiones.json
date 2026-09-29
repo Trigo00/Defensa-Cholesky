@@ -1,0 +1,20 @@
+{
+  "mpi_observations": 2016,
+  "sequential_observations": 756,
+  "maximum_residual": 5.71360854793e-16,
+  "maximum_factor_difference": 0,
+  "thresholds": {
+    "2": {
+      "qualifying_sizes": [],
+      "first_qualified": null,
+      "qualified_suffix_from": null
+    },
+    "3": {
+      "qualifying_sizes": [
+        256
+      ],
+      "first_qualified": 256,
+      "qualified_suffix_from": 256
+    }
+  }
+}

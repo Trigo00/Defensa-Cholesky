@@ -1,0 +1,78 @@
+{
+  "archive_sha256": "1eb2d5f7c5519161800c30699a8b017ad3fddc3383f634287cce46482f1b6abe",
+  "files": 494,
+  "hash_manifests": [
+    {
+      "manifest": "SHA256SUMS_ALL.txt",
+      "verified": 493
+    },
+    {
+      "manifest": "provenance/SHA256_PROVENANCE.txt",
+      "verified": 9
+    }
+  ],
+  "measured": 210,
+  "warmups": 30,
+  "source_hashes": [
+    {
+      "file": "cholesky.c",
+      "sha256": "82aec76cf2d568445c87a347c2c5c076a13ae36173c7343a1df33a05cdb2d169"
+    },
+    {
+      "file": "cholesky_mpi.c",
+      "sha256": "7f3ddb4807caada4b8efc9cc33b2446ef12bb858da6b8eb65a6d1f086c62ab0d"
+    },
+    {
+      "file": "cholesky.h",
+      "sha256": "39e2a4912d186bb7ec5e235ac8bc01c74b67c32773e1dffcef8b21d18a8300cb"
+    },
+    {
+      "file": "cholesky_mpi.h",
+      "sha256": "5f354d7d4aa977356d959d5d5b9225b57a34a986688c36ee413765c122738a92"
+    },
+    {
+      "file": "main_candidate.c",
+      "sha256": "c7cd7aee15cd7c0b5315e2683ec0154d9c1dce00b2a51bc9fab0f9e7f1f82948"
+    }
+  ],
+  "empty_err_files": 240,
+  "empty_build_logs": 2,
+  "max_projected_residual": 5.76448740546e-16,
+  "cpu_stat_delta": {
+    "usage_usec": 84556780,
+    "user_usec": 20214757,
+    "system_usec": 64342022,
+    "nice_usec": 0,
+    "core_sched.force_idle_usec": 0,
+    "nr_periods": 941,
+    "nr_throttled": 0,
+    "throttled_usec": 0,
+    "nr_bursts": 0,
+    "burst_usec": 0
+  },
+  "naming_order_consistent": true,
+  "script_in_archive": false,
+  "quantiles": "Inclusivos, interpolación lineal; 7 valores por configuración; sin warmups",
+  "first_crossings": [
+    {
+      "P": 1,
+      "first_tested_N": null
+    },
+    {
+      "P": 2,
+      "first_tested_N": 256
+    },
+    {
+      "P": 3,
+      "first_tested_N": 192
+    },
+    {
+      "P": 4,
+      "first_tested_N": 224
+    },
+    {
+      "P": 6,
+      "first_tested_N": 256
+    }
+  ]
+}

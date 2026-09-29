@@ -1,0 +1,4 @@
+N=512,1024,2048; P=1..6; 6 repeticiones alternadas y un calentamiento.
+Misma matriz seed=2026, igualdad bit a bit en cada repeticion.
+Tiempo: generacion y distribucion hasta almacenamiento local; excluye reserva, inicio MPI y validacion.
+Maximos de fases no son aditivos: procesos no sincronizan entre fases.

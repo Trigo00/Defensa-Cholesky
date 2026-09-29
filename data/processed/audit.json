@@ -1,0 +1,143 @@
+[
+  {
+    "archive": "campana_cruce_20260928.tar.gz",
+    "sha256": "1eb2d5f7c5519161800c30699a8b017ad3fddc3383f634287cce46482f1b6abe",
+    "files": 494,
+    "verified_hash_entries": 502,
+    "cpu_stat_delta": {
+      "usage_usec": 84556780,
+      "user_usec": 20214757,
+      "system_usec": 64342022,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 941,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "current_source_byte_matches": {
+      "cholesky.c": false,
+      "cholesky_mpi.c": false,
+      "cholesky.h": true,
+      "cholesky_mpi.h": true,
+      "main_candidate.c": false
+    },
+    "measured_source_byte_matches": {
+      "cholesky.c": true,
+      "cholesky_mpi.c": true,
+      "cholesky.h": true,
+      "cholesky_mpi.h": true,
+      "main_candidate.c": true
+    },
+    "measured_source_directory": "archive/src_medidos_20260928"
+  },
+  {
+    "archive": "campana_escalabilidad_20260928.tar.gz",
+    "sha256": "50e5f4c11faba00e21cefca2c89206948ca031045d2a1329d03d92d5b985aec0",
+    "files": 592,
+    "verified_hash_entries": 12,
+    "cpu_stat_delta": {
+      "usage_usec": 1204813595,
+      "user_usec": 1135731820,
+      "system_usec": 69081775,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 5514,
+      "nr_throttled": 197,
+      "throttled_usec": 764111,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "current_source_byte_matches": {
+      "main_candidate.c": false,
+      "cholesky.h": true,
+      "cholesky_mpi.h": true,
+      "cholesky.c": false,
+      "cholesky_mpi.c": false,
+      "measure_command.c": false
+    },
+    "measured_source_byte_matches": {
+      "main_candidate.c": true,
+      "cholesky.h": true,
+      "cholesky_mpi.h": true,
+      "cholesky.c": true,
+      "cholesky_mpi.c": true,
+      "measure_command.c": true
+    },
+    "measured_source_directory": "archive/src_medidos_20260928"
+  },
+  {
+    "archive": "campana_final_grande_20260928.tar.gz",
+    "sha256": "f10ab9e9a7723001912e18b256b40cce824fb4d42689886f9943ae7f9aa361d5",
+    "files": 44,
+    "verified_hash_entries": 43,
+    "cpu_stat_delta": {
+      "usage_usec": 4065583296,
+      "user_usec": 4020912423,
+      "system_usec": 44670872,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 15888,
+      "nr_throttled": 1676,
+      "throttled_usec": 4376492,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "current_source_byte_matches": {
+      "cholesky.h": true,
+      "main_candidate.c": false,
+      "cholesky_mpi.c": false,
+      "cholesky.c": false,
+      "cholesky_mpi.h": true,
+      "compare_lapack.c": false
+    },
+    "measured_source_byte_matches": {
+      "cholesky.h": true,
+      "main_candidate.c": true,
+      "cholesky_mpi.c": true,
+      "cholesky.c": true,
+      "cholesky_mpi.h": true,
+      "compare_lapack.c": true
+    },
+    "measured_source_directory": "archive/src_medidos_20260928"
+  },
+  {
+    "archive": "campana_lapack_cluster_20260928.tar.gz",
+    "sha256": "01cf5692222ea15da8921bab2aaa2975cf4ba303a280c07851bb7458836750ce",
+    "files": 12,
+    "verified_hash_entries": 4,
+    "current_source_byte_matches": {
+      "cholesky.h": true,
+      "compare_lapack.c": false,
+      "cholesky.c": false
+    },
+    "measured_source_byte_matches": {
+      "cholesky.h": true,
+      "compare_lapack.c": true,
+      "cholesky.c": true
+    },
+    "measured_source_directory": "archive/src_medidos_20260928"
+  },
+  {
+    "archive": "evidencia_preformal_20260928.tar.gz",
+    "sha256": "eecc5fb2243f7a32d97d899546ffdfe905357bc14978e2240eeb9048e25479c4",
+    "files": 114,
+    "verified_hash_entries": 113,
+    "current_source_byte_matches": {
+      "cholesky.c": false,
+      "cholesky_mpi.h": true,
+      "cholesky_mpi.c": false,
+      "main_candidate.c": false,
+      "cholesky.h": true
+    },
+    "measured_source_byte_matches": {
+      "cholesky.c": true,
+      "cholesky_mpi.h": true,
+      "cholesky_mpi.c": true,
+      "main_candidate.c": true,
+      "cholesky.h": true
+    },
+    "measured_source_directory": "archive/src_medidos_20260928"
+  }
+]

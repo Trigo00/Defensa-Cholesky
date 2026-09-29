@@ -1,0 +1,7 @@
+N=512,1024,2048; P=1,3,6; seis permutaciones de tres metodos, un calentamiento.
+Semilla matriz 2026; proyectada 91827, ocho vectores; factor secuencial de referencia.
+Total principal: reloj de rango 0, desde reserva hasta L completa en rango 0; fases consecutivas.
+Incluye reserva, generacion, distribucion, factorizacion, recoleccion. MPI ya iniciado.
+Excluye referencia/validacion, liberacion, lanzamiento MPI y cierre. malloc no fuerza paginas: primer acceso se cobra a la fase que lo realiza.
+Secuencial en rango 0, otros procesos lanzados quedan esperando; no es ejecutable secuencial independiente.
+Maximo local tambien registrado; fases rank0 incluyen espera, no son costos puros.

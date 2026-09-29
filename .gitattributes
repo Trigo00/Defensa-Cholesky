@@ -1,0 +1,8 @@
+*.c text eol=lf
+*.h text eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+Makefile text eol=lf
+# Preserve historical evidence byte for byte, including original line endings.
+data/raw/** -text
+archive/** -text

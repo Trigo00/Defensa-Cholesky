@@ -1,0 +1,2 @@
+N,P,allocation_s,generation_s,factor_s,gather_s,application_s,max_local_s,validation_s,projected_residual,exact_residual,valid
+2,6,8.42000000389e-07,2.00000000561e-07,0.000126937999999,4.97000000088e-06,0.000132950000001,0.000132950000001,1.02989999995e-05,3.00806162979e-16,1.63397433216e-16,1

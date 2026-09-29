@@ -1,0 +1,44 @@
+{
+  "source": "desde_cero\\resultados\\cluster_exploratorio_20260928\\bitacora_original.md",
+  "source_sha256": "9a6168914f102ff320c2693b4a60b1181a74169e4aac34ce8297cd3f997dad22",
+  "evidence": "CSV originales del clúster auditados; bitácora para contexto, afinidad y cpu.stat.",
+  "archive_sha256": "eecc5fb2243f7a32d97d899546ffdfe905357bc14978e2240eeb9048e25479c4",
+  "verified_hash_entries": 113,
+  "original_csv_count": 53,
+  "empty_error_files": 53,
+  "empty_build_logs": 2,
+  "max_relative_table_difference": 3.6526179283828345e-06,
+  "table_observations": 50,
+  "validation_rows": 2,
+  "diagnostic_runs": 1,
+  "reported_runs_total": 53,
+  "formal_campaign_executed": false,
+  "code_hashes": [
+    {
+      "file": "main_candidate.c",
+      "sha256": "c7cd7aee15cd7c0b5315e2683ec0154d9c1dce00b2a51bc9fab0f9e7f1f82948",
+      "match_recorded": true
+    },
+    {
+      "file": "cholesky.c",
+      "sha256": "82aec76cf2d568445c87a347c2c5c076a13ae36173c7343a1df33a05cdb2d169",
+      "match_recorded": true
+    },
+    {
+      "file": "cholesky.h",
+      "sha256": "39e2a4912d186bb7ec5e235ac8bc01c74b67c32773e1dffcef8b21d18a8300cb",
+      "match_recorded": true
+    },
+    {
+      "file": "cholesky_mpi.c",
+      "sha256": "7f3ddb4807caada4b8efc9cc33b2446ef12bb858da6b8eb65a6d1f086c62ab0d",
+      "match_recorded": true
+    },
+    {
+      "file": "cholesky_mpi.h",
+      "sha256": "5f354d7d4aa977356d959d5d5b9225b57a34a986688c36ee413765c122738a92",
+      "match_recorded": true
+    }
+  ],
+  "statistical_convention": "Q1/Q3 inclusivos por interpolación lineal; desviación muestral ddof=1; cohortes separadas"
+}

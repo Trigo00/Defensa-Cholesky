@@ -1,0 +1,1 @@
+sequential_invalid=2 mpi_invalid=2 command_true=0 command_false=1

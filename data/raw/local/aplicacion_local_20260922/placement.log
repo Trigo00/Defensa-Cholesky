@@ -1,0 +1,60 @@
+[Escritorio:00542] Rank 0 bound to package[0][core:L0]
+rank=0 host=Escritorio cpu=0
+[Escritorio:00552] Rank 0 bound to package[0][core:L0]
+[Escritorio:00552] Rank 1 bound to package[0][core:L1]
+[Escritorio:00552] Rank 2 bound to package[0][core:L2]
+rank=1 host=Escritorio cpu=2
+rank=2 host=Escritorio cpu=4
+rank=0 host=Escritorio cpu=1
+[Escritorio:00567] Rank 0 bound to package[0][core:L0]
+[Escritorio:00567] Rank 1 bound to package[0][core:L1]
+[Escritorio:00567] Rank 2 bound to package[0][core:L2]
+[Escritorio:00567] Rank 3 bound to package[0][core:L3]
+[Escritorio:00567] Rank 4 bound to package[0][core:L4]
+[Escritorio:00567] Rank 5 bound to package[0][core:L5]
+rank=2 host=Escritorio cpu=4
+rank=3 host=Escritorio cpu=7
+rank=4 host=Escritorio cpu=9
+rank=1 host=Escritorio cpu=3
+rank=0 host=Escritorio cpu=1
+rank=5 host=Escritorio cpu=10
+[Escritorio:00594] Rank 0 bound to package[0][core:L0]
+rank=0 host=Escritorio cpu=0
+[Escritorio:00601] Rank 0 bound to package[0][core:L0]
+[Escritorio:00601] Rank 1 bound to package[0][core:L1]
+[Escritorio:00601] Rank 2 bound to package[0][core:L2]
+rank=0 host=Escritorio cpu=0
+rank=2 host=Escritorio cpu=5
+rank=1 host=Escritorio cpu=3
+[Escritorio:00616] Rank 0 bound to package[0][core:L0]
+[Escritorio:00616] Rank 1 bound to package[0][core:L1]
+[Escritorio:00616] Rank 2 bound to package[0][core:L2]
+[Escritorio:00616] Rank 3 bound to package[0][core:L3]
+[Escritorio:00616] Rank 4 bound to package[0][core:L4]
+[Escritorio:00616] Rank 5 bound to package[0][core:L5]
+rank=0 host=Escritorio cpu=0
+rank=3 host=Escritorio cpu=6
+rank=2 host=Escritorio cpu=5
+rank=1 host=Escritorio cpu=2
+rank=5 host=Escritorio cpu=10
+rank=4 host=Escritorio cpu=9
+[Escritorio:00643] Rank 0 bound to package[0][core:L0]
+rank=0 host=Escritorio cpu=0
+[Escritorio:00653] Rank 0 bound to package[0][core:L0]
+[Escritorio:00653] Rank 1 bound to package[0][core:L1]
+[Escritorio:00653] Rank 2 bound to package[0][core:L2]
+rank=2 host=Escritorio cpu=4
+rank=1 host=Escritorio cpu=2
+rank=0 host=Escritorio cpu=1
+[Escritorio:00668] Rank 0 bound to package[0][core:L0]
+[Escritorio:00668] Rank 1 bound to package[0][core:L1]
+[Escritorio:00668] Rank 2 bound to package[0][core:L2]
+[Escritorio:00668] Rank 3 bound to package[0][core:L3]
+[Escritorio:00668] Rank 4 bound to package[0][core:L4]
+[Escritorio:00668] Rank 5 bound to package[0][core:L5]
+rank=1 host=Escritorio cpu=2
+rank=0 host=Escritorio cpu=0
+rank=5 host=Escritorio cpu=11
+rank=3 host=Escritorio cpu=6
+rank=4 host=Escritorio cpu=8
+rank=2 host=Escritorio cpu=4

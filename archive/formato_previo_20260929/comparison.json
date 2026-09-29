@@ -1,0 +1,22 @@
+{
+  "cholesky.c": {
+    "prior_sha256": "f0de88abc4562e0591204a224a18eeb7b57f93119fbc2245b7ec5efd5deeb6fc",
+    "measured_sha256": "82aec76cf2d568445c87a347c2c5c076a13ae36173c7343a1df33a05cdb2d169",
+    "comparison": "Same C tokens; formatting differences only"
+  },
+  "cholesky_left_mpi.c": {
+    "prior_sha256": "2d955a7ffdf366343ec01888dcc0d2b664557abaf2852652995291c381896f34",
+    "measured_sha256": "a4ce98b3790ab8d3d896b7c46e28ee1e67bfb0631b60f43be91dc7704aaa04b8",
+    "comparison": "Same C tokens; formatting differences only"
+  },
+  "compare_application.c": {
+    "prior_sha256": "a434410e326e6561a456189dab816f581424b92ccb62e12ef7125de12602f7ea",
+    "measured_sha256": "1535354e3cd05cdb451d0fb870fe18994e5ce933d8036e2242f9a646b940a10c",
+    "comparison": "Same C tokens; formatting differences only"
+  },
+  "main_candidate.c": {
+    "prior_sha256": "15bb331824b77634bd442f15ba7b0f4b08ed13679e9cf2488cbd4fd955216d65",
+    "measured_sha256": "c7cd7aee15cd7c0b5315e2683ec0154d9c1dce00b2a51bc9fab0f9e7f1f82948",
+    "comparison": "Same C tokens; formatting differences only"
+  }
+}

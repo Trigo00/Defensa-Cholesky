@@ -1,0 +1,6 @@
+Confirmacion independiente de fecha previa: B1/B4, n1024/2048 P6, 8 repeticiones.
+Mayor: n3072 P6 dos repeticiones por bloque; exploratorio.
+LAPACK: sin MPI, afinidad CPU0, OpenBLAS 1 hilo comprobado; 6 repeticiones n512/1024/2048, 2 n3072.
+Generador y entrada identicos; alias column-major U equivale a L row-major, sin transposicion.
+Total LAPACK: reserva+generacion+factorizacion; validacion/liberacion fuera; ambos algoritmos reservan workspace n.
+time -v incluye referencias, validacion y calentamientos; no usarlo como speedup de una factorizacion. RSS no suma memoria de todos los rangos.

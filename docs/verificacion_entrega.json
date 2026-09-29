@@ -1,0 +1,25 @@
+{
+  "copies_verified": 1933,
+  "summary_groups_verified": 3242,
+  "formal_cluster_useful": {
+    "cluster_crossing": 210,
+    "cluster_scalability": 168,
+    "cluster_lapack": 24,
+    "cluster_large": 36
+  },
+  "measured_cluster_sources_match": true,
+  "current_cluster_sources_match": false,
+  "local_links_verified": 31,
+  "png_figures": 16,
+  "svg_figures": 16,
+  "pdf_pages": 25,
+  "narrative_words": 7700,
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "packages": {
+    "matplotlib": "3.11.2",
+    "reportlab": "5.0.1",
+    "pypdf": "6.10.0"
+  },
+  "scope": "Checks of original copies, independent quantiles, ratios, grids, links and PDF text; visual review and Linux compilation are recorded separately."
+}

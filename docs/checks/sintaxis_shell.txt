@@ -1,0 +1,1 @@
+PASS: bash -n para todos los scripts shell

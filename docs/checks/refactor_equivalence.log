@@ -1,0 +1,8 @@
+Compilacion y cuatro pruebas secuenciales: PASS
+Pruebas y candidato MPI P=1: PASS
+Pruebas y candidato MPI P=2: PASS
+Pruebas y candidato MPI P=3: PASS
+Pruebas y candidato MPI P=4: PASS
+Pruebas y candidato MPI P=6: PASS
+CSV ordinarios, pair y perfiles: PASS
+PASS: 89 comparaciones y contrato de Layout nulo.

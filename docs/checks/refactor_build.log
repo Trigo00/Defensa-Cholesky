@@ -1,0 +1,29 @@
+gcc -O3 -std=c11 -Wall -Wextra -Wpedantic -Isrc src/main.c src/cholesky.c src/bench_utils.c -o build/cholesky_seq -lm
+gcc -O3 -std=c11 -Wall -Wextra -Wpedantic -Isrc src/compare_seq.c src/cholesky.c src/bench_utils.c -o build/compare_seq -lm
+gcc -O3 -std=c11 -Wall -Wextra -Wpedantic -Isrc src/compare_memory.c src/cholesky.c src/bench_utils.c -o build/compare_memory -lm
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -DUSE_MPI -Isrc src/main_candidate.c src/cholesky.c src/cholesky_mpi.c -o build/cholesky_candidate_mpi -lm
+gcc -O3 -std=c11 -Wall -Wextra -Wpedantic -Isrc src/main_candidate.c src/cholesky.c -o build/cholesky_candidate_seq -lm
+gcc -O3 -std=c11 -Wall -Wextra -Wpedantic -Isrc src/compare_lapack.c src/cholesky.c -llapacke -lopenblas src/bench_utils.c -o build/compare_lapack -lm
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -Isrc src/compare_blocks.c src/cholesky.c src/cholesky_mpi.c src/bench_utils.c -o build/compare_blocks -lm
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -Isrc src/compare_application.c src/cholesky.c src/cholesky_mpi.c src/bench_utils.c -o build/compare_application -lm
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -Isrc src/compare_generation.c src/cholesky.c src/cholesky_mpi.c -o build/compare_generation -lm
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -Isrc src/compare_mpi_local.c src/cholesky_mpi.c src/cholesky.c src/bench_utils.c -o build/compare_mpi_local -lm
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -Isrc src/compare_mpi_algorithms.c src/cholesky_left_mpi.c src/cholesky_mpi.c src/cholesky.c src/bench_utils.c -o build/compare_mpi_algorithms -lm
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -Isrc src/compare_mpi_total.c src/cholesky_left_mpi.c src/cholesky_mpi.c src/cholesky.c src/bench_utils.c -o build/compare_mpi_total -lm
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -Isrc src/compare_mpi.c src/cholesky_mpi.c src/cholesky.c src/bench_utils.c -o build/compare_mpi -lm
+gcc -O3 -std=c11 -Wall -Wextra -Wpedantic -Isrc tests/test_cholesky.c src/cholesky.c -o build/test_cholesky -lm
+gcc -O3 -std=c11 -Wall -Wextra -Wpedantic -Isrc tests/test_variants.c src/cholesky.c -o build/test_variants -lm
+gcc -O3 -std=c11 -Wall -Wextra -Wpedantic -Isrc tests/test_buffered.c src/cholesky.c -o build/test_buffered -lm
+gcc -O3 -std=c11 -Wall -Wextra -Wpedantic -Isrc tests/test_projected.c src/cholesky.c -o build/test_projected -lm
+./build/test_cholesky
+PASS factor conocido 3x3
+PASS escalar e identidad
+PASS 12 matrices generadas; residuo maximo 1.85374358728e-16
+PASS rechazo de entradas y pivotes invalidos
+PASS el residuo detecta factores incorrectos y no finitos
+./build/test_variants
+PASS left y right: factor conocido, pivotes invalidos y 12 matrices; r_max=1.85374358728e-16
+./build/test_buffered
+PASS right_buffered: factor conocido, errores, workspace y 15 matrices; r_max=3.29235161053e-16
+./build/test_projected
+PASS projected: correct factors, reproducibility, ignored upper triangle, corruption and NaN

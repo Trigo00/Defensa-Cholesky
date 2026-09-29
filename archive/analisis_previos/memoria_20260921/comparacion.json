@@ -1,0 +1,38 @@
+[
+  {
+    "N": 64,
+    "right_over_buffered": 1.1396814370652917,
+    "left_over_buffered": 1.1868952513299653,
+    "buffer_bytes": 512
+  },
+  {
+    "N": 128,
+    "right_over_buffered": 1.489719902491978,
+    "left_over_buffered": 1.1619916112781064,
+    "buffer_bytes": 1024
+  },
+  {
+    "N": 256,
+    "right_over_buffered": 4.180033068471716,
+    "left_over_buffered": 1.3209948859223972,
+    "buffer_bytes": 2048
+  },
+  {
+    "N": 512,
+    "right_over_buffered": 15.066978118959808,
+    "left_over_buffered": 1.4622261218781678,
+    "buffer_bytes": 4096
+  },
+  {
+    "N": 1000,
+    "right_over_buffered": 1.5994673715273056,
+    "left_over_buffered": 2.1998980377066015,
+    "buffer_bytes": 8000
+  },
+  {
+    "N": 1024,
+    "right_over_buffered": 15.06909048256988,
+    "left_over_buffered": 1.8823985457140984,
+    "buffer_bytes": 8192
+  }
+]

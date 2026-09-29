@@ -1,0 +1,51 @@
+cohort,section,N,method,P,rep,application_s,factor_s,gather_s,affinity,evidence
+scan_large,14,512,seq,1,1,0.016721,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,512,p1,1,1,0.0183186,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,512,p2,2,1,0.0104873,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,512,p3,3,1,0.00574808,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,512,p4,4,1,0.00503541,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,512,p6,6,1,0.00525209,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,1024,seq,1,1,0.103386,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,1024,p1,1,1,0.108026,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,1024,p2,2,1,0.0692106,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,1024,p3,3,1,0.0366968,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,1024,p4,4,1,0.0404128,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,1024,p6,6,1,0.0277996,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,2048,seq,1,1,1.151211,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,2048,p1,1,1,1.114651,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,2048,p2,2,1,0.63439,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,2048,p3,3,1,0.413603,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,2048,p4,4,1,0.592001,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,2048,p6,6,1,0.192791,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,4096,seq,1,1,10.390189,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,4096,p1,1,1,10.494172,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,4096,p2,2,1,5.607934,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,4096,p3,3,1,4.663816,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,4096,p4,4,1,5.232251,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_large,14,4096,p6,6,1,4.148838,,,SEQ libre; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_small,17,128,seq,1,1,0.000308808,,,SEQ CPU0; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_small,17,128,p1,1,1,0.00036029,,,SEQ CPU0; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_small,17,128,p2,2,1,0.000331318,,,SEQ CPU0; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_small,17,128,p3,3,1,0.000317769,,,SEQ CPU0; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_small,17,128,p4,4,1,0.00036931,,,SEQ CPU0; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_small,17,128,p6,6,1,0.000566394,,,SEQ CPU0; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_small,17,256,seq,1,1,0.002220256,,,SEQ CPU0; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_small,17,256,p1,1,1,0.002423532,,,SEQ CPU0; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_small,17,256,p2,2,1,0.001369835,,,SEQ CPU0; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_small,17,256,p3,3,1,0.001105699,,,SEQ CPU0; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_small,17,256,p4,4,1,0.001141559,,,SEQ CPU0; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+scan_small,17,256,p6,6,1,0.001479857,,,SEQ CPU0; MPI solicitado core,tabla redondeada; validez declarada en bitácora
+pilot,12,512,seq,1,1,0.0167575921,,,SEQ libre; MPI solicitado core,tabla redondeada; valid=1 declarado
+pilot,12,512,p6,6,1,0.00525140995,,,SEQ libre; MPI solicitado core,tabla redondeada; valid=1 declarado
+pilot,12,1024,seq,1,1,0.102381021,,,SEQ libre; MPI solicitado core,tabla redondeada; valid=1 declarado
+pilot,12,1024,p6,6,1,0.02823951,,,SEQ libre; MPI solicitado core,tabla redondeada; valid=1 declarado
+pilot,12,2048,seq,1,1,1.16226986,,,SEQ libre; MPI solicitado core,tabla redondeada; valid=1 declarado
+pilot,12,2048,p6,6,1,0.18884536,,,SEQ libre; MPI solicitado core,tabla redondeada; valid=1 declarado
+pilot,12,4096,seq,1,1,10.3885298,,,SEQ libre; MPI solicitado core,tabla redondeada; valid=1 declarado
+pilot,12,4096,p6,6,1,4.13568442,,,SEQ libre; MPI solicitado core,tabla redondeada; valid=1 declarado
+control_4096,13,4096,seq,1,1,10.3182444,9.88814865,,SEQ libre; MPI solicitado core,tabla redondeada; valid=1 declarado
+control_4096,13,4096,seq,1,2,10.4790873,10.0443255,,SEQ libre; MPI solicitado core,tabla redondeada; valid=1 declarado
+control_4096,13,4096,seq,1,3,10.3273545,9.89752998,,SEQ libre; MPI solicitado core,tabla redondeada; valid=1 declarado
+control_4096,13,4096,p6,6,1,4.14647907,4.04906316,0.082358765,SEQ libre; MPI solicitado core,tabla redondeada; valid=1 declarado
+control_4096,13,4096,p6,6,2,4.10372839,4.00634616,0.0820999602,SEQ libre; MPI solicitado core,tabla redondeada; valid=1 declarado
+control_4096,13,4096,p6,6,3,4.12332573,4.02602471,0.0820378992,SEQ libre; MPI solicitado core,tabla redondeada; valid=1 declarado

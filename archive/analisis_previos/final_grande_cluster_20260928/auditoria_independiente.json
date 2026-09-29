@@ -1,0 +1,30 @@
+{
+  "archive_sha256": "f10ab9e9a7723001912e18b256b40cce824fb4d42689886f9943ae7f9aa361d5",
+  "files": 44,
+  "verified_manifest_entries": 43,
+  "useful_observations": 36,
+  "exported_mpi_warmups": 2,
+  "own_lapack_warmups": "Una por método/tamaño en código, no exportadas",
+  "original_sources_match": true,
+  "all_mpi_valid": true,
+  "all_exported_residuals_acceptable": true,
+  "supplied_statistics_match": true,
+  "source_script_in_archive": false,
+  "exit_codes_archived": false,
+  "affinity_log_archived": false,
+  "binaries_in_archive": false,
+  "cpu_stat_delta": {
+    "usage_usec": 4065583296,
+    "user_usec": 4020912423,
+    "system_usec": 44670872,
+    "nice_usec": 0,
+    "core_sched.force_idle_usec": 0,
+    "nr_periods": 15888,
+    "nr_throttled": 1676,
+    "throttled_usec": 4376492,
+    "nr_bursts": 0,
+    "burst_usec": 0
+  },
+  "max_projected_residual": 3.24029049237e-15,
+  "max_factor_difference": 8.86621841495e-15
+}

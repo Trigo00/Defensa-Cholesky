@@ -1,0 +1,42 @@
+[
+  {
+    "file": "Makefile",
+    "sha256": "c8a5ca7cc009c55f526166f60bc5a5abeb41cd63363966cc3be89334a7dab822",
+    "identical": true
+  },
+  {
+    "file": "scripts/cierre_local.sh",
+    "sha256": "902f6d12598f0062a880a3f7fe22c0ad5f6d8d1b17dc740965bd0e5145340f80",
+    "identical": true
+  },
+  {
+    "file": "src/cholesky.c",
+    "sha256": "038975d823ca4b4d3448015766384c479b8bdfc45b9be414b608cc2a3fbf6525",
+    "identical": true
+  },
+  {
+    "file": "src/cholesky.h",
+    "sha256": "0cbbee5f5051fe08031b5b3e84939a8144f685435600a5cc825490c0b5c376b9",
+    "identical": true
+  },
+  {
+    "file": "src/cholesky_mpi.c",
+    "sha256": "7f3ddb4807caada4b8efc9cc33b2446ef12bb858da6b8eb65a6d1f086c62ab0d",
+    "identical": true
+  },
+  {
+    "file": "src/cholesky_mpi.h",
+    "sha256": "853c104320d993ba77480ade7407dc719b15d53816996205598fa29940efd2ba",
+    "identical": true
+  },
+  {
+    "file": "src/main_candidate.c",
+    "sha256": "c7cd7aee15cd7c0b5315e2683ec0154d9c1dce00b2a51bc9fab0f9e7f1f82948",
+    "identical": true
+  },
+  {
+    "file": "src/measure_command.c",
+    "sha256": "74f6c9797ab07e93ec4663fa6b66a0f241219dd56c2879bcb7d6a81fc60c2f40",
+    "identical": true
+  }
+]

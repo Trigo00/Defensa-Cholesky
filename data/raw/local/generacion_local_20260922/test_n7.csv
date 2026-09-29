@@ -1,0 +1,5 @@
+N,P,repetition,method,generation_s,distribution_s,total_s,identical
+7,6,1,distributed,1.39999999996e-07,0,1.39999999996e-07,1
+7,6,1,centralized,4.21e-07,2.715e-06,2.755e-06,1
+7,6,2,centralized,3.09999999989e-07,2.255e-06,2.295e-06,1
+7,6,2,distributed,2.00999999991e-07,0,2.00999999991e-07,1

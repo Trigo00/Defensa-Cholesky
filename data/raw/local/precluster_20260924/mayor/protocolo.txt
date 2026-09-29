@@ -1,0 +1,4 @@
+SIZES=3072 PROCESSES=6 REPS=2
+LAUNCHER=mpirun FLAGS=--bind-to core --map-by core --report-bindings
+MEMORY_BUDGET_MIB=4373
+B=1,4; orden alternado; MPI ya iniciado; total hasta L en rango0; validacion fuera.

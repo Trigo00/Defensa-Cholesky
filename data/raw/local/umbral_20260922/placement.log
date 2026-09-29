@@ -1,0 +1,252 @@
+[Escritorio:00557] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00564] Rank 0 bound to package[0][core:L0]
+[Escritorio:00564] Rank 1 bound to package[0][core:L1]
+rank=1 P=2 host=Escritorio cpu=2 affinity_count=2
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00575] Rank 0 bound to package[0][core:L0]
+[Escritorio:00575] Rank 1 bound to package[0][core:L1]
+[Escritorio:00575] Rank 2 bound to package[0][core:L2]
+rank=2 P=3 host=Escritorio cpu=4 affinity_count=2
+rank=1 P=3 host=Escritorio cpu=2 affinity_count=2
+rank=0 P=3 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00599] Rank 0 bound to package[0][core:L0]
+[Escritorio:00599] Rank 1 bound to package[0][core:L1]
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+rank=1 P=2 host=Escritorio cpu=2 affinity_count=2
+[Escritorio:00610] Rank 0 bound to package[0][core:L0]
+[Escritorio:00610] Rank 1 bound to package[0][core:L1]
+[Escritorio:00610] Rank 2 bound to package[0][core:L2]
+rank=0 P=3 host=Escritorio cpu=0 affinity_count=2
+rank=1 P=3 host=Escritorio cpu=2 affinity_count=2
+rank=2 P=3 host=Escritorio cpu=4 affinity_count=2
+[Escritorio:00625] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00641] Rank 0 bound to package[0][core:L0]
+[Escritorio:00641] Rank 1 bound to package[0][core:L1]
+[Escritorio:00641] Rank 2 bound to package[0][core:L2]
+rank=1 P=3 host=Escritorio cpu=2 affinity_count=2
+rank=2 P=3 host=Escritorio cpu=4 affinity_count=2
+rank=0 P=3 host=Escritorio cpu=1 affinity_count=2
+[Escritorio:00656] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00663] Rank 0 bound to package[0][core:L0]
+[Escritorio:00663] Rank 1 bound to package[0][core:L1]
+rank=1 P=2 host=Escritorio cpu=2 affinity_count=2
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00683] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00690] Rank 0 bound to package[0][core:L0]
+[Escritorio:00690] Rank 1 bound to package[0][core:L1]
+rank=1 P=2 host=Escritorio cpu=2 affinity_count=2
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00704] Rank 0 bound to package[0][core:L0]
+[Escritorio:00704] Rank 1 bound to package[0][core:L1]
+[Escritorio:00704] Rank 2 bound to package[0][core:L2]
+rank=0 P=3 host=Escritorio cpu=0 affinity_count=2
+rank=1 P=3 host=Escritorio cpu=3 affinity_count=2
+rank=2 P=3 host=Escritorio cpu=5 affinity_count=2
+[Escritorio:00728] Rank 0 bound to package[0][core:L0]
+[Escritorio:00728] Rank 1 bound to package[0][core:L1]
+rank=1 P=2 host=Escritorio cpu=3 affinity_count=2
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00739] Rank 0 bound to package[0][core:L0]
+[Escritorio:00739] Rank 1 bound to package[0][core:L1]
+[Escritorio:00739] Rank 2 bound to package[0][core:L2]
+rank=2 P=3 host=Escritorio cpu=4 affinity_count=2
+rank=1 P=3 host=Escritorio cpu=2 affinity_count=2
+rank=0 P=3 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00754] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00770] Rank 0 bound to package[0][core:L0]
+[Escritorio:00770] Rank 1 bound to package[0][core:L1]
+[Escritorio:00770] Rank 2 bound to package[0][core:L2]
+rank=2 P=3 host=Escritorio cpu=4 affinity_count=2
+rank=1 P=3 host=Escritorio cpu=2 affinity_count=2
+rank=0 P=3 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00785] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00792] Rank 0 bound to package[0][core:L0]
+[Escritorio:00792] Rank 1 bound to package[0][core:L1]
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+rank=1 P=2 host=Escritorio cpu=2 affinity_count=2
+[Escritorio:00812] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00819] Rank 0 bound to package[0][core:L0]
+[Escritorio:00819] Rank 1 bound to package[0][core:L1]
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+rank=1 P=2 host=Escritorio cpu=2 affinity_count=2
+[Escritorio:00830] Rank 0 bound to package[0][core:L0]
+[Escritorio:00830] Rank 1 bound to package[0][core:L1]
+[Escritorio:00830] Rank 2 bound to package[0][core:L2]
+rank=2 P=3 host=Escritorio cpu=4 affinity_count=2
+rank=0 P=3 host=Escritorio cpu=1 affinity_count=2
+rank=1 P=3 host=Escritorio cpu=2 affinity_count=2
+[Escritorio:00855] Rank 0 bound to package[0][core:L0]
+[Escritorio:00855] Rank 1 bound to package[0][core:L1]
+rank=1 P=2 host=Escritorio cpu=2 affinity_count=2
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00866] Rank 0 bound to package[0][core:L0]
+[Escritorio:00866] Rank 1 bound to package[0][core:L1]
+[Escritorio:00866] Rank 2 bound to package[0][core:L2]
+rank=1 P=3 host=Escritorio cpu=2 affinity_count=2
+rank=2 P=3 host=Escritorio cpu=4 affinity_count=2
+rank=0 P=3 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00881] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00897] Rank 0 bound to package[0][core:L0]
+[Escritorio:00897] Rank 1 bound to package[0][core:L1]
+[Escritorio:00897] Rank 2 bound to package[0][core:L2]
+rank=0 P=3 host=Escritorio cpu=1 affinity_count=2
+rank=2 P=3 host=Escritorio cpu=4 affinity_count=2
+rank=1 P=3 host=Escritorio cpu=3 affinity_count=2
+[Escritorio:00912] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00919] Rank 0 bound to package[0][core:L0]
+[Escritorio:00919] Rank 1 bound to package[0][core:L1]
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+rank=1 P=2 host=Escritorio cpu=3 affinity_count=2
+[Escritorio:00939] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00946] Rank 0 bound to package[0][core:L0]
+[Escritorio:00946] Rank 1 bound to package[0][core:L1]
+rank=1 P=2 host=Escritorio cpu=2 affinity_count=2
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:00957] Rank 0 bound to package[0][core:L0]
+[Escritorio:00957] Rank 1 bound to package[0][core:L1]
+[Escritorio:00957] Rank 2 bound to package[0][core:L2]
+rank=2 P=3 host=Escritorio cpu=5 affinity_count=2
+rank=0 P=3 host=Escritorio cpu=1 affinity_count=2
+rank=1 P=3 host=Escritorio cpu=3 affinity_count=2
+[Escritorio:00981] Rank 0 bound to package[0][core:L0]
+[Escritorio:00981] Rank 1 bound to package[0][core:L1]
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+rank=1 P=2 host=Escritorio cpu=2 affinity_count=2
+[Escritorio:00992] Rank 0 bound to package[0][core:L0]
+[Escritorio:00992] Rank 1 bound to package[0][core:L1]
+[Escritorio:00992] Rank 2 bound to package[0][core:L2]
+rank=1 P=3 host=Escritorio cpu=2 affinity_count=2
+rank=0 P=3 host=Escritorio cpu=0 affinity_count=2
+rank=2 P=3 host=Escritorio cpu=5 affinity_count=2
+[Escritorio:01007] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:01023] Rank 0 bound to package[0][core:L0]
+[Escritorio:01023] Rank 1 bound to package[0][core:L1]
+[Escritorio:01023] Rank 2 bound to package[0][core:L2]
+rank=1 P=3 host=Escritorio cpu=2 affinity_count=2
+rank=0 P=3 host=Escritorio cpu=0 affinity_count=2
+rank=2 P=3 host=Escritorio cpu=4 affinity_count=2
+[Escritorio:01038] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:01045] Rank 0 bound to package[0][core:L0]
+[Escritorio:01045] Rank 1 bound to package[0][core:L1]
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+rank=1 P=2 host=Escritorio cpu=2 affinity_count=2
+[Escritorio:01065] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:01072] Rank 0 bound to package[0][core:L0]
+[Escritorio:01072] Rank 1 bound to package[0][core:L1]
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+rank=1 P=2 host=Escritorio cpu=2 affinity_count=2
+[Escritorio:01083] Rank 0 bound to package[0][core:L0]
+[Escritorio:01083] Rank 1 bound to package[0][core:L1]
+[Escritorio:01083] Rank 2 bound to package[0][core:L2]
+rank=2 P=3 host=Escritorio cpu=4 affinity_count=2
+rank=0 P=3 host=Escritorio cpu=0 affinity_count=2
+rank=1 P=3 host=Escritorio cpu=2 affinity_count=2
+[Escritorio:01107] Rank 0 bound to package[0][core:L0]
+[Escritorio:01107] Rank 1 bound to package[0][core:L1]
+rank=1 P=2 host=Escritorio cpu=2 affinity_count=2
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:01118] Rank 0 bound to package[0][core:L0]
+[Escritorio:01118] Rank 1 bound to package[0][core:L1]
+[Escritorio:01118] Rank 2 bound to package[0][core:L2]
+rank=1 P=3 host=Escritorio cpu=2 affinity_count=2
+rank=0 P=3 host=Escritorio cpu=0 affinity_count=2
+rank=2 P=3 host=Escritorio cpu=5 affinity_count=2
+[Escritorio:01133] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:01150] Rank 0 bound to package[0][core:L0]
+[Escritorio:01150] Rank 1 bound to package[0][core:L1]
+[Escritorio:01150] Rank 2 bound to package[0][core:L2]
+rank=0 P=3 host=Escritorio cpu=0 affinity_count=2
+rank=2 P=3 host=Escritorio cpu=5 affinity_count=2
+rank=1 P=3 host=Escritorio cpu=2 affinity_count=2
+[Escritorio:01165] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:01172] Rank 0 bound to package[0][core:L0]
+[Escritorio:01172] Rank 1 bound to package[0][core:L1]
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+rank=1 P=2 host=Escritorio cpu=2 affinity_count=2
+[Escritorio:01192] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:01199] Rank 0 bound to package[0][core:L0]
+[Escritorio:01199] Rank 1 bound to package[0][core:L1]
+rank=1 P=2 host=Escritorio cpu=2 affinity_count=2
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:01210] Rank 0 bound to package[0][core:L0]
+[Escritorio:01210] Rank 1 bound to package[0][core:L1]
+[Escritorio:01210] Rank 2 bound to package[0][core:L2]
+rank=2 P=3 host=Escritorio cpu=4 affinity_count=2
+rank=1 P=3 host=Escritorio cpu=2 affinity_count=2
+rank=0 P=3 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:01234] Rank 0 bound to package[0][core:L0]
+[Escritorio:01234] Rank 1 bound to package[0][core:L1]
+rank=1 P=2 host=Escritorio cpu=2 affinity_count=2
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:01245] Rank 0 bound to package[0][core:L0]
+[Escritorio:01245] Rank 1 bound to package[0][core:L1]
+[Escritorio:01245] Rank 2 bound to package[0][core:L2]
+rank=0 P=3 host=Escritorio cpu=0 affinity_count=2
+rank=2 P=3 host=Escritorio cpu=4 affinity_count=2
+rank=1 P=3 host=Escritorio cpu=2 affinity_count=2
+[Escritorio:01260] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:01276] Rank 0 bound to package[0][core:L0]
+[Escritorio:01276] Rank 1 bound to package[0][core:L1]
+[Escritorio:01276] Rank 2 bound to package[0][core:L2]
+rank=2 P=3 host=Escritorio cpu=4 affinity_count=2
+rank=0 P=3 host=Escritorio cpu=0 affinity_count=2
+rank=1 P=3 host=Escritorio cpu=2 affinity_count=2
+[Escritorio:01294] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:01301] Rank 0 bound to package[0][core:L0]
+[Escritorio:01301] Rank 1 bound to package[0][core:L1]
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+rank=1 P=2 host=Escritorio cpu=2 affinity_count=2
+[Escritorio:01321] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:01328] Rank 0 bound to package[0][core:L0]
+[Escritorio:01328] Rank 1 bound to package[0][core:L1]
+rank=1 P=2 host=Escritorio cpu=3 affinity_count=2
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:01339] Rank 0 bound to package[0][core:L0]
+[Escritorio:01339] Rank 1 bound to package[0][core:L1]
+[Escritorio:01339] Rank 2 bound to package[0][core:L2]
+rank=0 P=3 host=Escritorio cpu=0 affinity_count=2
+rank=2 P=3 host=Escritorio cpu=4 affinity_count=2
+rank=1 P=3 host=Escritorio cpu=2 affinity_count=2
+[Escritorio:01363] Rank 0 bound to package[0][core:L0]
+[Escritorio:01363] Rank 1 bound to package[0][core:L1]
+rank=1 P=2 host=Escritorio cpu=2 affinity_count=2
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:01374] Rank 0 bound to package[0][core:L0]
+[Escritorio:01374] Rank 1 bound to package[0][core:L1]
+[Escritorio:01374] Rank 2 bound to package[0][core:L2]
+rank=1 P=3 host=Escritorio cpu=2 affinity_count=2
+rank=2 P=3 host=Escritorio cpu=4 affinity_count=2
+rank=0 P=3 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:01389] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:01405] Rank 0 bound to package[0][core:L0]
+[Escritorio:01405] Rank 1 bound to package[0][core:L1]
+[Escritorio:01405] Rank 2 bound to package[0][core:L2]
+rank=0 P=3 host=Escritorio cpu=0 affinity_count=2
+rank=1 P=3 host=Escritorio cpu=2 affinity_count=2
+rank=2 P=3 host=Escritorio cpu=5 affinity_count=2
+[Escritorio:01420] Rank 0 bound to package[0][core:L0]
+rank=0 P=1 host=Escritorio cpu=0 affinity_count=2
+[Escritorio:01427] Rank 0 bound to package[0][core:L0]
+[Escritorio:01427] Rank 1 bound to package[0][core:L1]
+rank=0 P=2 host=Escritorio cpu=0 affinity_count=2
+rank=1 P=2 host=Escritorio cpu=2 affinity_count=2

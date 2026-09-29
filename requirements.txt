@@ -1,0 +1,4 @@
+# Analysis and publication; no package is required to run the C executables.
+matplotlib>=3.8,<4
+reportlab>=4,<6
+pypdf>=5,<7

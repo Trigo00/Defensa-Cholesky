@@ -1,0 +1,1 @@
+Candidate smoke tests: 30 valid configurations, invalid arguments rejected.

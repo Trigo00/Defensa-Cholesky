@@ -1,0 +1,74 @@
+src/cholesky_mpi.c:7:5: missed: statement clobbers memory: MPI_Comm_rank (comm_15(D), &d.rank);
+src/cholesky_mpi.c:7:35: missed: statement clobbers memory: MPI_Comm_size (comm_15(D), &d.p);
+src/cholesky_mpi.c:11:12: missed: not vectorized: more than one data ref in stmt: <retval> = d;
+src/cholesky_mpi.c:10:29: note: ***** Analysis failed with vector mode V4SI
+src/cholesky_mpi.c:10:29: note: ***** The result for vector mode V16QI would be the same
+src/cholesky_mpi.c:10:29: note: ***** Re-trying analysis with vector mode V8QI
+src/cholesky_mpi.c:10:29: note: ***** Analysis failed with vector mode V8QI
+src/cholesky_mpi.c:10:29: note: ***** Re-trying analysis with vector mode V4QI
+src/cholesky_mpi.c:10:29: note: ***** Analysis failed with vector mode V4QI
+src/cholesky_mpi.c:16:33: note: ***** Analysis failed with vector mode V4SI
+src/cholesky_mpi.c:16:33: note: ***** The result for vector mode V16QI would be the same
+src/cholesky_mpi.c:16:33: note: ***** Re-trying analysis with vector mode V8QI
+src/cholesky_mpi.c:16:33: note: ***** Analysis failed with vector mode V8QI
+src/cholesky_mpi.c:16:33: note: ***** Re-trying analysis with vector mode V4QI
+src/cholesky_mpi.c:16:33: note: ***** Analysis failed with vector mode V4QI
+src/cholesky_mpi.c:19:20: note: ***** Analysis failed with vector mode V4SI
+src/cholesky_mpi.c:19:20: note: ***** The result for vector mode V16QI would be the same
+src/cholesky_mpi.c:19:20: note: ***** Re-trying analysis with vector mode V8QI
+src/cholesky_mpi.c:19:20: note: ***** Analysis failed with vector mode V8QI
+src/cholesky_mpi.c:19:20: note: ***** Re-trying analysis with vector mode V4QI
+src/cholesky_mpi.c:19:20: note: ***** Analysis failed with vector mode V4QI
+src/cholesky_mpi.c:25:34: note: ***** Analysis failed with vector mode V4SI
+src/cholesky_mpi.c:25:34: note: ***** The result for vector mode V16QI would be the same
+src/cholesky_mpi.c:25:34: note: ***** Re-trying analysis with vector mode V8QI
+src/cholesky_mpi.c:25:34: note: ***** Analysis failed with vector mode V8QI
+src/cholesky_mpi.c:25:34: note: ***** Re-trying analysis with vector mode V4QI
+src/cholesky_mpi.c:25:34: note: ***** Analysis failed with vector mode V4QI
+src/cholesky_mpi.c:58:29: missed: couldn't vectorize loop
+src/cholesky_mpi.c:27:5: missed: not vectorized: unsupported data-type uint64_t
+src/cholesky_mpi.c:58:29: missed: couldn't vectorize loop
+src/cholesky_mpi.c:27:5: missed: not vectorized: unsupported data-type uint64_t
+src/cholesky_mpi.c:30:19: missed: couldn't vectorize loop
+src/cholesky_mpi.c:30:19: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+src/cholesky_mpi.c:50:25: missed: couldn't vectorize loop
+src/cholesky_mpi.c:50:25: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+src/cholesky_mpi.c:53:31: optimized: loop vectorized using 16 byte vectors
+src/cholesky_mpi.c:53:31: optimized:  loop versioned for vectorization because of possible aliasing
+src/cholesky_mpi.c:53:31: missed: couldn't vectorize loop
+src/cholesky_mpi.c:54:45: missed: not vectorized: no vectype for stmt: _49 = *_48;
+ scalar_type: double
+src/cholesky_mpi.c:39:33: optimized: loop vectorized using 16 byte vectors
+src/cholesky_mpi.c:39:33: optimized:  loop versioned for vectorization because of possible aliasing
+src/cholesky_mpi.c:39:33: optimized: loop vectorized using 16 byte vectors
+src/cholesky_mpi.c:39:33: optimized:  loop versioned for vectorization because of possible aliasing
+src/cholesky_mpi.c:27:5: note: vectorized 3 loops in function.
+src/cholesky_mpi.c:31:25: missed: statement clobbers memory: t_99 = MPI_Wtime ();
+src/cholesky_mpi.c:42:50: missed: statement clobbers memory: __builtin_memset (_318, 0, _321);
+src/cholesky_mpi.c:46:9: missed: statement clobbers memory: MPI_Bcast (_413, _395, &ompi_mpi_double, _202, _206);
+src/cholesky_mpi.c:45:36: missed: statement clobbers memory: _28 = MPI_Wtime ();
+src/cholesky_mpi.c:45:53: missed: statement clobbers memory: t_120 = MPI_Wtime ();
+src/cholesky_mpi.c:46:9: missed: statement clobbers memory: MPI_Bcast (_413, _395, &ompi_mpi_double, _202, _204);
+src/cholesky_mpi.c:47:38: missed: statement clobbers memory: _36 = MPI_Wtime ();
+src/cholesky_mpi.c:47:55: missed: statement clobbers memory: t_126 = MPI_Wtime ();
+src/cholesky_mpi.c:56:34: missed: statement clobbers memory: _58 = MPI_Wtime ();
+src/cholesky_mpi.c:27:5: note: ***** Analysis succeeded with vector mode V4SI
+src/cholesky_mpi.c:27:5: note: SLPing BB part
+src/cholesky_mpi.c:27:5: note: Costing subgraph: 
+src/cholesky_mpi.c:27:5: note: node 0xc4f5568 (max_nunits=2, refcnt=1) vector(2) sizetype
+src/cholesky_mpi.c:27:5: note: op template: _289 = (sizetype) _147;
+src/cholesky_mpi.c:27:5: note: 	stmt 0 _289 = (sizetype) _147;
+src/cholesky_mpi.c:27:5: note: 	stmt 1 _364 = (sizetype) _157;
+src/cholesky_mpi.c:27:5: note: 	children 0xc4f5678
+src/cholesky_mpi.c:27:5: note: node (external) 0xc4f5678 (max_nunits=1, refcnt=1) vector(2) int
+src/cholesky_mpi.c:27:5: note: 	{ _147, _157 }
+src/cholesky_mpi.c:27:5: note: Cost model analysis: 
+src/cholesky_mpi.c:27:5: note: Cost model analysis for part in loop 5:
+  Vector cost: 30
+  Scalar cost: 8
+src/cholesky_mpi.c:27:5: missed: not vectorized: vectorization is not profitable.
+src/cholesky_mpi.c:27:5: note: ***** The result for vector mode V16QI would be the same
+src/cholesky_mpi.c:27:5: note: ***** Re-trying analysis with vector mode V8QI
+src/cholesky_mpi.c:27:5: note: ***** Analysis failed with vector mode V8QI
+src/cholesky_mpi.c:27:5: note: ***** Re-trying analysis with vector mode V4QI
+src/cholesky_mpi.c:60:22: note: ***** Analysis failed with vector mode V4QI

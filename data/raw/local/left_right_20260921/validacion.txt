@@ -1,0 +1,18 @@
+Validacion de la comparacion C, ejecutada el 21 de septiembre de 2026.
+
+make all test sanitize: compilacion sin advertencias; pruebas originales
+right-looking y nuevas pruebas de ambas variantes aprobadas.
+
+PASS left y right: factor conocido, pivotes invalidos y 12 matrices;
+r_max=1.85374358728e-16 en esas doce matrices.
+
+AddressSanitizer y UndefinedBehaviorSanitizer no reportaron errores.
+
+La campana contiene 70 observaciones aceptadas:
+5 tamanos x 2 variantes x 7 repeticiones, ademas de calentamientos no guardados.
+Cada observacion se valido mediante reconstruccion fuera del cronometro.
+El maximo residuo registrado en la campana es 1.21308762262e-15.
+
+No se ejecutaron MPI ni variantes de distribucion. El archivo
+conteo_distribuciones.json contiene conteos analiticos de operaciones,
+no tiempos experimentales.

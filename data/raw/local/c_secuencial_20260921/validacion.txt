@@ -1,0 +1,22 @@
+Validacion ejecutada el 21 de septiembre de 2026 en WSL / GCC 15.2.0.
+
+make all test: compilacion con -O3 -std=c11 -Wall -Wextra -Wpedantic,
+sin advertencias del compilador, y cinco grupos de pruebas aprobados.
+
+PASS factor conocido 3x3
+PASS escalar e identidad
+PASS 12 matrices generadas; residuo maximo 1.85374358728e-16
+PASS rechazo de entradas y pivotes invalidos
+PASS el residuo detecta factores incorrectos y no finitos
+
+make sanitize: los mismos cinco grupos aprobados con
+-fsanitize=address,undefined; sin errores informados.
+
+Pruebas de interfaz: se rechazaron N=0, -1, abc, 4x y
+18446744073709551615, repeticiones=0 y semilla=-1.
+N=7, repeticiones=1, semilla=42: ejecucion correcta,
+residuo relativo 1.21884923876e-16.
+
+Campana secuencial: siete observaciones aceptadas por cada N=128,256,512.
+Las observaciones originales estan en n128.csv, n256.csv y n512.csv.
+El protocolo y los recursos se registran en entorno.txt.

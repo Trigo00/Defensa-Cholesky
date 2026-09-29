@@ -1,0 +1,6 @@
+{
+  "mpi_observations": 256,
+  "sequential_observations": 144,
+  "profile_rank_observations": 60,
+  "maximum_residual": 1.21308762262e-15
+}

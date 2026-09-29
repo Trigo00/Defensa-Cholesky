@@ -1,0 +1,736 @@
+{
+  "c8a5ca7cc009c55f526166f60bc5a5abeb41cd63363966cc3be89334a7dab822": [
+    "desde_cero/Makefile",
+    "desde_cero/resultados/cierre_local_20260924/fuentes/Makefile",
+    "desde_cero/resultados/cierre_local_20260927/fuentes/Makefile"
+  ],
+  "f9e9fbc487edb83c9a3b89ded6453a687db5ff693de2ffe3e2ca278a2fc5f91f": [
+    "desde_cero/docs/generar_informe_aplicacion.py",
+    "desde_cero/resultados/aplicacion_local_20260922/fuentes/docs/generar_informe_aplicacion.py"
+  ],
+  "0badf3a47dd0150e7aef1eaf9b617480bc1678fc94b40afcd0726d81dffa112f": [
+    "desde_cero/docs/generar_informe_bloques.py",
+    "desde_cero/resultados/bloques_local_20260922/fuentes/docs/generar_informe_bloques.py"
+  ],
+  "8dc16839b6b5180b966609b49a55fed26740400cececab423d5bf0eb59d999e9": [
+    "desde_cero/docs/generar_informe_generacion.py",
+    "desde_cero/resultados/generacion_local_20260922/fuentes/docs/generar_informe_generacion.py"
+  ],
+  "7bc161fcde33326da509f61192f06d9af06af8ddef00caf5e2c6f98515f4104e": [
+    "desde_cero/docs/generar_informe_left_right_mpi.py",
+    "desde_cero/resultados/left_right_mpi_20260922/fuentes/docs/generar_informe_left_right_mpi.py"
+  ],
+  "4ab8981a6646b22537a4212d307ab3c837065178568e70d3e6b5531f7650569a": [
+    "desde_cero/docs/generar_informe_mpi.py",
+    "desde_cero/resultados/mpi_20260921/fuentes/docs/generar_informe_mpi.py"
+  ],
+  "c189117c0aeb9675ae95bb56b72bbd734da25eb7c1a9cf8096da4e5e3a6183d6": [
+    "desde_cero/docs/generar_informe_mpi_local.py",
+    "desde_cero/resultados/mpi_local_20260921/fuentes/docs/generar_informe_mpi_local.py"
+  ],
+  "a9db53ac1adb30ade06fa6f5ce1ed4409cab79456752a2eba60dcaa893ff2b5a": [
+    "desde_cero/docs/generar_informe_precluster.py",
+    "desde_cero/resultados/precluster_20260924/fuentes/docs/generar_informe_precluster.py"
+  ],
+  "1e3cd4db4b8a4b7e9b9cb77af49a8a85bce18e813693f2cf8f96fc4239d180cd": [
+    "desde_cero/docs/generar_informe_tiempo_total.py",
+    "desde_cero/resultados/tiempo_total_20260922/fuentes/docs/generar_informe_tiempo_total.py"
+  ],
+  "56224dfcff1c279c4afa3a24a610cd0b60a03b553984bccd198e4641fc61a43f": [
+    "desde_cero/docs/generar_informe_umbral.py",
+    "desde_cero/resultados/umbral_20260922/fuentes/docs/generar_informe_umbral.py"
+  ],
+  "c4d0fac71d5d3b155c8ccb4a50f41c10382a8c8af60f77754597dd68bf0609cd": [
+    "desde_cero/scripts/analizar_aplicacion.py",
+    "desde_cero/resultados/aplicacion_local_20260922/fuentes/scripts/analizar_aplicacion.py"
+  ],
+  "29dcecd7aec6219fa3f53cbe9efce17c8bf31c3a3f36715957790f9d3fcea631": [
+    "desde_cero/scripts/analizar_bloques.py",
+    "desde_cero/resultados/bloques_local_20260922/fuentes/scripts/analizar_bloques.py"
+  ],
+  "ff0c96f2b038dd7665e800a9dc1b1d64bec370e570b81f6a71c916e0607815ce": [
+    "desde_cero/scripts/analizar_generacion.py",
+    "desde_cero/resultados/generacion_local_20260922/fuentes/scripts/analizar_generacion.py"
+  ],
+  "2edafb7fa55d0263238217f112bca874f0705d60e268d1f32416578c9c42b60f": [
+    "desde_cero/scripts/analizar_left_right_mpi.py",
+    "desde_cero/resultados/left_right_mpi_20260922/fuentes/scripts/analizar_left_right_mpi.py"
+  ],
+  "5f15d236e22ee7c552663c859b74fecd0b6685e75edcb74cb56b5668f7d6db4f": [
+    "desde_cero/scripts/analizar_mpi.py",
+    "desde_cero/resultados/mpi_20260921/fuentes/scripts/analizar_mpi.py"
+  ],
+  "6fe42471eb5d2d2e20e595c8c2697bc541569a2f7d2a6a638e6836bbb941f6b4": [
+    "desde_cero/scripts/analizar_mpi_local.py",
+    "desde_cero/resultados/mpi_local_20260921/fuentes/scripts/analizar_mpi_local.py"
+  ],
+  "a47dc2fae39a5866bb8796c536d23d0a1f7f986bf9cae0fa6d4d162272520ab0": [
+    "desde_cero/scripts/analizar_pares_cluster.py",
+    "desde_cero/resultados/precluster_20260924/fuentes/scripts/analizar_pares_cluster.py",
+    "output/entrega_precluster_20260924/desde_cero/scripts/analizar_pares_cluster.py"
+  ],
+  "49c2e0116afe31a8a0d6be83394b758f7a919f53515573e731ef81fdd6f1ef2b": [
+    "desde_cero/scripts/analizar_precluster.py",
+    "desde_cero/resultados/precluster_20260924/fuentes/scripts/analizar_precluster.py",
+    "output/entrega_precluster_20260924/desde_cero/scripts/analizar_precluster.py"
+  ],
+  "f19ee7049372cc31ecaa8e71b18d7c77711821297839842873fa35ff3a83517f": [
+    "desde_cero/scripts/analizar_tiempo_total.py",
+    "desde_cero/resultados/tiempo_total_20260922/fuentes/scripts/analizar_tiempo_total.py"
+  ],
+  "27763a3f63e378952102558dc3b127c52cf79392d0e05b63637b6f7d12f7c71c": [
+    "desde_cero/scripts/analizar_umbral.py",
+    "desde_cero/resultados/umbral_20260922/fuentes/scripts/analizar_umbral.py"
+  ],
+  "0924038af0116ea246f3d2c57793269e007f61d420d8b5749ce2e6d404781f88": [
+    "desde_cero/scripts/campana_cluster.sh",
+    "desde_cero/resultados/precluster_20260924/confirmacion/fuentes/scripts/campana_cluster.sh",
+    "desde_cero/resultados/precluster_20260924/mayor/fuentes/scripts/campana_cluster.sh",
+    "output/entrega_precluster_20260924/desde_cero/scripts/campana_cluster.sh"
+  ],
+  "902f6d12598f0062a880a3f7fe22c0ad5f6d8d1b17dc740965bd0e5145340f80": [
+    "desde_cero/scripts/cierre_local.sh",
+    "desde_cero/resultados/cierre_local_20260924/fuentes/scripts/cierre_local.sh",
+    "desde_cero/resultados/cierre_local_20260927/fuentes/scripts/cierre_local.sh"
+  ],
+  "52298399083122a82a9ff342e8847eb042f0471c9717d9ca4c28e39b9fe85f79": [
+    "desde_cero/scripts/comparar_aplicacion.sh",
+    "desde_cero/resultados/aplicacion_local_20260922/fuentes/scripts/comparar_aplicacion.sh"
+  ],
+  "e30723fb85cbe97bfd5e812770c0da42f982045784285769103469751d3b27f6": [
+    "desde_cero/scripts/comparar_bloques.sh",
+    "desde_cero/resultados/bloques_local_20260922/fuentes/scripts/comparar_bloques.sh"
+  ],
+  "6e98686db181b2a8caef8cc8e5c9435fc1f8a3dc945a0fdd6a4e0216f60d1929": [
+    "desde_cero/scripts/comparar_generacion.sh",
+    "desde_cero/resultados/generacion_local_20260922/fuentes/scripts/comparar_generacion.sh"
+  ],
+  "35ecdf663b8d9beeaad26575ab57acb705ad222a2696dd1378110337590c0a4a": [
+    "desde_cero/scripts/comparar_left_right_mpi.sh",
+    "desde_cero/resultados/left_right_mpi_20260922/fuentes/scripts/comparar_left_right_mpi.sh"
+  ],
+  "7f57ecc516c29ceecd878c8a24dc66d34dfc70d642becde8e68af9693fc61f28": [
+    "desde_cero/scripts/comparar_mpi.sh",
+    "desde_cero/resultados/mpi_20260921/fuentes/scripts/comparar_mpi.sh"
+  ],
+  "8721c7a8c81083b8081a9ec92c1483029171f14dc17e776ab0ba34d48442a43f": [
+    "desde_cero/scripts/comparar_mpi_local.sh",
+    "desde_cero/resultados/mpi_local_20260921/fuentes/scripts/comparar_mpi_local.sh"
+  ],
+  "59caec2d455632b34a0141260915f6c623da2db837d8de8fc8eed7f411c365ed": [
+    "desde_cero/scripts/comparar_tiempo_total.sh",
+    "desde_cero/resultados/tiempo_total_20260922/fuentes/scripts/comparar_tiempo_total.sh"
+  ],
+  "65e1057a5cce8b7f3492e57fe101d2e8910f951ccade9f404ab7dd2d24525722": [
+    "desde_cero/scripts/medir_umbral.sh",
+    "desde_cero/resultados/umbral_20260922/fuentes/scripts/medir_umbral.sh"
+  ],
+  "0c54bfc3fa2f0018603558ec9dc085929ae5d413ad2d432ac0342335e5573694": [
+    "desde_cero/scripts/precluster_local.sh",
+    "desde_cero/resultados/precluster_20260924/fuentes/scripts/precluster_local.sh",
+    "output/entrega_precluster_20260924/desde_cero/scripts/precluster_local.sh"
+  ],
+  "82aec76cf2d568445c87a347c2c5c076a13ae36173c7343a1df33a05cdb2d169": [
+    "desde_cero/src/cholesky.c",
+    "desde_cero/resultados/cluster_exploratorio_20260928/fuentes/cholesky.c"
+  ],
+  "39e2a4912d186bb7ec5e235ac8bc01c74b67c32773e1dffcef8b21d18a8300cb": [
+    "desde_cero/src/cholesky.h",
+    "desde_cero/resultados/cluster_exploratorio_20260928/fuentes/cholesky.h"
+  ],
+  "a4ce98b3790ab8d3d896b7c46e28ee1e67bfb0631b60f43be91dc7704aaa04b8": [
+    "desde_cero/src/cholesky_left_mpi.c",
+    "desde_cero/resultados/left_right_mpi_20260922/fuentes/src/cholesky_left_mpi.c",
+    "desde_cero/resultados/tiempo_total_20260922/fuentes/src/cholesky_left_mpi.c",
+    "output/entrega_precluster_20260924/desde_cero/src/cholesky_left_mpi.c"
+  ],
+  "7f3ddb4807caada4b8efc9cc33b2446ef12bb858da6b8eb65a6d1f086c62ab0d": [
+    "desde_cero/src/cholesky_mpi.c",
+    "desde_cero/resultados/bloques_local_20260922/fuentes/src/cholesky_mpi.c",
+    "desde_cero/resultados/cierre_local_20260924/fuentes/src/cholesky_mpi.c",
+    "desde_cero/resultados/cierre_local_20260927/fuentes/src/cholesky_mpi.c",
+    "desde_cero/resultados/cluster_exploratorio_20260928/fuentes/cholesky_mpi.c",
+    "desde_cero/resultados/precluster_20260924/confirmacion/fuentes/src/cholesky_mpi.c",
+    "desde_cero/resultados/precluster_20260924/mayor/fuentes/src/cholesky_mpi.c",
+    "output/entrega_precluster_20260924/desde_cero/src/cholesky_mpi.c"
+  ],
+  "5f354d7d4aa977356d959d5d5b9225b57a34a986688c36ee413765c122738a92": [
+    "desde_cero/src/cholesky_mpi.h",
+    "desde_cero/resultados/cluster_exploratorio_20260928/fuentes/cholesky_mpi.h"
+  ],
+  "1535354e3cd05cdb451d0fb870fe18994e5ce933d8036e2242f9a646b940a10c": [
+    "desde_cero/src/compare_application.c",
+    "desde_cero/resultados/aplicacion_local_20260922/fuentes/src/compare_application.c",
+    "output/entrega_precluster_20260924/desde_cero/src/compare_application.c"
+  ],
+  "cc9fc7cc077bad578cb9d5b3ac5c80355e4b6604dae301f26457760c13dccf43": [
+    "desde_cero/src/compare_blocks.c",
+    "desde_cero/resultados/precluster_20260924/confirmacion/fuentes/src/compare_blocks.c",
+    "desde_cero/resultados/precluster_20260924/mayor/fuentes/src/compare_blocks.c",
+    "output/entrega_precluster_20260924/desde_cero/src/compare_blocks.c"
+  ],
+  "6e056372eb019008978e154e55bd5d708d003c09a31aa52a63a611fc3386215a": [
+    "desde_cero/src/compare_generation.c",
+    "desde_cero/resultados/generacion_local_20260922/fuentes/src/compare_generation.c",
+    "output/entrega_precluster_20260924/desde_cero/src/compare_generation.c"
+  ],
+  "30dbad1c8ce12fbdd01139464ef7a8c7d3e3299c7f22e6d77252bc671fc82016": [
+    "desde_cero/src/compare_lapack.c",
+    "desde_cero/resultados/precluster_20260924/fuentes/src/compare_lapack.c",
+    "output/entrega_precluster_20260924/desde_cero/src/compare_lapack.c"
+  ],
+  "beeccf264aaf4eff1d2974c72c612e0ba808f93c7c2df4d56f4f56dfc53910c3": [
+    "desde_cero/src/compare_memory.c",
+    "desde_cero/resultados/mpi_20260921/fuentes/src/compare_memory.c",
+    "desde_cero/resultados/mpi_local_20260921/fuentes/src/compare_memory.c",
+    "desde_cero/resultados/umbral_20260922/fuentes/src/compare_memory.c",
+    "output/entrega_precluster_20260924/desde_cero/src/compare_memory.c"
+  ],
+  "f47d67020ced3224f876e8b8aa0896ba328a9d0c8b400261ccc4d63b21a828f3": [
+    "desde_cero/src/compare_mpi.c",
+    "desde_cero/resultados/mpi_20260921/fuentes/src/compare_mpi.c",
+    "output/entrega_precluster_20260924/desde_cero/src/compare_mpi.c"
+  ],
+  "e717869f4b01ac1052f09742c50bc8fb88a1b06d8e881fd9f7d342780c35a775": [
+    "desde_cero/src/compare_mpi_algorithms.c",
+    "desde_cero/resultados/left_right_mpi_20260922/fuentes/src/compare_mpi_algorithms.c",
+    "output/entrega_precluster_20260924/desde_cero/src/compare_mpi_algorithms.c"
+  ],
+  "fffeae96689961f8cc5a0f00f5c2da075b121ec8db05212ddd0123379e0a920a": [
+    "desde_cero/src/compare_mpi_local.c",
+    "desde_cero/resultados/mpi_local_20260921/fuentes/src/compare_mpi_local.c",
+    "desde_cero/resultados/umbral_20260922/fuentes/src/compare_mpi_local.c",
+    "output/entrega_precluster_20260924/desde_cero/src/compare_mpi_local.c"
+  ],
+  "59b6d717bc42a123a26b5f93ac238cfbe0a40bbd835e6d1a0d41ebe9928d7ac6": [
+    "desde_cero/src/compare_mpi_total.c",
+    "desde_cero/resultados/tiempo_total_20260922/fuentes/src/compare_mpi_total.c",
+    "output/entrega_precluster_20260924/desde_cero/src/compare_mpi_total.c"
+  ],
+  "7391f5371973626e97d0322b79a5086b1b9e0e0840a222ce6fc352695374a480": [
+    "desde_cero/src/compare_seq.c",
+    "output/entrega_precluster_20260924/desde_cero/src/compare_seq.c"
+  ],
+  "c7cd7aee15cd7c0b5315e2683ec0154d9c1dce00b2a51bc9fab0f9e7f1f82948": [
+    "desde_cero/src/main_candidate.c",
+    "desde_cero/resultados/cierre_local_20260924/fuentes/src/main_candidate.c",
+    "desde_cero/resultados/cierre_local_20260927/fuentes/src/main_candidate.c",
+    "desde_cero/resultados/cluster_exploratorio_20260928/fuentes/main_candidate.c"
+  ],
+  "74f6c9797ab07e93ec4663fa6b66a0f241219dd56c2879bcb7d6a81fc60c2f40": [
+    "desde_cero/src/measure_command.c",
+    "desde_cero/resultados/cierre_local_20260924/fuentes/src/measure_command.c",
+    "desde_cero/resultados/cierre_local_20260927/fuentes/src/measure_command.c"
+  ],
+  "eaa8b0e8649c18ffe09afd2ebec973e88b5a3e69a67ed707aa6ea48b95a6c094": [
+    "desde_cero/tests/test_buffered.c",
+    "output/entrega_precluster_20260924/desde_cero/tests/test_buffered.c"
+  ],
+  "057652c2f2969ff85c6711366c504af1707f180e2f61d8597d5f395fa20fd07a": [
+    "desde_cero/tests/test_cholesky.c",
+    "output/entrega_precluster_20260924/desde_cero/tests/test_cholesky.c"
+  ],
+  "36a4ee555fca1b707e11fc9b56cb57082068aa04cea44b504b63892112bd41ef": [
+    "desde_cero/tests/test_projected.c",
+    "output/entrega_precluster_20260924/desde_cero/tests/test_projected.c"
+  ],
+  "5aa069d869c6d4f70e39f32e01d31c6dffea7220aa2fe5b021776108f1d6fc42": [
+    "desde_cero/tests/test_variants.c",
+    "output/entrega_precluster_20260924/desde_cero/tests/test_variants.c"
+  ],
+  "a0c58f1ba99e875e8fb0308a8d94229653942e63dcefccd057f434adb78d2c42": [
+    "desde_cero/resultados/cierre_local_20260924/fuentes.sha256",
+    "desde_cero/resultados/cierre_local_20260927/fuentes.sha256"
+  ],
+  "a33feff77326ca9972da0741117716b073d3218784d94267463e8b473a9f99bc": [
+    "desde_cero/resultados/cierre_local_20260927/mpi_version.txt",
+    "desde_cero/resultados/mpi_20260921/version_mpi.txt",
+    "desde_cero/resultados/cierre_local_20260924/tests/mpi_version.txt"
+  ],
+  "a4a174111adeef84f7472583cda31249acca5abab00538b03147a0d5994f1cd0": [
+    "desde_cero/resultados/aplicacion_local_20260922/fuentes/src/cholesky.c",
+    "desde_cero/resultados/generacion_local_20260922/fuentes/src/cholesky.c"
+  ],
+  "cd002d1a45eb9e94924868aedac244e76ae56169586a4587cf32b3c03993b858": [
+    "desde_cero/resultados/aplicacion_local_20260922/fuentes/src/cholesky.h",
+    "desde_cero/resultados/generacion_local_20260922/fuentes/src/cholesky.h"
+  ],
+  "038267f9e99eee3fb616da189894ecd28805016c30ab1929a4254e9c99b1e0c8": [
+    "desde_cero/resultados/aplicacion_local_20260922/fuentes/src/cholesky_mpi.c",
+    "desde_cero/resultados/generacion_local_20260922/fuentes/src/cholesky_mpi.c",
+    "desde_cero/resultados/left_right_mpi_20260922/fuentes/src/cholesky_mpi.c",
+    "desde_cero/resultados/mpi_local_20260921/fuentes/src/cholesky_mpi.c",
+    "desde_cero/resultados/tiempo_total_20260922/fuentes/src/cholesky_mpi.c",
+    "desde_cero/resultados/umbral_20260922/fuentes/src/cholesky_mpi.c"
+  ],
+  "9b5a6ea2bd9a83394a90e5b351e0a5babb4191ca7344912d02e5c62b3eddec24": [
+    "desde_cero/resultados/aplicacion_local_20260922/fuentes/src/cholesky_mpi.h",
+    "desde_cero/resultados/generacion_local_20260922/fuentes/src/cholesky_mpi.h",
+    "desde_cero/resultados/left_right_mpi_20260922/fuentes/src/cholesky_mpi.h",
+    "desde_cero/resultados/tiempo_total_20260922/fuentes/src/cholesky_mpi.h"
+  ],
+  "038975d823ca4b4d3448015766384c479b8bdfc45b9be414b608cc2a3fbf6525": [
+    "desde_cero/resultados/bloques_local_20260922/fuentes/src/cholesky.c",
+    "desde_cero/resultados/cierre_local_20260924/fuentes/src/cholesky.c",
+    "desde_cero/resultados/cierre_local_20260927/fuentes/src/cholesky.c",
+    "desde_cero/resultados/precluster_20260924/confirmacion/fuentes/src/cholesky.c",
+    "desde_cero/resultados/precluster_20260924/fuentes/src/cholesky.c",
+    "desde_cero/resultados/precluster_20260924/mayor/fuentes/src/cholesky.c",
+    "output/entrega_precluster_20260924/desde_cero/src/cholesky.c"
+  ],
+  "0cbbee5f5051fe08031b5b3e84939a8144f685435600a5cc825490c0b5c376b9": [
+    "desde_cero/resultados/bloques_local_20260922/fuentes/src/cholesky.h",
+    "desde_cero/resultados/cierre_local_20260924/fuentes/src/cholesky.h",
+    "desde_cero/resultados/cierre_local_20260927/fuentes/src/cholesky.h",
+    "desde_cero/resultados/precluster_20260924/confirmacion/fuentes/src/cholesky.h",
+    "desde_cero/resultados/precluster_20260924/fuentes/src/cholesky.h",
+    "desde_cero/resultados/precluster_20260924/mayor/fuentes/src/cholesky.h",
+    "output/entrega_precluster_20260924/desde_cero/src/cholesky.h"
+  ],
+  "853c104320d993ba77480ade7407dc719b15d53816996205598fa29940efd2ba": [
+    "desde_cero/resultados/bloques_local_20260922/fuentes/src/cholesky_mpi.h",
+    "desde_cero/resultados/cierre_local_20260924/fuentes/src/cholesky_mpi.h",
+    "desde_cero/resultados/cierre_local_20260927/fuentes/src/cholesky_mpi.h",
+    "desde_cero/resultados/precluster_20260924/confirmacion/fuentes/src/cholesky_mpi.h",
+    "desde_cero/resultados/precluster_20260924/mayor/fuentes/src/cholesky_mpi.h",
+    "output/entrega_precluster_20260924/desde_cero/src/cholesky_mpi.h"
+  ],
+  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855": [
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r0_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r0_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r0_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r0_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r0_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r0_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r1_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r1_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r1_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r1_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r1_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r1_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r2_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r2_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r2_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r2_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r2_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r2_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r3_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r3_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r3_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r3_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r3_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r3_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r4_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r4_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r4_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r4_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r4_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r4_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r5_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r5_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r5_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r5_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r5_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r5_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r6_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r6_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r6_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r6_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r6_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r6_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r7_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r7_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r7_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r7_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r7_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n1024_r7_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r0_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r0_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r0_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r0_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r0_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r0_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r1_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r1_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r1_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r1_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r1_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r1_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r2_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r2_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r2_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r2_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r2_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r2_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r3_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r3_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r3_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r3_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r3_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r3_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r4_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r4_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r4_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r4_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r4_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r4_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r5_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r5_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r5_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r5_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r5_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r5_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r6_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r6_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r6_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r6_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r6_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r6_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r7_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r7_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r7_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r7_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r7_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n2048_r7_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r0_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r0_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r0_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r0_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r0_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r0_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r1_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r1_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r1_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r1_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r1_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r1_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r2_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r2_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r2_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r2_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r2_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r2_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r3_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r3_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r3_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r3_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r3_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r3_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r4_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r4_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r4_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r4_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r4_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r4_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r5_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r5_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r5_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r5_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r5_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r5_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r6_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r6_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r6_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r6_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r6_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r6_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r7_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r7_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r7_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r7_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r7_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n256_r7_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r0_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r0_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r0_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r0_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r0_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r0_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r1_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r1_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r1_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r1_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r1_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r1_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r2_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r2_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r2_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r2_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r2_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r2_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r3_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r3_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r3_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r3_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r3_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r3_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r4_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r4_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r4_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r4_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r4_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r4_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r5_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r5_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r5_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r5_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r5_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r5_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r6_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r6_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r6_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r6_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r6_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r6_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r7_m1.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r7_m2.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r7_m3.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r7_m4.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r7_m6.log",
+    "desde_cero/resultados/cierre_local_20260924/runs/n512_r7_mseq.log",
+    "desde_cero/resultados/cierre_local_20260924/tests/mpi.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r0_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r0_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r0_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r0_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r0_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r0_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r1_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r1_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r1_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r1_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r1_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r1_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r2_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r2_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r2_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r2_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r2_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r2_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r3_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r3_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r3_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r3_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r3_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r3_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r4_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r4_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r4_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r4_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r4_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r4_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r5_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r5_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r5_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r5_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r5_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r5_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r6_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r6_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r6_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r6_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r6_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r6_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r7_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r7_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r7_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r7_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r7_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n1024_r7_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r0_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r0_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r0_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r0_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r0_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r0_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r1_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r1_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r1_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r1_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r1_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r1_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r2_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r2_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r2_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r2_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r2_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r2_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r3_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r3_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r3_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r3_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r3_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r3_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r4_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r4_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r4_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r4_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r4_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r4_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r5_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r5_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r5_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r5_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r5_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r5_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r6_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r6_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r6_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r6_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r6_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r6_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r7_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r7_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r7_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r7_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r7_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n2048_r7_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r0_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r0_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r0_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r0_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r0_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r0_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r1_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r1_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r1_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r1_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r1_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r1_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r2_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r2_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r2_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r2_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r2_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r2_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r3_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r3_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r3_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r3_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r3_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r3_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r4_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r4_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r4_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r4_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r4_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r4_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r5_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r5_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r5_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r5_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r5_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r5_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r6_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r6_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r6_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r6_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r6_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r6_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r7_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r7_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r7_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r7_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r7_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n256_r7_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r0_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r0_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r0_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r0_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r0_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r0_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r1_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r1_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r1_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r1_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r1_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r1_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r2_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r2_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r2_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r2_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r2_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r2_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r3_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r3_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r3_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r3_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r3_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r3_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r4_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r4_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r4_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r4_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r4_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r4_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r5_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r5_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r5_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r5_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r5_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r5_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r6_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r6_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r6_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r6_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r6_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r6_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r7_m1.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r7_m2.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r7_m3.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r7_m4.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r7_m6.log",
+    "desde_cero/resultados/cierre_local_20260927/runs/n512_r7_mseq.log",
+    "desde_cero/resultados/cierre_local_20260927/tests/mpi.log"
+  ],
+  "f797bcef7ff93c5103beb042dfea647238d7d24a50a49f89be6746d01abca02f": [
+    "desde_cero/resultados/cierre_local_20260924/tests/status.txt",
+    "desde_cero/resultados/cierre_local_20260927/tests/status.txt"
+  ],
+  "03536e12a868c43571ea2d65f036e33dc1877269c9ce5c3b94bddf2fd12e185f": [
+    "desde_cero/resultados/left_right_mpi_20260922/fuentes/src/cholesky.c",
+    "desde_cero/resultados/mpi_20260921/fuentes/src/cholesky.c",
+    "desde_cero/resultados/mpi_local_20260921/fuentes/src/cholesky.c",
+    "desde_cero/resultados/tiempo_total_20260922/fuentes/src/cholesky.c",
+    "desde_cero/resultados/umbral_20260922/fuentes/src/cholesky.c"
+  ],
+  "e7ff37a7d79874a35810f1ff10c7e4f860cc1a11f32faffc417f1f613b3291f1": [
+    "desde_cero/resultados/left_right_mpi_20260922/fuentes/src/cholesky.h",
+    "desde_cero/resultados/mpi_20260921/fuentes/src/cholesky.h",
+    "desde_cero/resultados/mpi_local_20260921/fuentes/src/cholesky.h",
+    "desde_cero/resultados/tiempo_total_20260922/fuentes/src/cholesky.h",
+    "desde_cero/resultados/umbral_20260922/fuentes/src/cholesky.h"
+  ],
+  "da94e5bed58b9602443ace8211db0c1abd77a34973513c24584650ca0355f194": [
+    "desde_cero/resultados/mpi_local_20260921/fuentes/Makefile",
+    "desde_cero/resultados/umbral_20260922/fuentes/Makefile"
+  ],
+  "52c556c28e4f63c90d81cee3dd12dce39ec8390922d8c279e09834ec4d37ef02": [
+    "desde_cero/resultados/mpi_local_20260921/fuentes/src/cholesky_mpi.h",
+    "desde_cero/resultados/umbral_20260922/fuentes/src/cholesky_mpi.h"
+  ],
+  "fb1d64f6fb9fc2cc52436cc184c725f1d9a88fe22bfbe93fb4b0bb6e1ad91c7c": [
+    "desde_cero/resultados/precluster_20260924/confirmacion/fuentes.sha256",
+    "desde_cero/resultados/precluster_20260924/mayor/fuentes.sha256"
+  ],
+  "820c275ac6e2f482fd6c10ce9a1880570b1fca7ad9b4aab65f1c78633a92c7db": [
+    "desde_cero/resultados/precluster_20260924/fuentes/Makefile",
+    "desde_cero/resultados/precluster_20260924/confirmacion/fuentes/Makefile",
+    "desde_cero/resultados/precluster_20260924/mayor/fuentes/Makefile",
+    "output/entrega_precluster_20260924/desde_cero/Makefile"
+  ],
+  "00c7692529c67ab6163f13bc067c65c1cbe44b47ab342457e2e8f92f881affef": [
+    "desde_cero/resultados/precluster_20260924/lapack/n1024_library.log",
+    "desde_cero/resultados/precluster_20260924/lapack/n2048_library.log",
+    "desde_cero/resultados/precluster_20260924/lapack/n3072_library.log",
+    "desde_cero/resultados/precluster_20260924/lapack/n512_library.log"
+  ],
+  "30c38c8d9106e255e830cfdbe86299aa9b3c627dbcb36bad93395d91a0d2ba5a": [
+    "desde_cero/resultados/precluster_20260924/fuentes/docs/GUIA_CLUSTER.md",
+    "output/entrega_precluster_20260924/desde_cero/docs/GUIA_CLUSTER.md"
+  ],
+  "d8a5e46502d2b182fbec19e2775f1a0231c4611d22f069ff7b0033e7abf21715": [
+    "output/pdf/Cholesky_Etapa_10_Preparacion_cluster.pdf",
+    "output/entrega_precluster_20260924/output/pdf/Cholesky_Etapa_10_Preparacion_cluster.pdf"
+  ]
+}

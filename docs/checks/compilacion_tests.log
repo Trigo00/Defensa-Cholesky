@@ -1,0 +1,20 @@
+make: Nothing to be done for 'candidate'.
+./build/test_cholesky
+PASS factor conocido 3x3
+PASS escalar e identidad
+PASS 12 matrices generadas; residuo maximo 1.85374358728e-16
+PASS rechazo de entradas y pivotes invalidos
+PASS el residuo detecta factores incorrectos y no finitos
+./build/test_variants
+PASS left y right: factor conocido, pivotes invalidos y 12 matrices; r_max=1.85374358728e-16
+./build/test_buffered
+PASS right_buffered: factor conocido, errores, workspace y 15 matrices; r_max=3.29235161053e-16
+./build/test_projected
+PASS projected: correct factors, reproducibility, ignored upper triangle, corruption and NaN
+MPI local P=1: PASS (4 variantes, SPD, factor conocido, limites del vector y fallos colectivos)
+MPI local P=2: PASS (4 variantes, SPD, factor conocido, limites del vector y fallos colectivos)
+MPI local P=3: PASS (4 variantes, SPD, factor conocido, limites del vector y fallos colectivos)
+MPI local P=4: PASS (4 variantes, SPD, factor conocido, limites del vector y fallos colectivos)
+OPENBLAS_NUM_THREADS=1 ./build/compare_lapack --test
+OpenBLAS threads=1 config=OpenBLAS 0.3.32 NO_LAPACKE DYNAMIC_ARCH NO_AFFINITY Zen MAX_THREADS=128
+LAPACK tests: PASS
