@@ -28,10 +28,16 @@ ceros en el superior.
 ## Compilación y uso
 
 ```sh
-cd src/implementacion
+cd src/implementacion_con_matriz_sin_generar
 make
 mpirun -np 3 ./cholesky_app tests/spd_3x3.txt factor_L.txt --validate
 ```
+
+## Demostracion rapida en Windows
+
+Edita `MATRIZ_AQUI.txt` y ejecuta con doble clic `EJECUTAR_DEMO.bat`. El script
+usa dos procesos MPI, valida el resultado y deja el factor en `RESULTADO_L.txt`.
+Consulta `LEEME_PRESENTACION.md` para el formato y el guion breve de la demo.
 
 `--validate` es opcional. Calcula fuera del kernel el residuo relativo Frobenius
 `||A-LL^T||/||A||` y exige que sea finito y no mayor que `1e-12`.
