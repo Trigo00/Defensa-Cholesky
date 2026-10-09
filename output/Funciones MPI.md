@@ -2,18 +2,18 @@
 
 ## 1. Alcance de este documento
 
-Este documento describe todas las funciones, tipos, operaciones y constantes MPI que aparecen en el proyecto `Defensa-Cholesky`, incluyendo:
+Este documento describe las funciones, tipos, operaciones y constantes MPI del código conservado en `Defensa-Cholesky`, e incluye ejemplos conceptuales de comunicación punto a punto. Abarca:
 
 - la implementación final right-looking;
 - la aplicación que recibe una matriz externa;
 - los bancos de pruebas y comparaciones experimentales;
 - la variante left-looking utilizada para comparar algoritmos;
-- los antecedentes archivados.
+- ejemplos conceptuales de comunicación punto a punto, separados del código actual.
 
 Es importante distinguir dos grupos:
 
 1. **Código actual y experimental relevante:** utiliza principalmente operaciones colectivas: `MPI_Bcast`, `MPI_Reduce`, `MPI_Allreduce`, `MPI_Scatterv`, `MPI_Gather` y `MPI_Gatherv`.
-2. **Antecedentes archivados:** contienen además `MPI_Send` y `MPI_Recv`. Estas comunicaciones punto a punto no forman parte del kernel final seleccionado.
+2. **Ejemplos conceptuales:** explican `MPI_Send` y `MPI_Recv` como contraste con las colectivas. No representan archivos conservados ni llamadas del kernel final seleccionado.
 
 El kernel final conserva el algoritmo Cholesky right-looking, distribución cíclica 1D de columnas y un vector local auxiliar. Para cada columna global `j`, su propietario calcula el pivote y la parte inferior de esa columna; después la difunde mediante `MPI_Bcast` para que todos los procesos actualicen sus columnas locales.
 
@@ -43,7 +43,7 @@ se crean cuatro procesos con ranks `0`, `1`, `2` y `3`.
 
 ---
 
-## 3. Resumen de las funciones encontradas
+## 3. Resumen de las funciones documentadas
 
 | Función | Clase | Finalidad dentro del proyecto |
 |---|---|---|
@@ -53,7 +53,7 @@ se crean cuatro procesos con ranks `0`, `1`, `2` y `3`.
 | `MPI_Comm_rank` | Comunicador | Obtiene el rank del proceso. |
 | `MPI_Comm_size` | Comunicador | Obtiene la cantidad de procesos. |
 | `MPI_Get_processor_name` | Entorno | Registra el nombre del nodo que ejecuta un proceso. |
-| `MPI_Wtime` | Medición | Devuelve un reloj local de alta resolución. |
+| `MPI_Wtime` | Medición | Reloj local usado en bancos experimentales y perfiles opcionales; el candidato mide sus fases con `CLOCK_MONOTONIC`. |
 | `MPI_Barrier` | Sincronización | Hace que todos lleguen a un punto antes de continuar. |
 | `MPI_Bcast` | Colectiva | Difunde un dato desde un propietario a todos. |
 | `MPI_Reduce` | Colectiva | Combina valores y deja el resultado sólo en la raíz. |
@@ -61,8 +61,8 @@ se crean cuatro procesos con ranks `0`, `1`, `2` y `3`.
 | `MPI_Scatterv` | Colectiva | Distribuye cantidades variables desde la raíz. |
 | `MPI_Gather` | Colectiva | Reúne cantidades iguales en la raíz. |
 | `MPI_Gatherv` | Colectiva | Reúne cantidades variables en la raíz. |
-| `MPI_Send` | Punto a punto | Envía un mensaje a un proceso específico; sólo aparece en antecedentes. |
-| `MPI_Recv` | Punto a punto | Recibe un mensaje de un proceso específico; sólo aparece en antecedentes. |
+| `MPI_Send` | Punto a punto | Envía un mensaje a un proceso específico; se incluye como ejemplo conceptual. |
+| `MPI_Recv` | Punto a punto | Recibe un mensaje de un proceso específico; se incluye como ejemplo conceptual. |
 
 ---
 
@@ -242,7 +242,7 @@ Características:
 - no debe compararse directamente una marca absoluta de un rank con la de otro;
 - incluye el tiempo transcurrido mientras el proceso espera dentro de una función MPI bloqueante.
 
-En el proyecto mide:
+En los bancos experimentales y perfiles que lo utilizan, permite medir:
 
 - factorización;
 - difusión de columnas;
@@ -251,7 +251,7 @@ En el proyecto mide:
 - reunión final;
 - validación y fases de aplicación en algunos bancos.
 
-Para representar la duración paralela se calcula frecuentemente el máximo de los tiempos locales mediante `MPI_Reduce(..., MPI_MAX, ...)`. El proceso más lento determina cuándo termina la fase.
+Algunos bancos reducen las duraciones locales con `MPI_Reduce(..., MPI_MAX, ...)`. Es necesario comprobar qué intervalo se reduce en cada programa. En `src/implementacion_final/main_candidate.c`, las fases usan `clock_gettime(CLOCK_MONOTONIC)` mediante `now()`: `factor_s` y `application_s` se publican desde el rango 0. Solo el tiempo local de aplicación se reduce para obtener `max_local_s`; no se reduce el tiempo de factorización. El candidato llama al kernel con perfil `NULL`, por lo que sus temporizadores opcionales con `MPI_Wtime` no se activan.
 
 ### 6.2 `MPI_Barrier`
 
@@ -558,9 +558,9 @@ Diferencia frente a `MPI_Gatherv`:
 
 ---
 
-## 10. Comunicación punto a punto de antecedentes
+## 10. Comunicación punto a punto como referencia conceptual
 
-Estas funciones aparecen en `archive/antecedentes/cholesky_final_hpc.c`. Se documentan porque forman parte de la historia completa del proyecto, pero no son la estrategia del kernel final.
+Los siguientes ejemplos explican la comunicación punto a punto como contraste con las colectivas del proyecto. Son ejemplos conceptuales; no remiten a un archivo de la entrega actual ni describen la estrategia del kernel final.
 
 ### 10.1 `MPI_Send`
 
@@ -573,7 +573,7 @@ int MPI_Send(const void *buf, int count, MPI_Datatype datatype,
 
 Envía un mensaje bloqueante al proceso `dest`.
 
-Ejemplo archivado:
+Ejemplo conceptual:
 
 ```c
 MPI_Send(&val, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
@@ -602,7 +602,7 @@ int MPI_Recv(void *buf, int count, MPI_Datatype datatype,
 
 Recibe un mensaje que coincida con origen, etiqueta y comunicador.
 
-Ejemplo archivado:
+Ejemplo conceptual:
 
 ```c
 MPI_Recv(&val, 1, MPI_DOUBLE, owner, 0,
@@ -620,11 +620,11 @@ Un envío y una recepción se emparejan considerando:
 - rank destino;
 - etiqueta.
 
-En los antecedentes se utilizan etiquetas `0` y `1` para separar clases de mensajes.
+Por ejemplo, pueden utilizarse etiquetas `0` y `1` para separar clases de mensajes.
 
 ### 10.4 Riesgo de deadlock
 
-Dos procesos pueden quedar bloqueados si ambos ejecutan primero un `MPI_Send` cuyo protocolo necesita que el receptor publique antes un `MPI_Recv`. El antecedente organiza explícitamente el orden envío/recepción según el rank.
+Dos procesos pueden quedar bloqueados si ambos ejecutan primero un `MPI_Send` cuyo protocolo necesita que el receptor publique antes un `MPI_Recv`. Un programa que use este patrón debe organizar un orden compatible de envíos y recepciones.
 
 El kernel final evita esta lógica punto a punto para la columna activa utilizando una colectiva `MPI_Bcast`, que expresa directamente que un propietario debe entregar la misma columna a todos.
 
@@ -694,7 +694,7 @@ Cuando la variable C original es `uint64_t`, su compatibilidad exacta con `unsig
 
 ### `MPI_BYTE`
 
-Representa bytes sin interpretación numérica. Sólo aparece en pruebas o antecedentes punto a punto archivados.
+Representa bytes sin interpretación numérica. Se incluye como referencia conceptual; no forma parte del intercambio de columnas del kernel final, que usa `MPI_DOUBLE`.
 
 Con `MPI_BYTE`, `count` expresa bytes. No se realizan conversiones de representación. Es útil para datos opacos, pero no debe sustituir tipos numéricos cuando se espera portabilidad entre arquitecturas diferentes.
 
@@ -741,7 +741,7 @@ MPI_Recv(buffer, count, type, source, tag,
          communicator, MPI_STATUS_IGNORE);
 ```
 
-Si se proporcionara un `MPI_Status`, podrían consultarse datos como el origen real, la etiqueta o la cantidad recibida. En los antecedentes, origen y etiqueta ya eran conocidos, por lo que se ignoró el estado.
+Si se proporcionara un `MPI_Status`, podrían consultarse datos como el origen real, la etiqueta o la cantidad recibida. En el ejemplo, origen y etiqueta ya están fijados y no se consulta el estado recibido.
 
 ### `MPI_MAX_PROCESSOR_NAME`
 
@@ -857,7 +857,7 @@ Sin embargo, **bloqueante no significa barrera**:
 - `MPI_Allreduce` deja el resultado disponible en todos;
 - `MPI_Send` puede retornar antes de que el receptor procese el mensaje, dependiendo del protocolo interno.
 
-Las esperas internas forman parte del tiempo observado por `MPI_Wtime`. Por eso un tiempo atribuido a `MPI_Bcast` o `MPI_Reduce` puede contener tanto transferencia como espera por procesos atrasados. No equivale directamente a “tiempo puro de red”.
+Las esperas internas forman parte del tiempo transcurrido observado tanto con `MPI_Wtime` como con `CLOCK_MONOTONIC`. Por eso un tiempo atribuido a `MPI_Bcast` o `MPI_Reduce` puede contener tanto transferencia como espera por procesos atrasados. No equivale directamente a “tiempo puro de red”.
 
 ---
 
@@ -869,7 +869,21 @@ El proyecto utilizó distintos alcances temporales:
 - **tiempo de aplicación:** puede incluir preparación, distribución, factorización y reunión;
 - **tiempo externo:** incluye además arranque del comando, runtime MPI, validación, salida y cierre, según la campaña.
 
-`MPI_Wtime` se usó para relojes internos. En los resúmenes paralelos, el máximo de las duraciones locales se obtuvo mediante `MPI_Reduce` con `MPI_MAX`, porque la operación paralela no termina hasta que termina el rank más lento.
+En el candidato `src/implementacion_final/main_candidate.c`, `now()` consulta `clock_gettime(CLOCK_MONOTONIC)`. El CSV contiene estas mediciones:
+
+| Campo | Intervalo y proceso que lo informa |
+|---|---|
+| `allocation_s` | `t1-t0` en rango 0: reservas y preparación del reparto. |
+| `generation_s` | `t2-t1` en rango 0: generación de sus columnas; no es el máximo entre procesos. |
+| `factor_s` | `t3-t2` en rango 0: llamada al kernel, incluidas comunicaciones y esperas internas. |
+| `gather_s` | `t4-t3` en rango 0: reunión y reconstrucción del factor completo. |
+| `application_s` | `t4-t0` en rango 0: desde las reservas hasta disponer de L completa. |
+| `max_local_s` | Máximo de `t4-t0` entre procesos, obtenido con `MPI_Reduce` y `MPI_MAX`. |
+| `validation_s` | Intervalo posterior en rango 0, separado del tiempo de aplicación. |
+
+La barrera inicial precede a `t0`. La reducción que produce `max_local_s` ocurre después de `t4`, fuera de `application_s`. No se reducen las fases por separado: `max_local_s` no es el máximo de `factor_s` ni debe sumarse a `application_s`.
+
+Los bancos experimentales tienen fronteras de medición propias y varios usan `MPI_Wtime`; sus máximos y perfiles deben interpretarse según el código de cada banco. En particular, la curva formal de strong scaling N=8192 usa `factor_s` del rango 0 y referencia MPI P=1 de la misma campaña. La aplicación con matriz externa valida y escribe L, pero no publica estas columnas temporales del candidato.
 
 Una colectiva puede medir espera por desbalance. Por ejemplo, si el propietario de una columna tarda más, los demás pueden esperar dentro de `MPI_Bcast`. Ese tiempo es real para la ejecución, pero no puede interpretarse automáticamente como ancho de banda consumido.
 
@@ -897,7 +911,7 @@ Esto concuerda con el alcance del proyecto: una implementación explícita y ver
 
 La explicación breve del uso de MPI en el proyecto es:
 
-> Inicializamos MPI, obtenemos el rank y la cantidad de procesos, y distribuimos las columnas de la matriz de forma cíclica. En cada iteración de Cholesky, el proceso propietario calcula la columna activa y la difunde con `MPI_Bcast`. Cada proceso usa esa columna para actualizar únicamente su parte local. Para los experimentos usamos `MPI_Wtime` y tomamos el máximo con `MPI_Reduce`. Los errores globales se propagan con `MPI_Allreduce`. En la aplicación con entrada externa, rank 0 distribuye la matriz mediante `MPI_Scatterv` y recupera el factor mediante `MPI_Gatherv`. Finalmente todos cierran con `MPI_Finalize`.
+> Inicializamos MPI, obtenemos el rank y la cantidad de procesos, y distribuimos las columnas de la matriz de forma cíclica. En cada iteración de Cholesky, el proceso propietario calcula la columna activa y la difunde con `MPI_Bcast`. Cada proceso usa esa columna para actualizar únicamente su parte local. En el candidato medimos las fases con `CLOCK_MONOTONIC`: los tiempos de factorización y aplicación publicados corresponden al rango 0. Como control adicional, reducimos el tiempo local de aplicación con `MPI_Reduce` y `MPI_MAX` para obtener `max_local_s`. La validación se mide después y por separado. Otros bancos experimentales usan `MPI_Wtime`. Los errores globales se propagan con `MPI_Allreduce`. En la aplicación con entrada externa, rank 0 distribuye la matriz mediante `MPI_Scatterv` y recupera el factor mediante `MPI_Gatherv`. Finalmente todos cierran con `MPI_Finalize`.
 
 La idea clave es que MPI no cambia la fórmula numérica de Cholesky: organiza qué proceso posee cada columna, cómo se comparte la columna ya calculada y cómo se combinan estados o resultados distribuidos.
 

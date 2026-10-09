@@ -23,7 +23,7 @@ make candidate test
 Para comprobar toda la refactorización:
 
 ```bash
-python3 scripts/verify_code_refactor.py
+python3 tests/validation/verify_code_refactor.py
 ```
 
 ## Los cinco archivos de la implementación final
@@ -461,7 +461,7 @@ Cada repetición nueva debe guardarse como campaña nueva con fecha, entorno y h
 
 # Etapas 15–19: trabajo en el clúster
 
-El registro completo está en [scripts_cluster_20260928.md](scripts_cluster_20260928.md). Sus bloques se clasifican como **EXACTO**, **BLOQUE DE TERMINAL** o **RECONSTRUIDO**. Esta distinción debe conservarse al exponer: las campañas de cruce y escalabilidad tienen reconstrucciones fieles al protocolo; el launcher final grande sí quedó preservado exactamente.
+La transcripción independiente de comandos ya no está en la entrega. Consultar los [registros conservados](recursos_actuales.md) dentro de los paquetes originales. Los ejemplos de esta guía permiten preparar una nueva ejecución; no equivalen a un launcher histórico completo.
 
 Históricamente, los archivos estaban planos en `~/cholesky`. En el repositorio actual, los fuentes están en `src/implementacion_final/` y `src/experimentos/`, y los ejecutables en `build/`.
 
@@ -475,7 +475,7 @@ Antes de medir se registraron CPU visibles, cuota, memoria, cpuset, versiones y 
 
 - Código: los cinco archivos de `src/implementacion_final/`.
 - Evidencia: `data/raw/cluster/evidencia_preformal_20260928.tar.gz`.
-- Comandos originales: secciones 1–9 de `docs/scripts_cluster_20260928.md`.
+- Evidencia de la sesión: paquetes de `data/raw/cluster/`; consultar [registros conservados](recursos_actuales.md). La transcripción independiente de comandos fue retirada.
 
 ### 3. Diagnóstico inicial
 
@@ -556,8 +556,8 @@ Se buscó el primer N ensayado con mejora clara de MPI. El protocolo documentado
 - `build/cholesky_candidate_seq` y `build/cholesky_candidate_mpi`.
 - `data/raw/cluster/campana_cruce_20260928.tar.gz`.
 - `data/processed/first_crossing.csv` y `summary_crossing.csv`.
-- `figures/01_cruce_application_vs_n.svg` y `02_cruce_speedup.svg`.
-- Launcher reconstruido: sección 10 de `docs/scripts_cluster_20260928.md`.
+- Material visual: sección correspondiente del Word principal; [índice de imágenes conservadas](recursos_actuales.md).
+- Evidencia de la sesión: paquetes de `data/raw/cluster/`; consultar [registros conservados](recursos_actuales.md). La transcripción independiente de comandos fue retirada.
 
 ### 3. Bug documentado y corrección
 
@@ -580,7 +580,7 @@ La reconstrucción reproduce el protocolo, pero no es una copia byte por byte.
 make candidate
 ```
 
-Usar el launcher completo de la sección 10 y sustituir:
+Para una nueva ejecución, adaptar las rutas de los ejemplos disponibles. La transcripción del launcher completo fue retirada:
 
 ```text
 ./cholesky_candidate_seq -> ./build/cholesky_candidate_seq
@@ -612,8 +612,8 @@ Se midió N=512, 1024, 2048 y 4096 con `seq` y P=1,2,3,4,6. Hubo un warmup, siet
 - `src/implementacion_final/main_candidate.c`.
 - `data/raw/cluster/campana_escalabilidad_20260928.tar.gz`.
 - `data/processed/summary_scalability.csv` y `summary_external.csv`.
-- Figuras 03, 04, 05 y `figures/14_fronteras_medicion.svg`.
-- Launcher reconstruido: sección 13 del registro.
+- Material visual: sección correspondiente del Word principal; [índice de imágenes conservadas](recursos_actuales.md).
+- No se conserva la transcripción independiente del launcher; el paquete original conserva datos y registros de entorno.
 
 ### 3. Control breve del reloj externo
 
@@ -631,7 +631,7 @@ mkdir -p scratch/control_externo
 
 ### 4. ¿Cómo se vuelve a medir?
 
-Usar la reconstrucción de la sección 13 y sustituir:
+Para preparar una nueva ejecución desde los ejemplos de esta guía, adaptar estas rutas:
 
 ```text
 ./measure_command        -> ./build/measure_command
@@ -655,8 +655,8 @@ Se comparó el kernel propio con `LAPACKE_dpotrf_work` usando OpenBLAS de un hil
 - `src/implementacion_final/cholesky.c`.
 - `data/raw/cluster/campana_lapack_cluster_20260928.tar.gz`.
 - `data/processed/summary_lapack.csv`.
-- `figures/07_lapack_cluster.svg`.
-- Secciones 14–21 de `docs/scripts_cluster_20260928.md`.
+- Material visual: sección correspondiente del Word principal; [índice de imágenes conservadas](recursos_actuales.md).
+- Evidencia de la sesión: paquetes de `data/raw/cluster/`; consultar [registros conservados](recursos_actuales.md). La transcripción independiente de comandos fue retirada.
 
 ### 3. Diagnóstico de bibliotecas
 
@@ -714,7 +714,7 @@ El mensaje de configuración OpenBLAS en stderr es informativo. Los CSV históri
 
 ### 1. ¿Qué queríamos probar?
 
-Se extendió la comparación a N=6144 y N=8192. Primero hubo pilotos LAPACK y MPI P=6. Luego se ejecutó `run_campana_final_grande.sh`, cuyo bloque sí se preservó exactamente.
+Se extendió la comparación a N=6144 y N=8192. Primero hubo pilotos LAPACK y MPI P=6. Luego se ejecutó `run_campana_final_grande.sh`, mencionado en el registro histórico; su transcripción completa ya no se conserva como archivo independiente en esta entrega.
 
 El resultado histórico fue acercamiento relativo, no cruce: MPI mejoró frente al secuencial propio, pero LAPACK de un hilo siguió siendo más rápido.
 
@@ -724,8 +724,8 @@ El resultado histórico fue acercamiento relativo, no cruce: MPI mejoró frente 
 - Referencia: `src/experimentos/compare_lapack.c`.
 - Evidencia: `data/raw/cluster/campana_final_grande_20260928.tar.gz`.
 - Resumen: `data/processed/summary_large_comparison.csv`.
-- Figuras 08 y 09.
-- Script exacto: sección 27 de `docs/scripts_cluster_20260928.md`.
+- Material visual: sección correspondiente del Word principal; [índice de imágenes conservadas](recursos_actuales.md).
+- Evidencia de la sesión: paquetes de `data/raw/cluster/`; consultar [registros conservados](recursos_actuales.md). La transcripción independiente de comandos fue retirada.
 
 ### 3. Pilotos documentados
 
@@ -764,7 +764,7 @@ make lapack test-lapack
 # Con Conda, compilar build/compare_lapack_cluster como en la Etapa 18.
 ```
 
-Tomar el script exacto de la sección 27 y adaptar solo las rutas:
+Para preparar una nueva campaña, adaptar las rutas de los ejemplos de esta guía. No se conserva aquí el launcher completo de la antigua sección 27:
 
 ```text
 ./compare_lapack_cluster  -> ./build/compare_lapack_cluster
@@ -794,13 +794,116 @@ campana_lapack_cluster_20260928.tar.gz
 campana_final_grande_20260928.tar.gz
 ```
 
-### 7. Reconstruir el informe
+### 7. Recalcular datos y verificar la entrega
 
 ```bash
 python3 scripts/analyze_results.py
-python3 scripts/build_documentation.py
-python3 scripts/verify_delivery.py
+python3 tests/validation/verify_delivery.py
 ```
+
+---
+
+# Etapa 20: strong scaling hasta P=32 — 03/10/2026
+
+### 1. ¿Qué queríamos probar?
+
+Con N fijo, se buscó medir cuánto mejora el candidato MPI al aumentar P=1,2,4,8,16,32. N=8192 se usó para la campaña formal; N=16384 quedó como piloto exploratorio. La referencia de speedup es MPI P=1 de esta misma sesión, no el secuencial propio ni LAPACK.
+
+Esta etapa pertenece a una nueva versión experimental. Los hashes de sus fuentes no coinciden con la instantánea medida en septiembre, ni siquiera después de normalizar CRLF a LF. Por ello sus tiempos no se mezclan con las campañas del 28/09.
+
+### 2. ¿Qué archivos se utilizan?
+
+- Evidencia de la sesión: paquetes de `data/raw/cluster/`; consultar [registros conservados](recursos_actuales.md). La transcripción independiente de comandos fue retirada.
+- Formal N=8192: `data/raw/cluster/strong_scaling_formal_8192_20261003.tar.gz`.
+- Piloto N=8192: `data/raw/cluster/strong_scaling_pilot_8192_20261003.tar.gz`.
+- Piloto N=16384: `data/raw/cluster/strong_scaling_pilot_16384_20261003.tar.gz`.
+- Binding, control pequeño y compilación: `data/raw/cluster/strong_scaling_trazabilidad_20261003.tar.gz`.
+- Tablas regeneradas: `data/processed/summary_strong_scaling_8192.csv`, `summary_strong_application_8192.csv` y `summary_strong_pilots.csv`.
+- Material visual: sección correspondiente del Word principal; [índice de imágenes conservadas](recursos_actuales.md).
+
+### 3. Entorno y controles previos
+
+La sesión registró una cuota de `4800000 100000`, equivalente a 48 CPUs agregadas por período, cpuset 0-127 y un límite de memoria de 192 GiB. Las 128 CPUs visibles no equivalen a 128 cores concedidos. Se usaron GCC 13.3.0 y Open MPI 4.1.6.
+
+El control de binding P=32 ubicó los ranks 0..31 en los cores 0..31 del socket 0. La comprobación de host informó los 32 ranks en `jupyter-trigotex-gmail-com---5306eb41`. El control N=128/P=32 terminó con `valid=1` y residuo completo menor que 1e-12.
+
+La compilación documentada fue:
+
+```bash
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -DUSE_MPI \
+  main_candidate.c cholesky.c cholesky_mpi.c -lm \
+  -o cholesky_candidate_mpi \
+  2>&1 | tee build_candidate_mpi_scaling.log
+```
+
+La transcripción independiente de comandos ya no está en la entrega. Consultar los [registros conservados](recursos_actuales.md) dentro de los paquetes originales. Los ejemplos de esta guía permiten preparar una nueva ejecución; no equivalen a un launcher histórico completo.
+
+### 4. Diseño formal N=8192
+
+Se ejecutó un warmup por P y siete observaciones útiles por P: 42 mediciones formales. Los warmups y el piloto previo no forman parte de las estadísticas. El orden conservado en `mediciones.csv` fue:
+
+```text
+rep 1: 1  2  4  8  16 32
+rep 2: 2  4  8  16 32 1
+rep 3: 4  8  16 32 1  2
+rep 4: 8  16 32 1  2  4
+rep 5: 16 32 1  2  4  8
+rep 6: 32 1  2  4  8  16
+rep 7: 32 16 8  4  2  1
+```
+
+La rotación reduce el sesgo de posición, pero no constituye aleatorización. El lanzamiento utilizó `--bind-to core --map-by core`.
+
+### 5. Qué mide el programa
+
+- `factor_s`: tiempo del rango 0 alrededor del kernel MPI. Incluye comunicaciones y esperas dentro de la llamada; no es un máximo reducido entre rangos.
+- `application_s`: reserva, generación distribuida, factorización y reunión/reconstrucción.
+- `max_local_s`: máximo de `application_s` local mediante `MPI_Reduce`; no es el máximo de `factor_s`.
+- `validation_s`: validación posterior y fuera de los dos relojes anteriores.
+
+Para N>128, `exact_residual=-1` significa que el residuo completo no se calculó. La aceptación grande usa residuo proyectado, finitud y diagonal positiva.
+
+### 6. Resultado formal
+
+| P | factor_s mediana (s) | Q1 (s) | Q3 (s) | Speedup | Eficiencia |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 64.109724 | 64.085799 | 64.181409 | 1.000 | 100.00% |
+| 2 | 40.909027 | 40.880406 | 40.924548 | 1.567 | 78.36% |
+| 4 | 36.998314 | 36.974880 | 37.028154 | 1.733 | 43.32% |
+| 8 | 39.229483 | 39.141549 | 39.326518 | 1.634 | 20.43% |
+| 16 | 23.787586 | 23.784437 | 23.792451 | 2.695 | 16.84% |
+| 32 | 13.543594 | 13.537468 | 13.548740 | 4.734 | 14.79% |
+
+`S(P)=mediana(T_P=1)/mediana(T_P)` y `E(P)=S(P)/P`. P=32 fue la configuración más rápida ensayada, no un óptimo global. La curva fue sublineal y no monotónica.
+
+P=8 tuvo una mediana 6.03% mayor que P=4. Los Q1-Q3 y también los rangos mínimo-máximo no se solapan; las siete comparaciones por repetición tienen el mismo signo. Esto permite describir la degradación en esta sesión, pero no adjudicarla a comunicación, caché o desbalance sin instrumentación adicional.
+
+### 7. Pilotos y validez
+
+El piloto N=16384 tiene una sola observación por P. P=32 fue el menor tiempo observado, con `factor_s=122.774187 s`, speedup exploratorio 3.752 y eficiencia 11.73%. P=8 volvió a ser más lento que P=4. No se calculan barras de dispersión ni se lo presenta con el mismo peso estadístico que N=8192.
+
+Las 42 observaciones formales y los 12 casos piloto tienen `valid=1`. El máximo residuo proyectado formal es `3.24029049237e-15`; en el piloto N=16384 es `4.63360532354e-15`. Los contadores no registraron throttling en ninguna de las tres ventanas.
+
+### 8. Regenerar análisis y tablas
+
+Desde la raíz del repositorio:
+
+```bash
+python3 scripts/analyze_results.py
+python3 tests/validation/verify_delivery.py
+```
+
+El analizador abre los cuatro paquetes sin ejecutar sus binarios, comprueba la grilla formal, separa warmups y pilotos, recalcula medianas/cuartiles y produce las tablas; las gráficas auxiliares se generan solo con --figures. El verificador vuelve a calcular cuantiles y speedups de forma independiente.
+
+### 9. Qué mostrar en la defensa
+
+1. Mostrar en el Word la sección «Escalabilidad fuerte N = 8192 y piloto N = 16384» y su gráfica de tiempos.
+2. Mostrar en esa sección las gráficas de speedup y eficiencia; explicar 4,734× y 14,79 %.
+3. Mostrar la comparación P=4/P=8 del Word y contrastarla con el CSV formal.
+4. `data/processed/summary_strong_scaling_8192.csv` para trazabilidad numérica.
+5. Consultar el [índice de evidencia](recursos_actuales.md) y los paquetes originales para justificar la procedencia de los datos.
+
+Evitar afirmar que P=32 es el óptimo, que el piloto N=16384 tiene estadística formal o que se identificó la causa de la anomalía P=8. La campaña es intranodo y no mide costo de red entre nodos.
 
 ---
 
@@ -819,7 +922,7 @@ make candidate test
 mpirun --bind-to core --map-by core -np 3 ./build/cholesky_candidate_mpi 256
 ```
 
-5. Mostrar `figures/08_comparacion_final.svg`.
+5. Mostrar en el Word la comparación final con LAPACK y la sección de escalabilidad fuerte.
 6. Explicar que `src/experimentos/` justifica decisiones, pero no todo se enlaza al candidato final.
 
 ## Tabla rápida
@@ -837,6 +940,7 @@ mpirun --bind-to core --map-by core -np 3 ./build/cholesky_candidate_mpi 256
 | Grupos b | `compare_blocks.c` | `make blocks` | `mpirun -np 3 ./build/compare_blocks 512 7` |
 | LAPACK | `compare_lapack.c` | `make lapack` | `OPENBLAS_NUM_THREADS=1 ./build/compare_lapack 512 6` |
 | Candidato | `src/implementacion_final/` | `make candidate` | `mpirun -np 3 ./build/cholesky_candidate_mpi 512` |
+| Strong scaling | `main_candidate.c` archivado en el paquete 03/10 | Python | `python3 scripts/analyze_results.py` y consultar las tablas; mostrar las imágenes actuales del Word |
 | Análisis | `scripts/analyze_results.py` | Python | `python3 scripts/analyze_results.py` |
 
 ## Conclusiones defendibles
@@ -847,6 +951,8 @@ mpirun --bind-to core --map-by core -np 3 ./build/cholesky_candidate_mpi 256
 - MPI tiene un umbral: para matrices pequeñas dominan sus costos.
 - El reloj externo muestra menos mejora cuando pesa el arranque de MPI.
 - MPI superó al secuencial propio en ciertos tamaños, pero no a LAPACK/OpenBLAS de un hilo.
+- En N=8192, P=32 redujo la mediana de factor_s a 13.54 s: speedup 4.734 y eficiencia 14.79% frente a MPI P=1.
+- La degradación P=4 a P=8 se repitió en las siete observaciones, sin causa instrumentalmente identificada.
 - Las conclusiones pertenecen al hardware, bibliotecas, cuota y protocolo registrados.
 
 ## Errores que conviene evitar
@@ -857,3 +963,7 @@ mpirun --bind-to core --map-by core -np 3 ./build/cholesky_candidate_mpi 256
 - No presentar una corrida en vivo como resultado estadístico.
 - No confundir CPU visibles con CPU concedidas.
 - No atribuir los tiempos históricos a los fuentes comentados actuales sin mencionar los snapshots y hashes de cada campaña.
+
+## Recursos de presentación y alcance de regeneración
+
+El Word principal se edita manualmente. Sus imágenes actuales y los archivos conservados se consultan en [recursos_actuales.md](recursos_actuales.md). El análisis predeterminado recalcula datos sin recrear gráficas. La opción `python3 scripts/analyze_results.py --figures` genera únicamente material auxiliar en `output/analisis/figures`. El verificador no recompila C/MPI ni verifica visualmente la maquetación del Word.

@@ -49,7 +49,7 @@ def publish(root,text):
         Spacer(1,16),p('Implementación en C · distribución MPI · referencia optimizada','body'),
         Spacer(1,24),
         p('**Facultad de Ciencias Exactas y Tecnología · Universidad Nacional de Tucumán**<br/>Cátedra de Computación de Alto Rendimiento','caption'),
-        Spacer(1,32),p('21 al 28 de septiembre de 2026','h2'),
+        Spacer(1,32),p('21 de septiembre al 3 de octubre de 2026','h2'),
         p('Informe integral | Código, evidencia y resultados reproducibles'),Spacer(1,36),
         p('Pregunta central','h2'),p('Cuándo distribuir el trabajo reduce el tiempo y cuánto depende esa ventaja del kernel local y de la frontera de medición.','deck'),PageBreak()]
     story.append(p('Índice de lectura','h1'))
@@ -110,7 +110,7 @@ def publish(root,text):
             c.line(52,A4[1]-33,A4[0]-52,A4[1]-33)
             c.setFont('DV',7);c.setFillColor(colors.HexColor('#526675'))
             c.drawString(52,A4[1]-25,'CHOLESKY  /  MEMORIA · MPI · LAPACK')
-            c.drawString(52,25,'Investigación experimental · HPC Cholesky · Septiembre 2026')
+            c.drawString(52,25,'Investigación experimental · HPC Cholesky · Septiembre-octubre 2026')
             c.drawRightString(A4[0]-52,25,f'Página {doc.page}')
     doc=Report(str(output),pagesize=A4,title='Cholesky: investigación experimental integral',author='Agustín Trigo · Proyecto Cholesky HPC')
     doc.addPageTemplates(PageTemplate(id='report',frames=[Frame(52,46,WIDTH,A4[1]-98,leftPadding=0,rightPadding=0,topPadding=0,bottomPadding=0)],onPage=page))

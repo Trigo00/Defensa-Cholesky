@@ -1,0 +1,759 @@
+[0] PROYECTO CHOLESKY HPC 2026
+[10] Factorización de Cholesky
+[11] Memoria experimental ordenada
+[17] De la referencia secuencial y la validación a la comparación final entre MPI y LAPACK/OpenBLAS.
+[19] Mapa de lecturaMapa de lectura
+[29] PARTE I | Fundamentos, validación y decisiones locales | 3–10
+ | Primero se fija qué se calcula y cómo se comprueba; después se comparan las variantes escalares. | 
+PARTE II | Diseño MPI y primera implementación distribuida | 11–25
+ | Las decisiones sobre propiedad de columnas aparecen inmediatamente antes de la campaña que las pone a prueba. | 
+PARTE III | Cruce de rendimiento y comparación de algoritmos MPI | 26–34
+ | El modelo de costos se presenta cuando ya existe un candidato MPI y justo antes de medir cuándo compensa. | 
+PARTE IV | Flujo de datos y cierre local | 35–50
+ | La investigación pasa del kernel al recorrido completo: generación, reunión, distribución y programa candidato. | 
+PARTE V | Campañas en el clúster y comparación final | 51–77
+ | La evidencia local se contrasta con el entorno real, el cruce formal, la escalabilidad y LAPACK. | 
+[33] IIPARTE I
+[38] Fundamentos, validación y decisiones locales
+[43] ¿La implementación es correcta y qué organización local conviene antes de introducir MPI?
+[45] Cholesky: el problema que vamos a resolver
+[46] Queremos factorizar una matriz real A, simétrica y definida positiva, como el producto de una matriz triangular inferior L y su transpuesta:
+[48] Por encima de la diagonal de L todos los elementos son cero. Elegimos su diagonal positiva; con esa condición el factor es único. Esta factorización permite resolver Ax = b mediante los sistemas triangulares Ly = b y Lᵀx = y.
+[49] Condiciones de entrada
+[51] La primera condición es simetría; la segunda es definición positiva. En aritmética exacta garantizan que los pivotes de Cholesky sean positivos, sin necesidad de intercambiar filas. El código comprueba los pivotes para detectar entradas o resultados inválidos.
+[52] De dónde salen las dependencias
+[53] Al desarrollar el producto matricial, con índices desde cero, obtenemos:
+[55] Una columna nueva utiliza contribuciones de las anteriores. Left-looking y right-looking cambian cuándo se aplican esas contribuciones, no el problema matemático. Ambas variantes escalares realizan aproximadamente n³/3 operaciones de punto flotante.
+[56] Las tres decisiones del trabajo
+[57] Primera: qué variante conviene estudiar y qué muestran sus tiempos. 
+[58] Segunda: cuándo el ahorro de cálculo justifica usar más procesos. 
+[59] Tercera: cómo repartir los datos para mantener trabajo útil en esos procesos.
+[60] Todo el cálculo, la generación de matrices y la futura implementación MPI se realizan en C. Python procesa los CSV y genera estadísticas y gráficos.
+[61] El informe distingue mediciones ejecutadas, conteos analíticos y extensiones pendientes. Incluye las campañas locales y del clúster; la ejecución multinodo y las variantes por bloques o híbridas quedan como trabajo futuro.
+[62] Ballard et al. (2009), Communication-optimal Parallel and Sequential Cholesky Decomposition.
+[64] Left-looking y right-looking: ¿dónde está el paralelismo?
+[65] Left-looking: actualizar la columna que necesitamos
+[66] Al llegar a la columna j, recuperamos los aportes de las columnas ya calculadas. Primero obtenemos el pivote y luego los elementos debajo de él:
+[71] También permite paralelismo: conocido el pivote y disponibles los datos anteriores, distintos elementos lᵢⱼ pueden calcularse simultáneamente. Incluso una suma interna puede repartirse si luego se combinan correctamente sus resultados. En memoria distribuida debemos decidir dónde están esos datos y cuánto cuesta reunirlos.
+[72] Right-looking: actualizar la región que todavía falta
+[73] Usamos una matriz de trabajo S, inicialmente igual a A. Al llegar a j, las contribuciones anteriores ya se aplicaron:
+[75] Luego la columna calculada actualiza la submatriz restante:
+[77] El paralelismo aparece en esas actualizaciones: cada pareja (i, k) modifica una posición diferente y lee una columna ya terminada. Las actualizaciones de la siguiente columna deben completarse antes de factorizarla.
+[78] Ambas variantes tienen dependencias entre columnas y admiten versiones por bloques. En right-looking nos interesa repartir las actualizaciones; no ejecutar arbitrariamente todas las columnas a la vez. [1]
+[79] Experimento 1: comparar las dos variantes en C
+[80] La pregunta y el experimento
+[81] ¿Right-looking es más rápido que left-looking en nuestra implementación secuencial? Implementamos ambas variantes escalares en el mismo archivo C, con double, almacenamiento por filas y el mismo compilador. No usamos BLAS ni MPI en esta comparación.
+[82] Matrices iguales para las dos variantes
+[83] El generador C, con semilla 2026, crea valores simétricos fuera de la diagonal en [−1, 1). La diagonal se define como:
+[85] Esto produce una matriz simétrica con diagonal positiva y estrictamente dominante; por tanto es definida positiva. Cada llamada recibe una copia nueva de la misma matriz. Se exige un residuo relativo de reconstrucción no mayor que 10⁻¹².
+[86] Condiciones de medición
+[87] WSL / Ubuntu 26.04, AMD Ryzen 5 2600, GCC 15.2.0 y opciones -O3 -std=c11 -Wall -Wextra -Wpedantic. Ambas variantes se fijan a la misma CPU lógica. Para cada tamaño hacemos un calentamiento por variante y siete repeticiones, alternando cuál se ejecuta primero.
+[88] El tiempo incluye solo la factorización. Generación, copia y residuo quedan fuera. Conservamos las observaciones individuales y calculamos medianas y cuartiles inclusivos. La copia y validación siguen el mismo protocolo para ambas variantes, pero no garantizan un estado idéntico de caché.
+[90] n | Left (ms) | Right (ms) | Right / Left
+64 | 0.0238 | 0.0226 | 0.95
+128 | 0.1999 | 0.2680 | 1.34
+256 | 1.8608 | 5.9010 | 3.17
+512 | 16.2481 | 130.1355 | 8.01
+1024 | 137.6874 | 1109.6237 | 8.06
+[91] Medianas de siete repeticiones por variante y tamaño. Un cociente Right / Left mayor que 1 indica que right-looking tarda más. 
+[92] No es un speedup MPI. 
+[94] Qué dicen los datos y qué no demuestran
+[96] Figura 1. Comparación secuencial. Ambos ejes son logarítmicos. Los puntos indican la mediana y las barras abarcan Q1 a Q3; algunas barras son pequeñas a esta escala.
+[98] Resultado observado
+[99] La primera comparación favorece a left-looking en cuatro de los cinco tamaños ensayados. La pequeña ventaja de right-looking en n=64 cambia al aumentar la matriz: para n=1024, sus medianas son 1109,62 ms y 137,69 ms, respectivamente, de modo que right-looking tarda aproximadamente 8,06 veces más. Estos resultados descartan elegir la versión original de right-looking por su velocidad secuencial en este equipo.
+[101] La diferencia también orienta la investigación. La inspección del código muestra que left-looking utiliza recorridos contiguos por filas, mientras right-looking reutiliza datos de una columna mediante accesos separados por el ancho de la matriz. Esa diferencia es una explicación candidata, cuyo efecto todavía no está aislado. Antes de introducir MPI, corresponde comprobar si mejorar el acceso a la columna reduce el costo del kernel right-looking. La conclusión se refiere a estas implementaciones escalares y a esta campaña; la elección entre familias algorítmicas sigue abierta.
+[102] La pregunta siguiente
+[103] ¿Qué pasaría si copiamos la columna activa a un vector contiguo antes de reutilizarla? Esa pregunta abre el experimento 2. Antes de agregar comunicación con MPI, comprobamos si un cambio pequeño en los accesos a datos mejora el cálculo local.
+[105] Experimento 2: cambiar el acceso, conservar el algoritmo
+[106] Hipótesis
+[107] El kernel right-looking original recorre la matriz por filas, pero lee la columna activa con saltos. Proponemos copiar esa columna a un vector contiguo y reutilizarlo durante la actualización. La hipótesis es que el ahorro en esas lecturas repetidas compense el costo de copiar.
+[108] a[k*n+j]: al aumentar k, la dirección avanza n valores.Right originalLectura dentro del bucle sobre kVersióna[k*n+j]: al aumentar k, la dirección avanza n valores.Right originalLectura dentro del bucle sobre kVersión
+[109] Right + vectorcolumn[k]: al aumentar k, la dirección avanza un valor.
+[111] Mantenemos los bucles en el orden j, i, k, los mismos destinos y las mismas multiplicaciones y restas. El pivote y el cálculo de la columna no cambian. Esto sigue siendo Cholesky right-looking; no es aún una versión por bloques ni una implementación MPI.
+[112] Costo de la modificación
+[114] El vector reserva n valores double y se reutiliza. Para n = 1024 ocupa 8 KiB. El total de valores copiados crece como n², mientras que las actualizaciones mantienen su trabajo cúbico. Reservamos el vector antes del cronómetro, pero todas las copias de columnas se incluyen en el tiempo medido.
+[115] Comparación controlada
+[116] Volvemos a medir left, right original y right con vector en la misma campaña, sobre las mismas matrices y la misma CPU lógica. Hacemos un calentamiento por variante y doce repeticiones: las seis permutaciones del orden de ejecución se usan dos veces. Así cada variante aparece igual cantidad de veces en cada posición.
+[118] Resultados: ¿compensa copiar la columna?
+[120] n | Left (ms) | Right (ms) | Vector (ms) | Right / vector | Left / vector
+64 | 0.0239 | 0.0230 | 0.0202 | 1.14 | 1.19
+128 | 0.2004 | 0.2570 | 0.1725 | 1.49 | 1.16
+256 | 1.8380 | 5.8159 | 1.3914 | 4.18 | 1.32
+512 | 18.0215 | 185.6965 | 12.3247 | 15.07 | 1.46
+1000 | 131.6738 | 95.7353 | 59.8545 | 1.60 | 2.20
+1024 | 144.7909 | 1159.0888 | 76.9183 | 15.07 | 1.88
+[121] Medianas de doce repeticiones por variante y tamaño. Un cociente mayor que 1 favorece a right con vector. Cada comparación usa exclusivamente observaciones de esta segunda campaña; no mezclamos tiempos nuevos con los del experimento 1.
+[123] Figura 2. Medianas y barras Q1–Q3. El eje vertical es logarítmico; el horizontal muestra tamaños como categorías. Las barras representan dispersión, no intervalos de confianza.
+[125] El resultado que cambia nuestra decisión
+[127] La variante con vector obtiene la menor mediana en los seis tamaños probados, incluyendo el costo de copiar las columnas. Para n = 1024 tarda 76,92 ms, frente a 1159,09 ms de right-looking original y 144,79 ms de left-looking.
+[128] La mejora medida es de 15,07 respecto de right-looking original y de 1,88 respecto de left-looking. La interpretación y la decisión experimental se desarrollan en la página siguiente.
+[130] Interpretación y decisión después del experimento
+[131] Copiar la columna activa a un vector contiguo mejora el rendimiento de right-looking en los seis tamaños ensayados, aun contabilizando las copias dentro del tiempo de factorización. Para n=1024, la mediana disminuye de 1159,09 ms a 76,92 ms: una aceleración de 15,07 respecto de right-looking original. En la misma campaña, la variante con vector también supera a left-looking por un factor de 1,88.
+[132] La mejora conserva la corrección en los casos comprobados. Las 216 observaciones de rendimiento cumplen el límite de residuo relativo de 10⁻¹², con un máximo registrado de aproximadamente 1,21 × 10⁻¹⁵, y las pruebas adicionales verifican casos conocidos, distintas matrices y condiciones inválidas. Esta evidencia respalda usar right-looking con vector como referencia local para continuar el proyecto.
+[133] El cambio demuestra que la organización de los accesos era una limitación importante de esta implementación. La menor sensibilidad entre n=1000 y n=1024 refuerza esa lectura, aunque faltan mediciones para separar caché, vectorización y otros efectos del compilador. El siguiente desafío es determinar si distribuir este kernel ya mejorado permite ahorrar más cálculo del que cuesta comunicar las columnas.
+[134] La pregunta siguiente
+[135] ¿La ganancia de repartir estas actualizaciones alcanza para pagar el envío de columnas? El siguiente experimento MPI comparará contra la mejor referencia secuencial contemporánea. Mejorar el kernel local reduce su tiempo base y también puede exigir más trabajo para amortizar la coordinación.
+[139] IIIIPARTE II
+[144] Diseño MPI y primera implementación distribuida
+[149] ¿Cómo repartir columnas y actualizar datos locales sin perder corrección ni introducir desequilibrio innecesario?
+[151] La razón para estudiar right-looking con MPI
+[152] Partimos de una propiedad fija de las columnas
+[153] Supongamos que cada columna tiene un proceso propietario. Queremos que los datos permanezcan en ese proceso y que el trabajo importante pueda repartirse sin migrar continuamente la matriz.
+[155] Con ese reparto | Left-looking | Right-looking
+Columna j | Su dueño necesita aportes de columnas anteriores que pueden estar en otros procesos. | Su dueño encuentra la columna ya actualizada, calcula el pivote y los valores inferiores.
+[158] Trabajo repartidoPara repartir el cálculo de esa columna
+[159] habría que distribuir sumas o filas y reunir resultados, o usar otra planificación.
+[160] La columna calculada se comunica; cada proceso actualiza las columnas futuras de las que ya es dueño.
+[164] DependenciasLos aportes y el pivote deben estar disponibles.
+[165] La columna debe estar lista antes de actualizar; las actualizaciones necesarias preceden al siguiente pivote.
+[168] La tabla describe una primera organización sencilla con columnas de dueño fijo. No afirma que todas las implementaciones left-looking necesiten esa misma comunicación ni que no puedan ser competitivas.
+[169] Dónde encontramos trabajo independiente
+[170] Con right-looking, terminada la columna j, dos procesos pueden actualizar destinos diferentes usando los mismos valores recibidos. La región activa contiene muchas actualizaciones, mientras que el pivote sigue siendo parte de la cadena de dependencias. 
+[171] Esta secuencia tiene una traducción directa a MPI: propietario → difusión de columna → actualizaciones locales. 
+[173] Netlib, Cholesky Factorization: panel y actualización distribuida right-looking.
+[175] Repartos estáticos: contiguo, cíclico y por bloques
+[176] En un reparto estático, el propietario de cada columna se fija antes de factorizar. Round-robin por columnas es exactamente el reparto cíclico: se asignan por turnos a los procesos 0, 1, …, P−1 y se repite.
+[179] Figura 3. Ejemplo de asignación con n = 12 y P = 3. Los colores y números indican propietarios.
+[181] Contiguo: un intervalo de columnas por proceso
+[182] P0 recibe 0–3, P1 recibe 4–7 y P2 recibe 8–11. La asignación es sencilla. El problema aparece cuando termina el primer intervalo: P0 deja de tener columnas futuras que actualizar mientras otros procesos siguen trabajando. Igual cantidad de columnas no implica igual cantidad de operaciones.
+[183] Cíclico: columnas alternadas
+[185] P0 recibe 0, 3, 6 y 9; P1 recibe 1, 4, 7 y 10; P2 recibe 2, 5, 8 y 11. Al reducirse la región activa, sus columnas quedan repartidas entre varios procesos durante más etapas. No elimina el desequilibrio ni la escasez de trabajo al final. [3]
+[186] Bloque-cíclico: repartir grupos de columnas
+[188] Agrupa b columnas consecutivas antes de pasar al siguiente proceso. Con b = 1 recuperamos el cíclico. Con bloques mayores se busca combinar reparto y operaciones locales más grandes; el tamaño b se elegirá midiendo. 
+[189] ScaLAPACK Users’ Guide, Two-dimensional Block-Cyclic Distribution.
+[191] Por qué el cíclico es nuestra primera hipótesis
+[192] Contemos el trabajo, sin inventar tiempos
+[193] En el kernel escalar right-looking, una columna global k recibe una actualización por cada columna anterior j. Cada una modifica sus n−k elementos inferiores. El número de actualizaciones de esa columna durante toda la factorización es:
+[195] Sumando U(k) según los propietarios de la figura anterior obtenemos este conteo exacto para n = 12 y P = 3:
+[197] Reparto | P0 | P1 | P2 | Máx. / media
+Contigua | 58 | 138 | 90 | 1.45
+Cíclica (round-robin) | 90 | 98 | 98 | 1.03
+Bloque-cíclica (b=2) | 82 | 106 | 98 | 1.11
+[198] Se cuentan restas de productos sobre elementos, no pivotes, divisiones, bytes ni segundos. Un valor Máx./media cercano a 1 indica mejor equilibrio de este trabajo acumulado. No representa una medición de rendimiento ni captura todas las esperas entre etapas.
+[200] Qué respalda este ejemplo
+[201] El cíclico distribuye mejor las actualizaciones que el contiguo en este caso. Para matrices densas y procesos similares, eso motiva comenzar con propiedad estática cíclica. Después compararemos bloque-cíclico cuando agrupemos operaciones. La decisión final dependerá del tiempo y de la comunicación medidos, no solo del conteo.
+[202] Distribución contigua no significa memoria contigua
+[203] El reparto indica qué índices globales pertenecen a un proceso. El almacenamiento local indica cómo los guarda en su RAM. Un proceso con columnas cíclicas puede empaquetarlas en un arreglo local contiguo; no necesita reservar los huecos de las columnas ajenas. [5]
+[204] Cuándo asignamos las columnas
+[205] En el esquema estático las asignamos al inicio. Durante cada etapa se comunica la columna lista y se trabaja sobre datos locales. No esperamos a un número de columna mágico para empezar a delegar. Cerca del final hay menos destinos independientes; reducir procesos o migrar datos solo convendría si su ahorro supera ese costo adicional.
+[206] [5] ScaLAPACK Users’ Guide, Local Storage Scheme and Block-Cyclic Mapping.
+[208] Reparto dinámico y criterio para continuar
+[209] Qué decide una distribución dinámica
+[210] Un planificador asigna tareas durante la ejecución según qué procesos están libres. En Cholesky no puede entregar cualquier columna sin más: solo puede despachar tareas cuyas dependencias estén resueltas.
+[211] Una tarea podría actualizar un bloque usando un panel ya calculado. [4]
+[212] Si el proceso elegido no tiene los datos, debe recibirlos o acceder a ellos. Además, dos tareas que modifican el mismo bloque deben respetar su dependencia o combinar sus resultados de forma segura. Por eso distinguimos la propiedad de datos de la planificación de tareas: es posible fijar una y hacer dinámica la otra.
+[213] Cuándo podría ayudar y qué cuesta
+[215] Aspecto | Estático cíclico | Dinámico
+Asignación | Se conoce de antemano; no consulta una cola por tarea. | Se decide al quedar libre un trabajador y estar lista una tarea.
+[218] Desigualdad entre procesos
+[219] Un proceso lento puede retrasar etapas.Puede asignar más tareas a trabajadores
+[220] rápidos.
+[223] Datos ycoordinaciónPropiedad fija; comunicación del panelpredecible.Colas, mensajes, dependencias y posiblestransferencias de datos.Datos ycoordinaciónPropiedad fija; comunicación del panelpredecible.Colas, mensajes, dependencias y posiblestransferencias de datos.
+[224] GranularidadColumnas o grupos con tamaño fijado.Tareas pequeñas equilibran mejor, pero
+[225] aumentan coordinación; tareas grandes reducen ese costo.
+[226] Para iniciar la implementación con matrices densas y recursos similares, una distribución estática permite definir propietarios y comunicaciones de forma sencilla y predecible. Esa simplicidad facilita comprobar la corrección y estudiar los costos antes de introducir un planificador de tareas.
+[227] La planificación dinámica sigue siendo una alternativa si aparecen esperas por heterogeneidad o por disponibilidad desigual de trabajo. Su evaluación tendría que considerar dependencias, granularidad, coordinación y movimiento de datos, además del equilibrio logrado. En esta etapa no existe una comparación temporal que permita declarar ganador a uno de los enfoques. La decisión es comenzar con el esquema estático y reconsiderar tareas dinámicas si el perfil muestra una limitación que justifique su costo y complejidad.
+[228] Dorris et al., Task-Based Cholesky Decomposition: tareas listas y planificación dinámica.
+[230] ¿Cuándo conviene repartir el trabajo?
+[231] En la etapa anterior mejoramos el acceso a memoria de right-looking. Ahora damos el primer paso hacia memoria distribuida: implementamos MPI en C y comparamos propiedad estática contigua y cíclica.
+[232] Python analiza los tiempos y prepara gráficos; no realiza la factorización.
+[233] Hipótesis inicial
+[234] Con matrices pequeñas, comunicar cada columna puede costar más que el cálculo ahorrado. Al crecer n, esperamos que varios procesos resulten útiles. El reparto cíclico debería equilibrar mejor las actualizaciones, pero eso no garantiza que sea el más rápido en esta implementación.
+[235] Qué hace cada proceso
+[236] Asignar: repartimos las columnas antes de factorizar. Cada proceso guarda solo las suyas, empaquetadas por filas.
+[237] Calcular: el dueño de la columna j calcula el pivote y los elementos inferiores de esa columna.
+[238] Difundir: todos llaman a MPI_Bcast; el dueño envía el tramo de la columna desde j hasta n−1.
+[239] Actualizar: cada proceso modifica las posiciones de sus columnas k > j, usando el vector recibido. Luego avanzamos a j+1.
+[241] Los destinos pertenecen a procesos distintos: las actualizaciones de una etapa son independientes. Las columnas sucesivas siguen teniendo dependencias. Usamos comunicaciones bloqueantes y no incorporamos solapamiento ni tareas dinámicas.
+[242] La misma matriz, dos propietarios posibles
+[244] n=8, P=3 | Columnas de P0 | Columnas de P1 | Columnas de P2
+Contiguo | 0, 1, 2 | 3, 4, 5 | 6, 7
+[245] Cíclico0, 3, 61, 4, 72, 5
+[247] En contiguo, las primeras n mod P tareas reciben una columna adicional. En cíclico, owner(k)=k mod P. Incluso si P > n, los procesos sin columnas participan en las comunicaciones. El reparto no cambia durante la factorización.
+[248] MPI_Bcast distribuye un mensaje desde el dueño a todos los procesos del comunicador. Fuente: documentación oficial de Open MPI.
+[250] Cómo medimos y qué comparamos
+[251] Un equipo, WSL2 / Ubuntu 26.04, AMD Ryzen 5 2600; Open MPI 5.0.10 y GCC 15.2.0.EquipoProtocolo ejecutadoDecisiónUn equipo, WSL2 / Ubuntu 26.04, AMD Ryzen 5 2600; Open MPI 5.0.10 y GCC 15.2.0.EquipoProtocolo ejecutadoDecisión
+[252] Compilación-O3 -std=c11 -Wall -Wextra -Wpedantic; double, sin BLAS.
+[253] Tamaños y procesosn = 64, 256, 512, 1024; P = 1, 2, 3, 4. Un proceso por núcleo distinto, según la topologíaexpuesta por WSL.Tamaños y procesosn = 64, 256, 512, 1024; P = 1, 2, 3, 4. Un proceso por núcleo distinto, según la topologíaexpuesta por WSL.
+[254] Repeticiones MPIUn calentamiento por reparto y 8 repeticiones medidas. Contiguo y cíclico alternan el orden. El orden de P rota entre tamaños.
+[255] ReferenciassecuencialesLeft, right original y right con vector. Seis repeticiones antes y seis después de MPI paracada tamaño; misma semilla 2026.ReferenciassecuencialesLeft, right original y right con vector. Seis repeticiones antes y seis después de MPI paracada tamaño; misma semilla 2026.
+[257] El tiempo principal incluye cálculo y comunicación
+[259] Una barrera coordina el inicio. Cada proceso mide su duración con MPI_Wtime; al finalizar tomamos el máximo. No restamos marcas de reloj de procesos diferentes. El cronómetro incluye el armado del vector, las difusiones y las actualizaciones; excluye generación, reserva, distribución inicial, reunión del factor y comprobaciones. Tampoco incluye iniciar mpirun.
+[260] Por tanto, medimos el kernel de factorización, no el tiempo de la aplicación completa. El proceso 0 genera y reúne matrices completas para este banco de pruebas; esa preparación también limita la escalabilidad futura.
+[261] Dos aceleraciones responden preguntas distintas
+[263] La primera compara un reparto consigo mismo al aumentar P. La segunda comprueba si supera al mejor secuencial de esta campaña; esa es la relevante para decidir si nos conviene usar MPI. Reportamos medianas y cuartiles inclusivos. Los cuartiles describen dispersión; no son intervalos de confianza.
+[264] MPI_Wtime mide tiempo local. Fuente: documentación oficial de Open MPI.
+[266] Resultado: más procesos no siempre ayudan
+[268] Figura 1. Medianas de 8 repeticiones por configuración; barras Q1-Q3. La línea verde muestra la mejor mediana secuencial contemporánea. Cada panel tiene su propia escala vertical.
+[270] Lo que vemos
+[271] n=64: usar más de un proceso aumenta el tiempo en ambos repartos. Hay demasiado poco trabajo para amortizar la coordinación.
+[272] n=256 y n=512: el contiguo ya obtiene mejoras útiles; el cíclico presenta resultados cercanos al secuencial o más lentos en varias configuraciones.
+[273] n=1024: ambos repartos mejoran al pasar de 1 a 3 procesos. Agregar un cuarto no reduce la mediana en esta campaña.
+[274] Contiguo y cíclico comparten el código de factorización y las operaciones matemáticas. Sin embargo, el reparto cambia los índices, los accesos al vector difundido y el código que puede optimizar el compilador. Esta prueba compara las implementaciones completas, no aísla exclusivamente el balance de carga.
+[276] ¿Cuándo empieza a convenir MPI?
+[278] n | Mejor sec. (ms) | Mejor MPI P≥2 | MPI (ms) | S útil
+64 | 0,021 | Contiguo, P=2 | 0,058 | 0,35
+256 | 1,434 | Contiguo, P=3 | 0,998 | 1,44
+512 | 10,265 | Contiguo, P=4 | 6,019 | 1,71
+1024 | 82,654 | Contiguo, P=3 | 40,028 | 2,06
+[279] Selección descriptiva de la menor mediana entre configuraciones probadas, no una garantía de que siempre sea la mejor. Right con vector fue la mejor referencia secuencial en los cuatro tamaños.
+[281] Respuesta provisional para este equipo
+[282] Con n=64 no conviene paralelizar este kernel. El primer tamaño probado con mejora clara del contiguo es n=256. Para n=1024 y P=3, el contiguo tarda 40,03 ms frente a 82,65 ms del secuencial: S útil = 2,06.
+[283] No encontramos un umbral exacto. Faltan tamaños intermedios y campañas independientes. Tampoco suponemos que la conveniencia sea monótona: caché, reparto, sistema operativo y red pueden cambiar el resultado. P=3 y P=4 contiguos tienen cuartiles que se superponen en n=1024; no declaramos una superioridad concluyente de tres procesos.
+[285] Figura 2. Aceleración útil del cíclico. Cerca de 1, una pequeña diferencia de medianas no basta para afirmar una mejora robusta. La evaluación entre nodos queda pendiente.
+[287] ¿Por qué no ganó el cíclico?
+[288] La hipótesis de mejor reparto sí se cumple para el número de actualizaciones. Para n=1024 y P=3, los conteos exactos por proceso son:
+[290] Reparto | P0 | P1 | P2
+Contiguo | 46 434 993 | 86 086 814 | 46 434 993
+[291] Cíclico59 652 15359 652 15359 652 494
+[293] Pero el tiempo depende también de cuánto cuesta cada actualización y cuándo queda disponible. En el contiguo, el vector difundido se lee en posiciones consecutivas. En el cíclico, sus índices avanzan de P en P, aunque los destinos locales estén empaquetados. El cálculo de índices también difiere.
+[295] Figura 3. Perfil separado para n=1024, P=3, con 3 repeticiones e instrumentación interna. Se apilan medianas de componentes; su suma no es necesariamente la mediana del total. Bcast incluye transferencia y espera por otros procesos: no mide únicamente red.
+[297] Conclusiones
+[298] La primera implementación MPI obtiene beneficios frente al mejor secuencial contemporáneo en varios tamaños, pero favorece al reparto contiguo en todas las combinaciones de tamaño y cantidad de procesos probadas. Para n=1024, el contiguo con tres procesos alcanza 40,03 ms frente a 82,65 ms secuenciales, con aceleración útil de 2,06. En n=64, la coordinación agregada supera el ahorro de cálculo y conviene conservar la ejecución secuencial.
+[299] El resultado obliga a distinguir equilibrio de operaciones y velocidad efectiva. El cíclico reparte mejor las actualizaciones, pero incluso con P=1 tarda 145,49 ms frente a 90,90 ms del contiguo, cuando ambos poseen las mismas columnas. Esa diferencia demuestra que el desbalance entre procesos no explica por sí solo la desventaja del cíclico; también intervienen los caminos de acceso, indexación y ejecución local.
+[300] Conservamos el contiguo como referencia práctica de esta etapa y revisamos el kernel local del cíclico antes de descartarlo. La campaña demuestra una posibilidad de aceleración del kernel, con generación, distribución inicial y reunión fuera del reloj; todavía no establece el beneficio del programa completo ni un umbral exacto de conveniencia de MPI.
+[303] ¿Y si ambos repartos leyeran datos contiguos?
+[304] En el experimento anterior, el cíclico equilibraba mejor el número de operaciones, pero tardaba más. Había una pista: incluso con un solo proceso, cuando ambos repartos poseen las mismas columnas, sus tiempos eran distintos. Antes de descartar el reparto cíclico, decidimos reducir el costo de acceso e indexación del cálculo local.
+[305] Hipótesis
+[306] Después de recibir la columna j, cada proceso copia los valores que necesita a un vector ordenado como sus columnas propias. Esperamos que reutilizar ese vector compense el costo de copiarlo, especialmente en el cíclico. La copia se incluye en el tiempo: no damos por hecho que sea beneficiosa.
+[307] Cuánto cuesta y qué se conserva
+[308] Cada proceso reserva tantos doubles adicionales como columnas propias: ocho bytes por columna local en este equipo. La memoria adicional máxima por proceso es:
+[310] Durante toda la factorización se copian n(n−1)/2 valores entre todos los procesos. Es trabajo cuadrático adicional frente al cálculo cúbico de Cholesky; eso por sí solo no garantiza una mejora para tamaños pequeños.
+[311] No cambian los propietarios, las dependencias, el orden de las operaciones aritméticas ni las llamadas a MPI_Bcast. El bucle interno accede ahora a datos consecutivos en ambos repartos. La asignación de índices fuera de ese bucle todavía difiere.
+[313] Un experimento con cuatro variantes
+[315] Reparto | Lectura original | Vector local
+Contiguo | Referencia anterior | Nueva variante
+[316] CíclicoReferencia anteriorNueva variante
+[319] Cómo evitamos mezclar campañas
+[320] Volvimos a medir las cuatro variantes en el mismo ejecutable y sobre las mismas matrices. Los cocientes de esta etapa usan únicamente tiempos nuevos; no dividimos tiempos actuales por los del PDF anterior. La generación y todas las factorizaciones están en C. Python valida los CSV y obtiene estadísticas y gráficos.
+[321] WSL2 / Ubuntu 26.04, AMD Ryzen 5 2600, Open MPI 5.0.10, GCC 15.2.0; -O3, double, sinBLAS.EntornoProtocolo ejecutadoConfiguraciónWSL2 / Ubuntu 26.04, AMD Ryzen 5 2600, Open MPI 5.0.10, GCC 15.2.0; -O3, double, sinBLAS.EntornoProtocolo ejecutadoConfiguración
+[322] Tamaños y procesosn=64,256,512,1024 y P=1,2,3,4. Un proceso por núcleo distinto según la topología expuesta por WSL.
+[323] Orden y repeticionesUn calentamiento por variante; ocho repeticiones medidas. Cada variante ocupa cadaposición dos veces. Se equilibran también las parejas consecutivas dentro de cada repetición.Orden y repeticionesUn calentamiento por variante; ocho repeticiones medidas. Cada variante ocupa cadaposición dos veces. Se equilibran también las parejas consecutivas dentro de cada repetición.
+[324] Tiempo MPIMáximo de las duraciones locales, con inicio coordinado por barrera. Incluye copia del vector, cálculo y difusión.
+[325] Fuera del cronómetroReserva de memoria, generación, distribución inicial, reunión, validación y arranque deMPI.Fuera del cronómetroReserva de memoria, generación, distribución inicial, reunión, validación y arranque deMPI.
+[326] Referencia secuencialLeft, right original y right con vector: seis ejecuciones antes y seis después de MPI para cada n.
+[329] Qué reportamos
+[331] Un cociente mayor que 1 indica una mejora. Usamos medianas y cuartiles inclusivos Q1-Q3. Las barras de dispersión no son intervalos de confianza; ocho repeticiones en una campaña no sustituyen repeticiones independientes en otros momentos.
+[333] Resultado: la copia ayuda sobre todo al cíclico
+[335] Figura 1. Medianas de ocho repeticiones; barras Q1-Q3. Líneas discontinuas: acceso original. Líneas continuas: vector local. La referencia secuencial es la mejor mediana de las tres variantes secuenciales de esta campaña. Cada panel tiene su propia escala.
+[337] La hipótesis se cumple con límites
+[338] n=64: todos los casos con P>1 son más lentos que el mejor secuencial; agregar una copia no resuelve la falta de trabajo útil.
+[339] n≥256: el cíclico con vector tiene menor mediana que el cíclico original en todos los P probados. Contiguo: copiar no aporta una mejora sistemática; su lectura original ya era consecutiva y en varios casos la copia agrega costo.
+[340] Entre las nuevas variantes, el cíclico presenta menor mediana que el contiguo para P=2,3,4 y n≥256. Sin embargo, varias distribuciones de tiempos se superponen: esto respalda una elección provisional, no una superioridad universal ni una prueba de significación estadística.
+[342] El caso n=1024, explicado con números
+[344] P | Contiguo original | Contiguo + vector | Cíclico original | Cíclico + vector
+1 | 83,28 | 86,33 | 147,55 | 84,81
+2 | 51,49 | 53,17 | 86,11 | 49,64
+3 | 39,62 | 39,66 | 72,04 | 32,77
+4 | 40,03 | 46,93 | 72,57 | 36,99
+[345] Todos los tiempos están en milisegundos. Mediana del mejor secuencial: 88,62 ms, correspondiente a right con vector.
+[347] ¿Se amortizó la copia?
+[348] Con P=3, el cíclico pasa de 72,04 ms a 32,77 ms: mejora 2,20 veces respecto de su versión original, incluyendo el tiempo de copiar. Frente al mejor secuencial, la aceleración útil es 2,70.
+[349] El control con un solo proceso
+[350] Antes de copiar, P=1 da 83,28 ms en contiguo y 147,55 ms en cíclico. Con el vector local, quedan en 86,33 y 84,81 ms, con cuartiles superpuestos. La gran diferencia previa se redujo: el reparto entre procesos no podía explicar esa diferencia inicial.
+[352] Figura 2. Aceleración útil de las nuevas variantes. Tres procesos cíclicos dieron la menor mediana para n=1024; sus cuartiles se superponen con los de cuatro procesos y con el contiguo de tres. Debemos repetir antes de afirmar cuál es la mejor configuración de forma estable.
+[354] Qué decidimos y cuál es la próxima pregunta
+[355] Qué podemos concluir
+[356] El vector local permite al reparto cíclico aprovechar mejor su distribución del trabajo. Para n≥256, reduce su mediana frente al cíclico original en todos los valores de P ensayados. En n=1024 y P=3, el tiempo pasa de 72,04 ms a 32,77 ms, una mejora de 2,20 que incluye la copia. Frente al mejor secuencial de la misma campaña, la aceleración útil alcanza 2,70.
+[357] El control con un proceso refuerza la interpretación: la diferencia previa de 83,28 ms frente a 147,55 ms entre contiguo y cíclico se reduce a 86,33 ms frente a 84,81 ms con vector. La mejora del acceso y la indexación, acompañada por la vectorización registrada por el compilador, es compatible con la reducción del costo local. La campaña no separa cuánto aporta cada mecanismo.
+[358] La copia no mejora sistemáticamente al contiguo, que ya leía consecutivamente los valores utilizados. Adoptamos el cíclico con vector como candidato principal y mantenemos el contiguo original como referencia. Las distribuciones de tiempos de algunas configuraciones se superponen, por lo que la elección requiere confirmación; para matrices pequeñas sigue siendo preferible el secuencial en las condiciones medidas.
+[359] ¿En qué tamaño empieza a compensar esta versión?
+[360] Para responder mejor, el próximo paso razonable es probar tamaños intermedios entre 64 y 256, repetir campañas independientes y comparar pocos valores de P. Así evitamos elegir un umbral por una sola mediana. 
+[364] IIIIIIPARTE III
+[369] Cruce de rendimiento y comparación de algoritmos MPI
+[374] ¿En qué tamaños MPI empieza a ayudar y qué variante paralela conviene conservar?
+[376] ¿Cuál variante nos conviene paralelizar?
+[377] Hasta ahora habíamos elegido right-looking por su organización natural de las actualizaciones, pero eso era una razón de diseño. Para responder con evidencia implementamos también left-looking con MPI y comparamos ambas variantes bajo las mismas condiciones.
+[378] La dependencia que comparten
+[379] En ambas variantes, la columna j solo puede finalizar cuando están disponibles las contribuciones que la afectan. Right-looking no elimina esa dependencia ni permite calcular arbitrariamente todas las columnas a la vez.
+[380] Dónde aparece el trabajo paralelo
+[382] Variante | Antes de calcular j | Trabajo repartido después
+Left-looking | Reúne desde las columnas 0,...,j-1 las contribuciones necesarias para j. | Con el pivote listo, calcula en paralelo distintos elementos Lij de la columna actual.
+[385] Right-lookingLas columnas anteriores ya aplicaron sus
+[386] aportes sobre la matriz de trabajo.
+[387] Con j lista, actualiza en paralelo muchas posiciones de las columnas futuras.
+[390]   
+[393] Una formulación precisa
+[394] Left-looking reúne el pasado para construir la columna actual. Right-looking propaga la columna actual hacia el futuro. Ambos admiten paralelismo; right-looking expone un conjunto amplio de actualizaciones sobre la región restante. En versiones por tareas se puede priorizar la próxima columna y continuar otras actualizaciones como look-ahead.
+[395] Nuestra versión right-looking es sincronizada por columnas: difunde j y cada proceso actualiza sus columnas propias antes de la etapa siguiente. Por eso esta comparación evalúa dos implementaciones concretas, no el máximo paralelismo teórico posible de cada familia.
+[397] Cómo hicimos comparable el experimento
+[398] La misma propiedad de datos
+[399] Ambas variantes usan distribución cíclica estática. Cada proceso almacena sus columnas en memoria local contigua y recibe exactamente la misma matriz SPD. La distribución inicial y la reunión final son idénticas y quedan fuera del cronómetro del kernel.
+[400] El propietario calcula la columna j.Cada proceso calcula sumas parciales con sus columnasanteriores.Right-looking MPILeft-looking MPIEl propietario calcula la columna j.Cada proceso calcula sumas parciales con sus columnasanteriores.Right-looking MPILeft-looking MPI
+[403] MPI_Reduce reúne el pivote y los elementos inferiores en el propietario de j.
+[404] MPI_Bcast difunde el tramo terminado de j.
+[407] El propietario guarda la nueva columna; se difunde elpivote.Cada proceso actualiza sus columnas futuras con vectorlocal contiguo.El propietario guarda la nueva columna; se difunde elpivote.Cada proceso actualiza sus columnas futuras con vectorlocal contiguo.
+[409] Diferencia de coordinación
+[410] Por columna, left usa una reducción escalar, una reducción vectorial -salvo en la última columna- y una difusión escalar: hasta 3n-1 colectivas. Right usa una difusión vectorial por columna: n colectivas. Los volúmenes exactos dependen de la implementación de MPI, pero left introduce más puntos de coordinación.
+[411] Protocolo
+[412] n=64,128,256,512,1024; P=1,2,3,4.Tamaños y procesosValorDecisiónn=64,128,256,512,1024; P=1,2,3,4.Tamaños y procesosValorDecisión
+[413] RepeticionesUn calentamiento y ocho mediciones por algoritmo y configuración. Orden left/right alternado.
+[414] EntornoWSL2, AMD Ryzen 5 2600, Open MPI 5.0.10, GCC 15.2.0, -O3, double, sin BLAS.EntornoWSL2, AMD Ryzen 5 2600, Open MPI 5.0.10, GCC 15.2.0, -O3, double, sin BLAS.
+[415] TiempoMáximo de las duraciones locales tras una barrera. Incluye cálculo y colectivas; excluye Scatterv, Gatherv y validación.
+[416] CorrectitudResiduo relativo <=10^-12 y comparación con el factor right secuencial.CorrectitudResiduo relativo <=10^-12 y comparación con el factor right secuencial.
+[418] Resultado: right fue más rápido en todos los casos
+[420] Figura 1. Medianas de ocho repeticiones; barras Q1-Q3. Se usa una escala propia por panel.
+[422] n | P | Left (ms) | Right (ms) | Left / Right
+64 | 1 | 0,03 | 0,02 | 1,19
+128 | 1 | 0,22 | 0,17 | 1,30
+256 | 3 | 1,26 | 0,90 | 1,41
+512 | 3 | 6,48 | 4,68 | 1,38
+1024 | 3 | 54,08 | 31,48 | 1,72
+[423] La tabla usa, para cada n, el P que minimizó la mediana de right. No selecciona P por separado para favorecer a left. En las 20 configuraciones completas, right tuvo menor mediana.
+[424] Caso principal: n=1024
+[425] Con tres procesos, left tardó 54,08 ms y right 31,48 ms: left fue 1,72 veces más lento. Respecto de su propio P=1, left alcanzó 2,89x y right 2,79x. Ambos mejoraron al paralelizar y ambos empeoraron al pasar de tres a cuatro procesos.
+[427] Por qué right ganó en nuestra implementación
+[429] Figura 2. Perfil separado de n=1024, P=3, cuatro repeticiones por algoritmo.
+[431] La comunicación de left es más fragmentada
+[432] Left necesita reunir sumas parciales en cada columna. Aunque reparte bien los productos locales, paga reducciones vectoriales y escalares además de difundir cada pivote. Right difunde la columna terminada una vez y realiza actualizaciones locales sobre los datos que cada proceso posee.
+[433] En el perfil, los tres rangos de left acumulan aproximadamente entre 10,80 y 14,29 ms dentro de MPI_Reduce, además de sus difusiones. Right no usa reducciones en el kernel. Esta observación explica parte de la diferencia, pero el tiempo dentro de una colectiva mezcla transferencia y espera.
+[434] Conclusión
+[436] La comparación directa respalda continuar con right-looking MPI con vector local: obtiene menor mediana que left-looking MPI en las veinte configuraciones ensayadas. Para n=1024 y P=3, right-looking tarda 31,48 ms y left-looking 54,08 ms; el cociente de 1,72 expresa la ventaja temporal de right-looking bajo el mismo reparto y entorno.
+[438] Ambas variantes se benefician del paralelismo. En ese tamaño, left-looking alcanza una aceleración de 2,89 respecto de su propio P=1, ligeramente mayor que el 2,79 de right-looking, aunque conserva un tiempo absoluto superior. El resultado muestra por qué la escalabilidad respecto de una base propia debe acompañarse del tiempo final: una mayor aceleración relativa puede coexistir con una ejecución más lenta.
+[440] La implementación left-looking introduce hasta 3n−1 colectivas frente a las n difusiones de right-looking. El perfil registra un costo apreciable dentro de las reducciones y respalda la coordinación como parte de la diferencia, sin separar transferencia y espera. La decisión se limita a estas implementaciones escalares, distribución cíclica y condiciones locales. Right-looking queda seleccionado por rendimiento observado, además de su conveniencia de diseño.
+[441] ¿Cuándo conviene usar más procesos?
+[443] MPI resulta conveniente cuando el ahorro conseguido al repartir el cálculo supera los costos adicionales del camino paralelo dentro de la tarea que interesa medir. El modelo de trabajo dependiente, actualizaciones repartibles y comunicación orienta esa evaluación, pero no determina por sí solo un tamaño de cruce.
+[445] La decisión práctica debe comparar MPI con la mejor referencia secuencial medida en condiciones equivalentes. La comparación con MPI P=1 responde otra pregunta: cuánto escala el propio programa paralelo. Si el objetivo es reducir la espera hasta que termine el comando, también deben medirse preparación, validación, arranque y cierre según los límites de ese reloj. Esta distinción fija el criterio de los experimentos siguientes y evita obtener aceleraciones favorables a partir de una referencia secuencial que ya fue superada.
+[446] Repartir trabajo ahorra cálculo por proceso, pero agrega comunicación, coordinación y posibles esperas. Un modelo orientativo, sin solapamiento, es:
+[448] Tdep representa trabajo dependiente no repartido; 
+[449] Tupd, las actualizaciones repartibles. 
+[450] En este modelo, usar P procesos compensa frente al mismo algoritmo secuencial cuando:
+[452] Para un mensaje de m bytes, el modelo α + βm distingue el costo de iniciar el envío y el costo por volumen. Un broadcast depende además de P y de la implementación MPI. [1]
+[453] La comparación que realmente decide
+[456] Rv indica right con vector. Conviene MPI si reduce de forma repetible el tiempo frente a esa base. También compararemos el mismo kernel MPI con P = 1 y P mayor para aislar su escalabilidad. Si importa el tiempo completo de una tarea, debemos sumar arranque y distribución inicial.
+[457] Para n = 1024, el experimento 2 deja una referencia local de 76,92 ms. Una versión MPI tendría que mejorar ese tiempo total de factorización en condiciones comparables. No usaremos los 1159,09 ms de right original para presentar un speedup artificialmente favorable.
+[458] Cómo obtendremos el umbral
+[459] Para cada n probaremos P = 1, 2, 3, 4 y otros valores permitidos, con varias ejecuciones. Elegiremos el menor tiempo estable; si la diferencia es pequeña frente a la dispersión, preferiremos menos recursos. El primer n favorable será un cruce observado para esa configuración, no una constante universal.
+[461] ¿Cuándo empieza a compensar MPI?
+[462] Después de mejorar el cíclico con un vector local, observamos que MPI podía ganar con matrices grandes y perder con pequeñas. Faltaba precisar la transición. Este experimento conserva el código C del anterior y cambia únicamente el plan de medición.
+[463] La pregunta concreta
+[464] Entre n=64 y n=256, ¿qué tamaños permiten al cíclico con vector superar al mejor secuencial de manera consistente con dos o tres procesos? 
+[465] Protocolo fijado antes de medir
+[466] 64, 96, 128, 160, 192, 224 y 256.TamañosEjecuciónDecisión64, 96, 128, 160, 192, 224 y 256.TamañosEjecuciónDecisión
+[467] RondasTres rondas con lanzamientos separados en la misma sesión. Orden de tamaños ascendente, descendente y rotado; orden de P también rotado.
+[468] RepeticionesOcho tiempos por variante MPI y configuración, tras calentamiento. Doce tiempos porvariante secuencial: seis antes y seis después.RepeticionesOcho tiempos por variante MPI y configuración, tras calentamiento. Doce tiempos porvariante secuencial: seis antes y seis después.
+[469] EntradasMismo generador SPD en C, misma semilla 2026 y mismo n para todas las variantes.
+[470] EntornoWSL2, AMD Ryzen 5 2600, GCC 15.2.0 y Open MPI 5.0.10. -O3; un proceso por núcleodistinto según WSL.EntornoWSL2, AMD Ryzen 5 2600, GCC 15.2.0 y Open MPI 5.0.10. -O3; un proceso por núcleodistinto según WSL.
+[472] Criterio conservador de mejora
+[475] Exigimos aceleración superior a 1,10 y separación entre los cuartiles centrales en las tres rondas. Los cuartiles secuenciales corresponden a la variante con menor mediana en esa ronda. El margen del 10 % es una decisión práctica explícita, no una constante de Cholesky.
+[476] Esta regla es descriptiva: Q1-Q3 no es un intervalo de confianza y su separación no demuestra significación estadística. Las tres rondas comparten equipo y sesión; no representan días, máquinas o condiciones independientes.
+[478] La transición observada entre 64 y 256
+[480] n | S con P=2 | Criterio | S con P=3 | Criterio
+64 | 0,27 - 0,51 | 0/3 | 0,15 - 0,22 | 0/3
+96 | 0,53 - 0,69 | 0/3 | 0,38 - 0,39 | 0/3
+128 | 0,72 - 0,88 | 0/3 | 0,66 - 0,77 | 0/3
+160 | 0,72 - 0,96 | 0/3 | 0,57 - 0,87 | 0/3
+192 | 0,87 - 0,91 | 0/3 | 0,70 - 0,93 | 0/3
+224 | 0,73 - 0,99 | 0/3 | 0,83 - 1,06 | 0/3
+256 | 1,13 - 1,43 | 2/3 | 1,12 - 1,49 | 3/3
+[481] Cada intervalo muestra el mínimo y máximo de las tres aceleraciones calculadas por ronda. No es un intervalo de confianza. “Criterio” cuenta las rondas que cumplen simultáneamente ambas condiciones.
+[483] Figura 1. Aceleración del cíclico con vector frente al mejor secuencial contemporáneo. Por encima de 1 gana MPI; por encima de 1,10 supera el margen elegido, aunque todavía debe cumplir la condición de cuartiles.
+[485] Qué muestran las repeticiones
+[486] n≤192: MPI con dos y tres procesos tuvo mayor mediana que el secuencial en las tres rondas.
+[487] n=224: tres procesos ganaron apenas en una ronda y perdieron en las otras dos.
+[488] n=256: ambos valores de P ganaron por mediana en las tres rondas; solo P=3 cumplió también el criterio completo en las tres.
+[489] Por tanto, n=256 con P=3 es el primer punto de la grilla probada que satisface nuestra regla. No medimos un umbral exacto y no demostramos que todo n mayor que 256 tenga el mismo comportamiento.
+[491] Por qué dos y tres procesos no reciben la misma conclusión
+[493] Ronda | Secuencial (ms) | MPI P=2 (ms) | MPI P=3 (ms)
+1 | 1,431 | 1,264 | 0,959
+2 | 1,388 | 0,972 | 1,235
+3 | 1,398 | 1,156 | 1,099
+[494] Medianas para n=256. Right con vector fue la referencia secuencial elegida en estas tres comparaciones. No se mezclan rondas para calcular una aceleración única.
+[496] Una mediana favorable puede convivir con dispersión
+[497] En la primera ronda, dos procesos tienen aceleración 1,13, superior a 1,10. Sin embargo, su Q3 es 1,452 ms y el Q1 secuencial es 1,380 ms. Los intervalos centrales se superponen y la configuración no pasa nuestra segunda condición.
+[498] Con tres procesos, las tres rondas cumplen ambas condiciones. Sus aceleraciones son 1,49, 1,12, 1,27. Eso respalda una mejora consistente dentro de esta sesión, pero no demuestra que tres procesos siempre sean mejores que dos: en la segunda ronda, P=2 tuvo menor mediana que P=3.
+[499] Conclusión
+[501] En la grilla local ensayada, n=256 con tres procesos es el primer punto que cumple en las tres rondas el criterio prefijado de mejora: aceleración mayor que 1,10 y separación de los cuartiles centrales respecto del mejor secuencial contemporáneo. Las aceleraciones de 1,49, 1,12 y 1,27 respaldan una ventaja consistente dentro de esta sesión.
+[503] Con dos procesos también hay una mediana favorable en las tres rondas para n=256, pero el criterio completo se cumple en dos. En la ronda restante, la dispersión central se superpone con la secuencial. La evidencia permite distinguir entre una mejora de mediana y una ventaja que satisface la regla práctica de estabilidad elegida. Tampoco establece que tres procesos siempre terminen antes que dos: en una de las rondas ocurre lo contrario.
+[505] Los puntos n=224 y n=256 delimitan una región interesante para investigar, sin garantizar un umbral exacto ni una regla para todos los tamaños mayores. El cruce observado corresponde al kernel, con lanzamiento, generación, distribución inicial, reunión y validación fuera del reloj. La siguiente etapa debe comprobar qué ventaja persiste al incluir el flujo necesario para obtener el resultado completo.
+[508] IVIVPARTE IV
+[513] Flujo de datos y cierre local
+[518] ¿La mejora persiste cuando se mide el trabajo necesario para obtener el factor completo?
+[519] ¿Quién genera la matriz?
+[521] Pregunta e hipótesis
+[522] ¿Podemos evitar que el proceso 0 genere y distribuya toda la matriz? Si cada proceso calcula sus columnas directamente, eliminamos el empaquetado central y Scatterv. A cambio, se recalculan los valores simétricos y aparecen accesos por columnas; la mejora debe medirse.
+[524] Implementación: exactamente la misma matriz
+[525] El generador original visita las parejas i<j en orden. Identificamos la posición de cada pareja en esa secuencia y recuperamos el estado del generador entero sin recorrer los valores anteriores. La suma diagonal conserva el mismo orden que antes. Por ello, el resultado se puede comprobar bit a bit.
+[528] La simetría y la dominancia diagonal estricta con diagonal positiva aseguran que la matriz sea definida positiva. Cada proceso guarda sus columnas cíclicas en el formato que ya utiliza nuestro Cholesky MPI.
+[530] Protocolo
+[531] WSL, Ryzen 5 2600; 6 núcleos físicos. Tamaños 512, 1024 y 2048; P=1 a 6; semilla 2026; un calentamiento y 6 repeticiones alternadas por método. Total: 216 observaciones. Centralizado: generación en rango 0, empaquetado y Scatterv. Distribuido: generación directa local. Ambos terminan con idéntica matriz distribuida.
+[533] El cronómetro excluye reserva, arranque MPI, factorización y validación. Se toma el máximo del tiempo total entre procesos. Las fases no están sincronizadas: sus máximos incluyen esperas distintas y no deben sumarse para reconstruir el total.
+[538] n | P | Central (ms) | Distrib. (ms) | Cociente
+512 | 1 | 1.366 | 2.262 | 0.60x
+512 | 6 | 1.748 | 0.208 | 8.40x
+1024 | 1 | 6.097 | 7.359 | 0.83x
+1024 | 6 | 10.759 | 1.303 | 8.26x
+2048 | 1 | 34.243 | 55.519 | 0.62x
+2048 | 6 | 51.862 | 8.385 | 6.18x
+[541] Para n=2048 y P=6, el cociente entre medianas de preparación es 6.18. Este cociente compara dos métodos con el mismo P; no es el speedup de Cholesky ni el de la aplicación completa.
+[543] Conclusión
+[545] La generación directa de columnas reduce el tiempo de preparación con seis procesos en los tres tamaños presentados y conserva exactamente la matriz del método centralizado. Para n=2048 y P=6, la mediana baja de 51,862 ms a 8,385 ms, una mejora de 6,18 entre métodos con igual cantidad de procesos. Evitar la generación central, el empaquetado y Scatterv resulta beneficioso en esas configuraciones.
+[546] Con un solo proceso, la generación distribuida es más lenta en los mismos tamaños. Su ventaja depende, por tanto, de poder repartir la preparación y compensar el trabajo adicional del método. La equivalencia bit a bit permite atribuir la comparación a dos formas de producir la misma entrada, sin cambiar el problema numérico.
+[547] Incorporamos la generación distribuida al candidato y evaluamos su impacto en el flujo completo. El cociente de preparación mide una fase específica; para establecer el beneficio final es necesario incluir la factorización y la reunión del factor.
+[549] Siguiente pregunta
+[550] El siguiente banco comprobará cuánto de esta mejora se conserva hasta obtener L completa, incluyendo reserva, preparación, factorización y reunión. El tiempo externo se evaluará por separado.
+[552] ¿Mejora el tiempo completo?
+[554] La generación distribuida redujo el tiempo de preparar la entrada en la etapa anterior. Ahora preguntamos si esa mejora se mantiene al incluir la factorización y devolver el resultado al proceso 0.
+[556] Una comparación con el mismo resultado
+[557] Centralizada: rango 0 genera A, empaqueta y distribuye columnas. 
+[558] Distribuida: cada proceso genera directamente sus columnas de la misma A. 
+[559] Ambas ejecutan right-looking MPI cíclico con vector local y reúnen L completa en rango 0. La referencia secuencial genera A y aplica right-looking con vector en rango 0.
+[561] Qué llamamos total en este experimento
+[564] Medimos directamente el intervalo desde el comienzo de las reservas hasta que L queda completa en rango 0, con MPI ya iniciado. Las fases se registran consecutivamente en ese mismo proceso y suman su total por ejecución. También guardamos el máximo de las duraciones locales como control.
+[565] Quedan fuera el lanzamiento y cierre de MPI, las referencias de prueba, la validación, la liberación de memoria y escribir resultados. Es el flujo de procesamiento, no el tiempo externo del comando mpirun. 
+[568] Resultados del flujo integrado
+[572] n | P | Central (ms) | Distrib. (ms) | Secuencial (ms)
+512 | 3 | 7.53 | 5.26 | 11.16
+512 | 6 | 8.77 | 8.16 | 14.06
+1024 | 3 | 51.82 | 48.44 | 87.92
+1024 | 6 | 51.98 | 41.91 | 108.15
+2048 | 3 | 1074.82 | 1039.34 | 1604.65
+2048 | 6 | 874.60 | 837.39 | 1617.31
+[575] Para n=2048 y P=6: cambiar la preparación centralizada por distribuida da un cociente de 1.04x y una reducción de 4.3 % del tiempo mediano. Respecto del secuencial medido en esa configuración, el método distribuido alcanza 1.93x.
+[577] Lo que esta comparación permite afirmar
+[579] La generación distribuida mantiene una ventaja de mediana en el flujo medido hasta reunir L completa en rango 0, aunque esa ventaja es mucho menor que la obtenida al medir únicamente la preparación. Para n=2048 y P=6, el tiempo pasa de 874,60 ms a 837,39 ms: una reducción aproximada del 4,3 %. Frente al secuencial contemporáneo de esa configuración, el método distribuido alcanza una aceleración de 1,93.
+[581] El resultado identifica dónde concentrar la siguiente mejora. En el flujo distribuido de ese caso, las medianas de las fracciones por ejecución sitúan a la factorización en el 91,1 % del tiempo y a la recolección en el 8,5 %. Reducir una fase preparatoria ya pequeña tiene un efecto limitado sobre el conjunto; el kernel y la salida adquieren mayor prioridad.
+[583] La comparación incluye resultados equivalentes y matrices idénticas. Las diferencias observadas dentro de la factorización pueden incorporar efectos del estado de memoria y de la llegada de los procesos, aun usando el mismo algoritmo. El reloj comienza en las reservas y termina con L reunida, con MPI ya iniciado; la ganancia del comando externo queda por evaluar.
+[584] ¿Dónde conviene trabajar ahora?
+[588] En el flujo distribuido de n=2048, P=6, la factorización representa una mediana del 91.1 % del tiempo observado y la recolección del 8.5 %. Estas proporciones sirven para priorizar el próximo experimento local; no predicen el comportamiento de la red del clúster.
+[590] ¿Agrupar columnas ayuda?
+[592] La etapa anterior mostró que la factorización concentra gran parte del tiempo. Estudiamos ahora si cambiar la propiedad de las columnas mejora el flujo completo. Se mantiene right-looking escalar: cada columna se termina y difunde antes de continuar.
+[594] Hipótesis
+[595] Un bloque de b columnas consecutivas se asigna por turnos a cada proceso. Agrupar columnas puede modificar la localidad y las esperas, pero también el reparto del trabajo. Como las columnas locales ya estaban empaquetadas por filas, b mayor no garantiza mejor acceso a memoria.
+[598] Con P=3 y b=2: proceso 0 recibe 0,1,6,7; proceso 1 recibe 2,3,8,9; proceso 2 recibe 4,5,10,11. b=1 reproduce los propietarios de la distribución cíclica previa.
+[600] Qué cambia y qué se conserva
+[601] Cambia el mapa global/local y la cantidad de columnas de cada proceso. Se conserva la matriz generada, el kernel de actualización con vector local, n difusiones por factorización y L reunida en rango 0. Todas las variantes usan el mismo código general de índices, incluido b=1. No comparamos contra cifras de campañas anteriores.
+[603] Esto es distribución por bloques de columnas. No es Cholesky por bloques con operaciones matriz-matriz ni agrupa las comunicaciones: sigue habiendo una difusión por columna.
+[605] Protocolo y reloj
+[606] n=512,1024,2048; P=1,3,6; b=1,2,4,8,16,32,64. Un calentamiento por variante y siete repeticiones. El orden rota para que cada bloque ocupe cada posición una vez; no balancea todas las parejas de vecinos. Se rota P entre tamaños. 
+[607] Total principal: reloj de rango 0 desde reserva y preparación del reparto hasta generación distribuida, factorización y recolección completa. 
+[608] Excluye lanzamiento/cierre MPI, referencias, validación y liberación. Las fases incluyen esperas. Se compara la mediana de totales medidos directamente.
+[611] Tiempo hasta obtener el resultado
+[614] Puntos: medianas; barras: Q1-Q3, no intervalos de confianza. Cada panel tiene su propia escala vertical. Comparamos bloques dentro de cada configuración.
+[616] Interpretación
+[617] El total contempla los cambios de generación y desempaquetado provocados por el reparto, además del kernel. Una menor mediana aislada es un candidato para repetir, no una demostración de superioridad universal. Elegir el mínimo entre siete alternativas puede favorecer fluctuaciones de esta sesión.
+[632] Factorización y reparto del trabajo
+[635] Factorización observada por rango 0: incluye sus esperas de comunicación. No es una medición separada de cómputo puro ni del máximo de cada proceso.
+[638] Cada columna k recibe k actualizaciones sobre n-k elementos. I=1 indica igualdad en este conteo acumulado; no garantiza balance en cada etapa, ni incluye pivotes, indexación o comunicaciones.
+[641] Decisión provisional y siguiente pregunta
+[643] n | P | Mejor b observado | b=1 (ms) | Mejor (ms) | Cociente
+512 | 3 | 16 | 7.02 | 6.24 | 1.124x
+512 | 6 | 4 | 7.73 | 6.78 | 1.141x
+1024 | 3 | 2 | 54.32 | 42.24 | 1.286x
+1024 | 6 | 4 | 45.81 | 40.78 | 1.123x
+2048 | 3 | 64 | 1135.03 | 1018.87 | 1.114x
+2048 | 6 | 4 | 879.80 | 845.97 | 1.040x
+[646] Estos mínimos son descriptivos y fueron elegidos después de medir. Seleccionamos b=4 para una repetición con P=6, manteniendo b=1 como referencia. No se selecciona un tamaño universal.
+[648] Repetición del candidato
+[649] n=1024, P=6: b=1 tarda 48.93 ms y b=4 tarda 44.02 ms; cociente 1.112x. Son nuevas ejecuciones, con siete repeticiones por bloque, en la misma sesión local.
+[650] n=2048, P=6: b=1 tarda 931.67 ms y b=4 tarda 929.70 ms; cociente 1.002x. Son nuevas ejecuciones, con siete repeticiones por bloque, en la misma sesión local.
+[652] La repetición agrega 98 observaciones. Para n = 1024, b = 4 conserva una reducción cercana al 10 %; para n = 2048, la diferencia cae a aproximadamente 0,2 %. La conclusión siguiente integra la exploración y esta repetición.
+[654] Conclusión
+[655] Cambiar el tamaño de bloque de distribución produce mínimos distintos según el tamaño de matriz y la cantidad de procesos. En la exploración inicial, el mejor b observado va de 2 a 64; no aparece una elección universal. Para n=1024 y P=6, b=4 reduce la mediana de 45,81 ms a 40,78 ms respecto de b=1, y en una repetición dentro de la misma sesión mantiene una reducción cercana al 10 %, de 48,93 ms a 44,02 ms.
+[656] La ventaja es menos consistente en n=2048 y P=6: el cociente inicial de 1,040 cae a 1,002 al repetir. Esa reducción de aproximadamente 0,2 % no respalda adoptar b=4 de forma general. La selección del mínimo entre siete alternativas sirve para proponer candidatos que luego deben confirmarse, porque también puede favorecer fluctuaciones de la sesión.
+[657] Conservamos b=1 como referencia y b=4 como candidato específico para n=1024, P=6. Esta prueba cambia la propiedad de grupos de columnas y mantiene una difusión por columna. Sus resultados evalúan el reparto y sus efectos sobre el flujo; no miden una factorización por bloques con operaciones matriz-matriz ni una reducción en la cantidad de colectivas.
+[660] Cerrar decisiones locales
+[662] ¿Se mantiene la mejora de cuatro columnas?
+[663] b=4 pareció prometedor para n=1024 y P=6. Lo repetimos en esta nueva sesión con b=1 y b=4, ocho repeticiones por variante, orden alternado y el mismo resultado reunido en rango 0. El total contiene reserva, generación distribuida, kernel y recolección; MPI ya está iniciado.
+[665] n | P | b=1 total (ms) | b=4 total (ms)
+1024 | 6 | 42.34 | 43.36
+2048 | 6 | 767.99 | 798.87
+3072 | 6 | 4030.13 | 4038.46
+[669] Conclusión
+[670] La nueva sesión no confirma la ventaja de b=4 obtenida anteriormente. Para n=1024 y P=6, la mediana total pasa de 42,34 ms con b=1 a 43,36 ms con b=4; para n=2048, pasa de 767,99 ms a 798,87 ms. En n=3072, las medianas de 4030,13 ms y 4038,46 ms son muy próximas y tampoco favorecen a b=4.
+[671] La evidencia acumulada muestra que la mejora inicial depende de las condiciones de medición y carece de confirmación entre estas sesiones. Por ello, mantenemos b=1 como referencia principal y dejamos b=4 disponible para futuras comparaciones, sin presentarlo como una optimización consolidada. Repetir el candidato permitió evitar una decisión general basada en un mínimo favorable de una sola campaña.
+[672] ¿Qué aporta LAPACK a la comparación?
+[674] LAPACK proporciona rutinas de álgebra lineal. DPOTRF calcula Cholesky y organiza operaciones por bloques utilizando BLAS de nivel 3. LAPACKE es su interfaz C; OpenBLAS suministra rutinas optimizadas para el procesador. Esta referencia combina algoritmo e implementación optimizada: no aísla cuánto aporta cada técnica.
+[676] Comparación controlada desde C
+[677] Nuestro right-looking con vector y LAPACK se ejecutan en el mismo programa, sin MPI, ligados a CPU 0 en esta PC. OpenBLAS se configura en un hilo y se comprueba con su API. Misma semilla 2026, precisión double, generador y política de reserva. Ambos reservan un vector n; LAPACK no necesita usarlo. Un calentamiento y seis repeticiones alternadas para n=512,1024,2048; dos para n=3072.
+[679] Tiempo de factor: llamada de factorización. Total: reserva + generación + factor. 
+[680] Referencias, validación y liberación están fuera. 
+[681] No hay conversión de almacenamiento: A simétrica por filas se interpreta por columnas, DPOTRF produce U y el mismo arreglo representa L=U transpuesta por filas. Un caso con factor conocido comprueba esa interpretación.
+[683] Usamos LAPACKE_dpotrf_work para evitar una transposición de la interfaz row-major y su barrido opcional de NaN. El dominio medido es entrada finita SPD generada; validamos resultados por separado. Los contratos de error de las implementaciones no son idénticos.
+[685] Bibliotecas y fuentes consultadas
+[686] LAPACKE 3.12.1; OpenBLAS 0.3.32, backend Zen, un hilo comprobado. Los logs incluyen dependencias dinámicas y configuración. La optimización interna de OpenBLAS no usa necesariamente las mismas opciones que nuestro código compilado con -O3.
+[688] Resultados: factor y tiempo completo
+[691] Medianas; escala vertical logarítmica. n=3072 es exploratorio con dos repeticiones por método. No se mezclan tiempos de MPI con este experimento secuencial.
+[693] n | C factor ms | LAPACK factor ms | C total ms | LAPACK total ms
+512 | 10.33 | 2.68 | 11.19 | 3.50
+1024 | 73.03 | 15.96 | 76.37 | 19.37
+2048 | 1484.35 | 116.30 | 1527.24 | 156.85
+3072 | 5603.73 | 377.22 | 5701.11 | 473.59
+[696] Para n=2048, el cociente C/LAPACK es 12.76x en factor y 9.74x en total. Es una comparación de implementaciones con un hilo, no speedup MPI ni prueba de que un algoritmo sea siempre superior.
+[698] Qué decidimos con estos datos
+[700] LAPACK/OpenBLAS con un hilo supera ampliamente al kernel secuencial propio en los tamaños ensayados. Para n=2048, la factorización tarda 116,30 ms frente a 1484,35 ms del código propio, con cociente de 12,76. Al incluir reserva y generación, los tiempos son 156,85 ms y 1527,24 ms, y el cociente disminuye a 9,74.
+[701] La diferencia demuestra que, después de mejorar el acceso con un vector, todavía queda un margen considerable de rendimiento local. También muestra que optimizar la factorización aumenta la importancia relativa de las fases que permanecen en el flujo. LAPACK aporta una referencia exigente para evaluar nuevas versiones del kernel y para estudiar una implementación realmente bloqueada con BLAS de nivel 3.
+[702] La comparación no separa el aporte de las técnicas internas de la biblioteca. N = 3072, con dos repeticiones por método, es exploratorio. Adoptamos LAPACK como referencia para mejorar el rendimiento local.
+[704] Speedup del candidato
+[706] ¿Cuánto ganamos hasta obtener L?
+[707] Medimos el programa elegido frente al secuencial autónomo contemporáneo, sin reutilizar tiempos anteriores. El objetivo es observar aceleración útil y eficiencia, no solamente comparar dos optimizaciones con igual P.
+[710] Protocolo: N=256,512,1024,2048; MPI P=1,2,3,4,6 y secuencial. Siete repeticiones por configuración, más una descartada; 168 observaciones medidas y 24 de preparación. Cada observación es un lanzamiento nuevo.
+[711] Rotamos el orden de los seis métodos entre rondas; los tamaños siguen un orden fijo. No es una aleatorización completa.
+[713] WSL local, Ryzen 5 2600, seis núcleos físicos y doce procesadores lógicos. MPI solicita un proceso por núcleo con afinidad; secuencial usa taskset CPU 0. GCC -O3, double, sin BLAS. Una sola sesión: no inferimos estabilidad entre días ni entre nodos.
+[715] Puntos: medianas. Barras en tiempos: Q1-Q3 inclusivos. Los cuartiles describen dispersión, no intervalos de confianza. Las curvas de speedup son cocientes de medianas, sin incertidumbre inferencial calculada.
+[717] Lectura de la figura
+[718] S mayor que 1 significa que MPI reduce el tiempo frente a nuestro secuencial; E muestra la fracción del ideal lineal respecto de esa referencia. MPI con P=1 no tiene por qué coincidir con el secuencial: cambia almacenamiento y agrega coordinación y reunión.
+[720] Resultados y decisión local
+[722] N | P | MPI ms | S app | E app
+256 | 1 | 2.32 | 0.76 | 75.7%
+256 | 2 | 1.64 | 1.07 | 53.6%
+256 | 3 | 1.64 | 1.07 | 35.7%
+256 | 4 | 1.86 | 0.95 | 23.7%
+256 | 6 | 2.23 | 0.79 | 13.1%
+512 | 1 | 15.41 | 0.79 | 79.3%
+512 | 2 | 10.09 | 1.21 | 60.6%
+512 | 3 | 7.58 | 1.61 | 53.7%
+512 | 4 | 9.14 | 1.34 | 33.4%
+512 | 6 | 8.12 | 1.51 | 25.1%
+1024 | 1 | 100.43 | 0.89 | 89.4%
+1024 | 2 | 81.68 | 1.10 | 55.0%
+1024 | 3 | 54.69 | 1.64 | 54.7%
+1024 | 4 | 59.25 | 1.52 | 37.9%
+1024 | 6 | 54.54 | 1.65 | 27.4%
+2048 | 1 | 1686.75 | 0.96 | 96.3%
+2048 | 2 | 1276.59 | 1.27 | 63.6%
+2048 | 3 | 1070.06 | 1.52 | 50.6%
+2048 | 4 | 1180.06 | 1.38 | 34.4%
+2048 | 6 | 890.19 | 1.83 | 30.4%
+[725] Conclusión 
+[726] MPI reduce el tiempo hasta L en varias configuraciones. Para N = 2048, seis procesos alcanzan la menor mediana ensayada, 890,19 ms, con aceleración de 1,83 y eficiencia relativa del 30,4 %. En N = 256, la ventaja de 1,07 con dos o tres procesos es pequeña.
+[727] En N = 1024, tres y seis procesos tardan 54,69 ms y 54,54 ms: duplicar los recursos apenas cambia la latencia y reduce la eficiencia de 54,7 % a 27,4 %. Tres procesos son una elección razonable si se busca ahorrar recursos. La conveniencia final debe comprobarse también con el comando completo.
+[733] El comando completo
+[737] N | Seq ext ms | MPI P6 ext ms | S ext P6
+256 | 8.89 | 312.08 | 0.03
+512 | 28.53 | 327.38 | 0.09
+1024 | 148.30 | 434.99 | 0.34
+2048 | 1957.48 | 1685.41 | 1.16
+[741] La validación se realiza en rango 0 mientras los demás procesos esperan el estado final. Este trabajo queda fuera de application_s y dentro del reloj externo; sus costos pueden variar entre ejecuciones.
+[743] Qué queda decidido
+[745] Con seis procesos, el comando MPI tarda más que el secuencial en N = 256, 512 y 1024. En N = 2048 alcanza 1685,41 ms frente a 1957,48 ms, con aceleración externa de 1,16: es el primer tamaño favorable de esta grilla local para P = 6.
+[746] La ganancia hasta L puede quedar absorbida por el lanzamiento, la validación, las esperas y el cierre. Para reducir la espera del usuario, la elección debe apoyarse en el reloj externo. Conservamos right-looking MPI cíclico con b = 1 y ajustamos la cantidad de procesos al tamaño y al alcance de la ejecución.
+[749] VVPARTE V
+[754] Campañas en el clúster y comparación final
+[759] ¿Qué mejora sobrevive en el clúster y cuánto rendimiento local queda sin explotar?
+[761] Campaña formal de cruce
+[763] Pregunta y resultado
+[764] ¿En qué tamaños ensayados MPI reduce claramente el tiempo hasta disponer de L frente al secuencial propio? 
+[765] Protocolo
+[766] N=128,160,192,224,256; SEQ y MPI P=1,2,3,4,6. Una ronda descartada y siete medidas. Orden de métodos rotado; tamaños en orden creciente. Afinidad prevista: SEQ con taskset CPU0; MPI --bind-to core --map-by core. El entorno conserva un diagnóstico de binding P6 en el socket 0, no un registro independiente de cada lanzamiento.
+[767] AMD EPYC 7B12, GCC 13.3, Open MPI 4.1.6, cuota de seis CPUs equivalentes y 24 GiB. Fuente de entorno fechada 2026-09-28T16:06:20Z. No se interpreta la cuota como seis cores exclusivos ni como acceso a varios nodos
+[769] Figura 1. Medianas y barras Q1-Q3 inclusivos en tiempos, siete observaciones por punto. Los speedups son cocientes de medianas, sin intervalos de confianza. Las líneas unen únicamente los puntos medidos. Warmups y pilotos quedan excluidos.
+[771] S=mediana(T_SEQ)/mediana(T_MPI). E=S/P. Mejora clara descriptiva si S>1,10 y Q3_MPI<Q1_SEQ, ambas desigualdades estrictas. Cuartiles por interpolación inclusiva. No es una prueba formal de significación y no demuestra monotonicidad para tamaños no ensayados.
+[773] N | P1 | P2 | P3 | P4 | P6
+128 | No | No | No | No | No
+160 | No | No | No | No | No
+192 | No | No | Sí | No | No
+224 | No | No | Sí | Sí | No
+256 | No | Sí | Sí | Sí | Sí
+[774] ProcesosPrimer N ensayado con mejora claraProcesosPrimer N ensayado con mejora clara
+[775] Ninguno en la grilla
+[777] 256
+[779] 192
+[781] 224
+[783] 6256
+[786] distintas
+[789] Método | Q1 (ms) | Mediana (ms) | Q3 (ms) | S | E (%)
+SEQ | 2.177 | 2.206 | 2.219 | - | -
+P1 | 2.480 | 2.538 | 2.556 | 0.87 | 86.9
+P2 | 1.352 | 1.360 | 1.374 | 1.62 | 81.1
+P3 | 1.112 | 1.121 | 1.147 | 1.97 | 65.6
+P4 | 1.154 | 1.160 | 1.194 | 1.90 | 47.6
+P6 | 1.493 | 1.505 | 1.508 | 1.47 | 24.4
+[790] P=3 tiene la menor mediana MPI observada. P=2 obtiene la mayor eficiencia entre las configuraciones que aceleran (P>=2). P=1 da 86,9% de eficiencia numérica, pero S=0,87: es más lento que SEQ. P=6 mejora frente a SEQ con eficiencia 24,4%. Son descripciones de esta campaña; no prueban que P=3 sea siempre óptimo ni que su diferencia frente a P=4 sea estadísticamente concluyente.
+[792] Conclusión parcial
+[793] Aumentar procesos no asegura menor tiempo. En matrices pequeñas los costos adicionales compiten con el trabajo que se reparte; una configuración intermedia puede terminar antes que utilizar toda la cuota disponible.
+[798] Figura 3. Medias de fases en las siete repeticiones, desde el reloj del rango 0. Aquí se usan medias para que las barras apiladas sumen la media total. El criterio principal sigue usando medianas del total medido, no la suma de medianas.
+[800] N / método | Generación ms | Factor ms | Reunión ms | Total ms
+160 / SEQ | 0.0989 | 0.3182 | 0.0000 | 0.4298
+160 / P3 | 0.0382 | 0.2607 | 0.1544 | 0.4651
+192 / SEQ | 0.1425 | 0.5638 | 0.0000 | 0.7200
+192 / P3 | 0.0535 | 0.3599 | 0.2088 | 0.6396
+[802] Tabla: medianas de cada campo por separado. En N=160/P3, generación y factor disminuyen respecto de SEQ, pero el costo de reunión/reconstrucción impide mejorar el total. En N=192/P3 el ahorro compensa esos costos y se cumplen las dos condiciones de mejora. Esto describe los intervalos medidos; no aísla causas de hardware.
+[805] Conclusión y siguiente pregunta experimental
+[806] Conclusión de la campaña
+[807] Bajo el criterio descriptivo prefijado, la primera mejora clara del tiempo hasta disponer de L aparece en N=192 con tres procesos dentro de la grilla ensayada. Para cuatro procesos aparece en N=224, y para dos y seis en N=256. MPI con un proceso no cumple el criterio en los tamaños probados. El cruce depende de la configuración y del entorno, por lo que el resultado local de n=256, medido con otro alcance temporal, no debe trasladarse directamente a esta campaña.
+[808] La comparación de fases ayuda a entender la transición: en N=160, reducir generación y factorización no alcanza para compensar la reunión y reconstrucción; en N=192, el ahorro permite cumplir las dos condiciones de mejora. En N=256, tres procesos alcanzan la menor mediana, 1,121 ms, y aceleración de 1,97. Dos procesos obtienen la mayor eficiencia entre las configuraciones que aceleran, 81,1 %, mientras seis presentan una eficiencia del 24,4 %.
+[809] Estos resultados respaldan usar una cantidad intermedia de procesos para matrices pequeñas. La conclusión corresponde a esta sesión, su reloj de aplicación y un criterio de aceleración y separación de cuartiles; no establece un umbral exacto ni un óptimo universal. La cuota de seis CPUs equivalentes tampoco representa seis núcleos exclusivos ni una ejecución multinodo.
+[810] Siguiente etapa
+[811] Una confirmación selectiva en otra sesión permitiría comprobar la estabilidad alrededor del primer cruce. La etapa siguiente amplía los tamaños y evalúa cuánto de la aceleración hasta L se conserva al medir el comando completo.
+[812] Escalabilidad y tiempo completo en el clúster
+[813] La campaña estudia N = 512, 1024, 2048 y 4096, con la implementación MPI de uno a seis procesos y una referencia secuencial contemporánea para cada tamaño. La pregunta es cómo cambia el tiempo al repartir más trabajo y qué parte de esa ventaja llega a la ejecución completa.
+[814] Se presentan dos relojes. El de aplicación termina cuando L queda disponible e incluye la preparación y la reconstrucción correspondientes; la validación permanece fuera. El externo mide el comando completo y también recoge el lanzamiento, la validación, las esperas y el cierre.
+[815] Cada aceleración utiliza la referencia secuencial y el reloj de su propia comparación. La eficiencia S/P expresa rendimiento relativo a esa referencia y no utilización de CPU. La elección de procesos se interpreta junto con el tamaño y el objetivo de la ejecución.
+[818] Ganancia hasta obtener L
+[820] Figura 1. Tiempo de aplicación MPI y cociente mediana(SEQ)/mediana(MPI). Cada N usa su propio secuencial contemporáneo. P1 es la ruta MPI, no una copia del secuencial autónomo.
+[822] N | SEQ s | P mínimo | MPI s | S | E %
+512 | 0.016851 | 6 | 0.005221 | 3.23 | 53.8
+1024 | 0.103648 | 6 | 0.028074 | 3.69 | 61.5
+2048 | 1.146293 | 6 | 0.196693 | 5.83 | 97.1
+4096 | 10.391210 | 6 | 4.133791 | 2.51 | 41.9
+[825] Interpretación
+[826] Seis procesos alcanzan la menor mediana de aplicación en los cuatro tamaños ensayados. Las aceleraciones frente al secuencial contemporáneo son 3,23 para N = 512, 3,69 para N = 1024, 5,83 para N = 2048 y 2,51 para N = 4096. La ventaja persiste hasta obtener L, pero cambia con el tamaño.
+[827] La eficiencia relativa de 97,1 % en N = 2048 expresa cercanía al ideal respecto de esa referencia; no mide utilización de CPU ni identifica un mecanismo causal. En N = 4096 cae a 41,9 %. Además, aumentar P no mejora siempre el tiempo para un tamaño fijo. La configuración debe elegirse mediante tiempos medidos y comprobarse después con el reloj externo.
+[829] Pregunta siguiente
+[830] ¿El mínimo del tiempo interno sigue siendo útil para quien espera que termine el comando? La validación secuencial y el costo de lanzar MPI pueden cambiar la respuesta, especialmente en los tamaños menores.
+[832] Cuánto sobrevive en el reloj externo
+[834] Figura 2. Tiempo del comando y speedup externo. Las barras representan Q1-Q3 del tiempo; no se transfieren las ganancias del reloj interno al externo.
+[836] N | SEQ ext s | P mínimo | MPI ext s | S externo
+512 | 0.0302 | 3 | 0.4774 | 0.06
+1024 | 0.1489 | 3 | 0.5392 | 0.28
+2048 | 1.4950 | 6 | 1.0459 | 1.43
+4096 | 12.3637 | 6 | 6.6011 | 1.87
+[839] Una comparación explícita con P = 6
+[841] N | S aplicación | S externo | E externa %
+512 | 3.23 | 0.06 | 1.0
+1024 | 3.69 | 0.26 | 4.4
+2048 | 5.83 | 1.43 | 23.8
+4096 | 2.51 | 1.87 | 31.2
+[843] En N = 512 y N = 1024, incluso la menor mediana externa MPI supera a la secuencial. En N = 2048 y N = 4096, seis procesos reducen el comando completo, con aceleraciones de 1,43 y 1,87. N = 2048 es el primer tamaño favorable de esta grilla para el reloj externo; el cruce de aplicación en N = 192 corresponde a otro alcance de medición.
+[845] Costos del flujo y conclusión de escalabilidad
+[847] Figura 3. Media de las fracciones calculadas por lanzamiento; cada barra suma 100%. El resto externo combina inicialización, coordinación, cierre y otros costos. No es comunicación pura ni se obtiene restando medianas.
+[849] Respuesta experimental
+[850] El beneficio del comando completo es menor que el obtenido hasta disponer de L. Con P = 6, la aceleración pasa de 5,83 a 1,43 en N = 2048 y de 2,51 a 1,87 en N = 4096. La mayor aceleración interna corresponde al primer tamaño, mientras el mayor cociente externo corresponde al segundo.
+[851] La diferencia cambia la decisión práctica: para reducir la espera hasta que termina el comando, hay que considerar también el lanzamiento, la validación, las esperas y el cierre. En esta grilla, MPI aporta un beneficio externo desde el punto ensayado N = 2048; ese resultado no establece un umbral universal.
+[852] La descomposición en fracciones por lanzamiento permite priorizar esos costos adicionales. El resto externo combina varios trabajos y no debe interpretarse como comunicación pura ni calcularse mediante restas de medianas. La campaña confirma aceleración de aplicación y beneficio de extremo a extremo en condiciones específicas del entorno medido.
+[855] Escalabilidad fuerte N = 8192 y piloto         N = 16384
+[856] 64.11 s → 13.54 s
+[857] 4.734× de speedup · 14.79% de eficiencia
+[858] Resultado formal para N=8192: medianas de siete mediciones por cantidad de procesos, con referencia MPI P=1 y mejor tiempo observado en P=32.
+[859] Diseño experimental y entorno
+[860] El strong scaling mantiene fijo N y modifica P. Se evalúa la implementación MPI propia con P=1, 2, 4, 8, 16 y 32. La referencia de speedup es el mismo programa MPI con un proceso; no es una comparación contra LAPACK ni contra un ejecutable secuencial distinto.
+[862] Serie | Diseño | Uso
+Formal N=8192 | 7 mediciones/P + 1 warmup/P | 42 observaciones útiles
+Piloto N=8192 | 1 observación/P | Exploración previa, excluida
+Piloto N=16384 | 1 observación/P | Exploración, sin dispersión
+[863] RecursoEvidencia y alcanceRecursoEvidencia y alcance
+[864] CPUCuota 4800000/100000 = 48 CPUs equivalentes; cpuset 0-127. No equivale a 128 cores asignados.
+[865] Memoria206158430208 bytes = 192 GiB por cgroup.Memoria206158430208 bytes = 192 GiB por cgroup.
+[866] SoftwareGCC 13.3.0; Open MPI 4.1.6, según entorno.txt.
+[867] AfinidadControl P=32: ranks 0-31 en socket 0, cores 0-31.AfinidadControl P=32: ranks 0-31 en socket 0, cores 0-31.
+[868] Hostjupyter-trigotex-gmail-com---5306eb41. Control de binding en un host visible.
+[872] Orden real conservado en mediciones.csv
+[874] Repetición | Orden de P
+1 | 1 2 4 8 16 32
+2 | 2 4 8 16 32 1
+3 | 4 8 16 32 1 2
+4 | 8 16 32 1 2 4
+5 | 16 32 1 2 4 8
+6 | 32 1 2 4 8 16
+7 | 32 16 8 4 2 1
+[876] La rotación reduce el sesgo de posición, pero no constituye aleatorización.
+[878] Resultados formales: N = 8192
+[880] Figura 1. Medianas de siete observaciones; barras Q1-Q3 descriptivas, no intervalos de confianza. Su pequeño tamaño puede hacerlas poco visibles.
+[882] P | Mediana [s] | Q1 [s] | Q3 [s] | Speedup | Efic. [%]
+1 | 64.109724 | 64.085799 | 64.181409 | 1.000 | 100.00
+2 | 40.909027 | 40.880406 | 40.924548 | 1.567 | 78.36
+4 | 36.998314 | 36.974880 | 37.028154 | 1.733 | 43.32
+8 | 39.229483 | 39.141549 | 39.326518 | 1.634 | 20.43
+16 | 23.787586 | 23.784437 | 23.792451 | 2.695 | 16.84
+32 | 13.543594 | 13.537468 | 13.548740 | 4.734 | 14.79
+[884] P=32 tuvo el menor tiempo mediano entre las seis configuraciones. La reducción absoluta frente a P=1 fue de 50.566130 s por factorización. El ideal T(1)/32 sería 2.003429 s; se utiliza como referencia matemática, no como predicción alcanzable.
+[886] Speedup y eficiencia
+[888] Figura 2. Speedup calculado con las medianas formales y referencia ideal S(P)=P. No se estiman intervalos de confianza para las razones.
+[890] Figura 3. Eficiencia relativa al caso MPI P=1. La eficiencia en P=1 es 100% por definición, no una medición de utilización de CPU.
+[892] El speedup alcanza 4.734× con 32 procesos, mientras la eficiencia baja a 14.79%. Menor tiempo de respuesta y mayor aprovechamiento relativo de procesos son criterios distintos. La eficiencia no permite por sí sola separar comunicación, cómputo, memoria y espera.
+[894] Dispersión y degradación en P = 8
+[896] Figura 4. Izquierda: las siete mediciones de P=4 y P=8. Derecha: observaciones relativas a la mediana de cada P; todos los puntos corresponden a datos reales.
+[898] P | Media [s] | DE [s] | CV [%] | Mínimo [s] | Máximo [s]
+1 | 64.128979 | 0.065807 | 0.1026 | 64.041956 | 64.216753
+2 | 40.906374 | 0.048370 | 0.1182 | 40.838299 | 40.987383
+4 | 37.000883 | 0.060403 | 0.1632 | 36.905717 | 37.096085
+8 | 39.269368 | 0.199836 | 0.5089 | 39.065890 | 39.654071
+16 | 23.789107 | 0.006478 | 0.0272 | 23.782221 | 23.800166
+32 | 13.543490 | 0.008420 | 0.0622 | 13.532982 | 13.555441
+[900] P=8 fue 2.231169 s más lento que P=4 según las medianas, una degradación de 6.03%. Los Q1-Q3 no se solapan; tampoco los rangos mínimo-máximo de estas dos configuraciones. Las siete comparaciones dentro de cada repetición tienen el mismo sentido.
+[901] DE: desviación estándar muestral con divisor n-1. CV=100×DE/media. El bajo CV describe repetibilidad dentro de esta sesión; no mide variación entre días o máquinas. La no superposición de IQR es evidencia descriptiva, no una prueba de significación ni un intervalo de confianza.
+[902] La campaña no instrumentó colectivas, desbalance, caché o tiempos por rango de cada fase. Atribuir la anomalía a MPI_Bcast, red o memoria sería una hipótesis sin contrastar.
+[904] Tiempo de la aplicación
+[906] Figura 5. La aplicación incluye preparación y reconstrucción, pero excluye validación. Las barras de application_s son Q1-Q3 de siete observaciones.
+[908] P | Aplicación [s] | Q1 [s] | Q3 [s] | S aplicación
+1 | 74.392908 | 74.349503 | 74.478477 | 1.000
+2 | 44.068331 | 44.035932 | 44.084532 | 1.688
+4 | 37.636445 | 37.602782 | 37.651906 | 1.977
+8 | 39.863072 | 39.769258 | 39.956301 | 1.866
+16 | 24.408448 | 24.404890 | 24.415617 | 3.048
+32 | 14.185659 | 14.182349 | 14.192528 | 5.244
+[910] El tiempo mediano de aplicación pasa de 74.393 s a 14.186 s: speedup de 5.244×. Esta mejora difiere de la del kernel porque las etapas preparatorias tienen otro comportamiento con P.
+[911] La validación es trabajo adicional fuera de ambos tiempos. Por ello, estas métricas no deben usarse como una medida directa del tiempo total de una ejecución interactiva o de un trabajo de clúster.
+[913] Pilotos: evidencia exploratoria
+[915] Figura 6. Cada piloto tiene una observación por P, sin barras de dispersión. La curva formal usa siete observaciones por P y se distingue explícitamente.
+[917] P | 8192 factor [s] | 16384 factor [s] | 16384 aplic. [s] | S 16384 | E 16384 [%]
+1 | 63.998 | 460.668 | 501.806 | 1.000 | 100.00
+2 | 40.887 | 307.788 | 328.366 | 1.497 | 74.84
+4 | 36.984 | 285.529 | 292.584 | 1.613 | 40.33
+8 | 39.219 | 288.170 | 290.724 | 1.599 | 19.98
+16 | 23.794 | 178.518 | 180.976 | 2.581 | 16.13
+32 | 13.552 | 122.774 | 125.420 | 3.752 | 11.73
+[919] Al duplicar N, el trabajo asintótico de Cholesky crece aproximadamente ocho veces y el almacenamiento denso cuatro veces. Eso no impone una razón de tiempos exacta: intervienen jerarquía de memoria, comunicaciones y fases medidas.
+[920] En N = 16384, P = 32 alcanza el menor tiempo observado: 122,77 s, aceleración de 3,752 respecto del piloto MPI con un proceso y eficiencia relativa del 11,73 %. P = 8 también tarda más que P = 4. Estos rasgos orientan una confirmación posterior, porque existe una sola observación por configuración.
+[921] El menor speedup frente a la serie formal N = 8192 no demuestra un deterioro estable al aumentar N. Ese contraste requiere repeticiones y condiciones comparables. Conservamos ambos pilotos como evidencia exploratoria, separados de la muestra formal.
+[923] Conclusiones 
+[924] La campaña formal con siete observaciones por configuración demuestra que el programa MPI reduce su tiempo de factorización al pasar de uno a treinta y dos procesos: la mediana baja de 64,11 s a 13,54 s. La aceleración respecto del mismo MPI con P=1 alcanza 4,734 y la eficiencia relativa es 14,79 %. Treinta y dos procesos ofrecen la menor latencia ensayada, con rendimiento ampliamente sublineal respecto del ideal.
+[925] La curva presenta una degradación consistente dentro de esta sesión entre cuatro y ocho procesos. La mediana aumenta de 37,00 s a 39,23 s, aproximadamente 6,03 %, y las siete comparaciones por repetición tienen el mismo sentido. La separación de las observaciones respalda describir esa anomalía como repetida en la campaña. Su causa permanece abierta porque no se midieron componentes suficientes para atribuirla a colectivas, balance, memoria u otros mecanismos.
+[926] Al incluir preparación y reconstrucción, la mediana de aplicación disminuye de 74,39 s a 14,19 s, con aceleración de 5,244 respecto de su propia base P=1. La diferencia con la aceleración del kernel indica que las otras etapas responden de manera distinta al aumento de procesos. Ambos relojes excluyen validación y no representan el comando completo.
+[927] Alcance de la evidencia
+[928] La decisión depende del objetivo: P=32 minimiza el tiempo observado, mientras configuraciones menores conservan mayor eficiencia relativa. No se establece un óptimo global, comportamiento para P>32 ni escalabilidad multinodo. Esta campaña utiliza una cuota distinta de la campaña previa de seis CPUs equivalentes y debe conservarse como evidencia separada. La dispersión procede de una sesión y una matriz con semilla fija; no representa todas las entradas SPD.
+[932] LAPACK en el clúster
+[933] ¿Cuánto margen de rendimiento local queda frente a una biblioteca numérica optimizada? Se comparan el kernel secuencial propio y LAPACKE_dpotrf_work, enlazado con OpenBLAS 0.3.34, dentro del mismo ejecutable y con la misma matriz. Es una comparación local de implementaciones; no es ScaLAPACK ni una prueba MPI de la biblioteca.
+[935] Qué mide cada campo
+[936] factor_s mide únicamente la llamada al kernel. total_s incluye reserva del arreglo y workspace, generación y factorización. Excluye preparar la matriz original/referencia del banco, validación y liberación. No existe aquí un reloj externo. Cada tamaño se ejecuta en un proceso con repeticiones internas, a diferencia de los lanzamientos nuevos de la campaña MPI.
+[938] Resultados: kernel y flujo completo del banco
+[940] Figura 1. Medianas y Q1-Q3 inclusivos, seis muestras por método. Escala logarítmica. El total se resume directamente, sin sumar medianas de fases. La mejora es own/LAPACK dentro de este banco.
+[942] N | Reloj | Propio s | LAPACK s | Cociente
+2048 | Factor | 1.060705 | 0.081292 | 13.05
+2048 | Total | 1.089732 | 0.110383 | 9.87
+4096 | Factor | 9.854616 | 0.589960 | 16.70
+4096 | Total | 10.269754 | 1.006013 | 10.21
+[945] Qué responde la comparación
+[946] LAPACK/OpenBLAS con un hilo mantiene una ventaja amplia sobre el kernel secuencial propio en el entorno del clúster. Para N=2048, la mediana de factorización baja de 1,060705 s a 0,081292 s, con cociente de 13,05. Para N=4096, baja de 9,854616 s a 0,589960 s, con cociente de 16,70.
+[947] Al incluir reserva y generación en el total del banco, las mejoras son menores, pero siguen siendo importantes: 9,87 y 10,21, respectivamente. La diferencia entre los cocientes de kernel y total muestra que las fases compartidas limitan cuánto de la optimización de la factorización se conserva en el flujo medido.
+[948] El resultado confirma margen de mejora local en el candidato y justifica usar una biblioteca optimizada como referencia. La comparación no separa las técnicas internas que producen esa ventaja ni garantiza que aumentar procesos del kernel propio permita alcanzarla. Se refiere a dos métodos dentro del mismo banco secuencial y no incluye un reloj externo ni una implementación distribuida de LAPACK.
+[949] MPI frente a LAPACK en matrices grandes
+[950] Pregunta final: al crecer hasta N = 6144 y N = 8192, ¿MPI con seis procesos se acerca o supera a LAPACK/OpenBLAS con un hilo? La comparación corresponde a la campaña del 28/09/2026 y conserva las referencias, matrices y límites de reloj de cada banco.
+[952] Respuesta
+[953] MPI reduce el tiempo frente al C propio secuencial, pero no alcanza a LAPACK en ninguno de los dos tamaños. La razón MPI/LAPACK disminuye de 8,58 a 6,25: hay acercamiento relativo entre esos dos puntos, sin evidencia de un cruce futuro. La diferencia absoluta en segundos, en cambio, aumenta.
+[956] Qué hace comparable factor_s
+[957] El reloj principal abarca la fase que factoriza la misma familia de matrices SPD generadas con semilla 2026. En C/LAPACK es la llamada al kernel; en MPI es el intervalo del rango 0 alrededor del kernel distribuido, que incluye comunicaciones y esperas. No es un máximo reducido por fase ni una comparación de aritmética pura.
+[959] Generación y reunión quedan fuera de factor_s; los relojes secundarios tienen límites distintos. El banco C/LAPACK alterna métodos dentro de un proceso; MPI se lanza por separado. Por eso el cociente principal es descriptivo del costo de esa fase en los dos programas, no una prueba que aísle únicamente el efecto del paralelismo.
+[961] Resultados de factorización y dispersión
+[963] Figura 1. Medianas y Q1-Q3 inclusivos, seis observaciones útiles por grupo. Barras de cuartiles descriptivas; no intervalos de confianza. Los warmups no se incluyen.
+[965] N | Método | Q1 s | Mediana s | Q3 s | CV %
+6144 | own | 27.2602 | 27.2690 | 27.2713 | 0.027
+6144 | mpi_p6 | 16.0909 | 16.2985 | 16.4927 | 1.424
+6144 | lapack | 1.8987 | 1.8992 | 1.8996 | 0.076
+8192 | own | 72.0020 | 72.0915 | 72.1250 | 0.131
+8192 | mpi_p6 | 36.9214 | 36.9539 | 36.9942 | 0.211
+8192 | lapack | 5.9129 | 5.9159 | 5.9181 | 0.065
+[967] CV usa desviación muestral dividida por la media. La variación MPI en N=6144 es mayor que la de los otros grupos, pero la separación respecto de LAPACK es amplia: incluso el menor tiempo MPI supera al mayor LAPACK en ambos tamaños. Esta observación no necesita transformarse en un test de significación para describir la diferencia de esta sesión.
+[970] Acercamiento relativo, no cruce
+[972] Figura 2. Izquierda: valores mayores que uno indican mejora MPI frente al C propio. Derecha: valores mayores que uno indican que MPI tarda más que LAPACK. Los denominadores responden preguntas distintas.
+[974] N | C / MPI | E MPI % | C / LAPACK | MPI / LAPACK
+6144 | 1.673 | 27.9 | 14.359 | 8.582
+8192 | 1.951 | 32.5 | 12.186 | 6.247
+[976] La eficiencia respecto del C propio es S/6: 27,9% y 32,5%. No equivale a utilización de CPU. LAPACK sigue por delante usando un hilo. 
+[978] La diferencia absoluta MPI menos LAPACK pasa de 14.399 s a 31.038 s. Por tanto, 'se acerca' solo es correcto en la razón relativa entre estos tamaños. Dos puntos no permiten extrapolar un tamaño donde MPI alcance a la biblioteca ni establecer una tendencia monótona.
+[980] Interpretación y límite causal
+[981] Repartir el trabajo del kernel propio obtiene una mejora, pero no compensa la ventaja local de LAPACK/OpenBLAS en esta medición. La campaña no separa las contribuciones de localidad, vectorización, algoritmos internos de la biblioteca o comunicación. No hace falta identificar cada causa para responder la comparación experimental.
+[983] Relojes secundarios y condiciones del entorno
+[985] N | Método | Generación s | Reloj secundario | Mediana s
+6144 | own | 0.4023 | total_s | 27.6713
+6144 | mpi_p6 | 0.1322 | application_s | 16.6069
+6144 | lapack | 0.4023 | total_s | 2.3017
+8192 | own | 3.9806 | total_s | 76.0697
+8192 | mpi_p6 | 0.0614 | application_s | 37.3368
+8192 | lapack | 3.9786 | total_s | 9.8945
+[986] Estas medianas se presentan como contexto: no se construyen cocientes entre application_s y total_s. MPI application_s incluye reserva, generación, factorización y reunión/reconstrucción; total_s del banco own/LAPACK incluye reserva, generación y factor. Ninguno es el tiempo externo del comando. No se suman medianas para reconstruir totales.
+[988] Conclusión final de la comparación
+[989] Respuesta a la pregunta planteada
+[990] MPI con seis procesos acelera el kernel propio, pero LAPACK/OpenBLAS con un hilo conserva una ventaja amplia en los dos tamaños comparados. Para N=6144, las medianas de factorización son 27,2690 s para C propio, 16,2985 s para MPI y 1,8992 s para LAPACK. Para N=8192, son 72,0915 s, 36,9539 s y 5,9159 s, respectivamente. MPI obtiene aceleraciones de 1,67 y 1,95 frente al secuencial propio, mientras tarda 8,58 y 6,25 veces lo que tarda LAPACK.
+[991] El cociente MPI/LAPACK disminuye entre esos dos puntos, pero la diferencia absoluta aumenta de 14,399 s a 31,038 s. Hay un acercamiento relativo observado y, al mismo tiempo, una mayor diferencia en segundos. Dos tamaños no permiten extrapolar un cruce futuro. La separación entre observaciones de ambos métodos es amplia dentro de esta sesión y respalda la respuesta: MPI no alcanza a LAPACK en los casos ensayados.
+[992] La comparación principal describe el costo de la fase de factorización: en MPI incluye comunicaciones y esperas del intervalo registrado por rango 0. No aísla el efecto del paralelismo ni el aporte de cada optimización de la biblioteca. Los relojes secundarios tienen límites distintos y se conservan como contexto, sin construir cocientes entre application_s y total_s. La siguiente mejora debe estudiar también la eficiencia del kernel local, manteniendo una referencia especializada y condiciones de medición explícitas.
+[995] Conclusión general del proyecto
+[996] El proyecto muestra que una implementación correcta de Cholesky puede mejorar su rendimiento mediante cambios sucesivos en el acceso a datos, el reparto del trabajo y la preparación de la entrada, pero que cada mejora debe evaluarse con la referencia y el reloj adecuados. El vector contiguo transforma la competitividad del kernel right-looking; el vector local permite aprovechar mejor el reparto cíclico; y la generación distribuida reduce el costo de preparación conservando la misma matriz. Esas decisiones se apoyan en comparaciones medidas y en verificaciones de corrección.
+[997] MPI produce aceleraciones frente al código propio cuando el trabajo disponible compensa sus costos adicionales. La cantidad de procesos conveniente depende del tamaño, del entorno y del objetivo: reducir latencia o conservar eficiencia relativa. La ventaja del kernel o del flujo hasta L puede disminuir considerablemente al medir el comando completo. Las repeticiones de b=4 y las curvas no monótonas también muestran que una configuración favorable en una campaña necesita confirmación antes de adoptarse como regla.
+[998] La escalabilidad fuerte formal reduce la factorización de N=8192 de 64,11 s a 13,54 s con treinta y dos procesos, aunque con eficiencia relativa del 14,79 % y una degradación repetida de cuatro a ocho procesos. La comparación separada con seis procesos muestra, a su vez, que acelerar el kernel propio no basta para alcanzar LAPACK/OpenBLAS con un hilo en N=6144 y N=8192.
+[999] El aporte del trabajo es establecer qué decisiones mejoran estas implementaciones, en qué condiciones y con qué límites. La evidencia obtenida orienta una continuación centrada en elevar el rendimiento local, reducir costos del flujo y evaluar paralelismo distribuido con mediciones más específicas. Las conclusiones corresponden a las matrices, campañas y recursos documentados; la ejecución multinodo y las variantes por bloques o híbridas permanecen como extensiones por comprobar.
+[1001] Continuación técnica razonable
+[1002] La primera continuación es estudiar un Cholesky realmente bloqueado con operaciones BLAS de nivel 3. La ventaja de LAPACK respalda esa dirección como hipótesis de mejora del kernel local, aunque las campañas actuales no cuantifican qué fracción de la diferencia podría recuperar una nueva versión. La evaluación debería conservar la corrección y comparar fases equivalentes contra el código actual y la biblioteca.
+[1003] OpenMP y una versión híbrida MPI con hilos permitirían estudiar otras formas de paralelismo dentro de cada nodo. Esa comparación requiere mantener el mismo presupuesto de recursos, controlar afinidad y coordinar la cantidad de hilos con BLAS si se usa una biblioteca multihilo. Su conveniencia permanece por medir.
+[1004] Para explicar y reducir las limitaciones observadas, las siguientes mediciones deberían registrar tiempos por rango y componentes de cálculo, colectivas y espera; revisar la validación centralizada y la reconstrucción; y contrastar los comportamientos no monótonos en nuevas sesiones. Una campaña multinodo y una referencia como ScaLAPACK ampliarían la evaluación a distribuciones y costos de comunicación que las pruebas actuales no cubren. Estas extensiones se proponen por las preguntas que deja la evidencia, sin anticipar ganancias todavía no medidas.

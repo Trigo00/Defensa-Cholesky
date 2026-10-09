@@ -1,3 +1,0 @@
-source,N,method,rep,factor_s,generation_s,secondary_s,secondary_clock,gather_s,validation_s,projected_residual,factor_difference
-warmup_n6144_p6.csv,6144,mpi_p6,0,16.1315872022,0.134211223107,16.4468195308,application_s,0.180994515773,3.71261830768,2.38775831541e-15,
-warmup_n8192_p6.csv,8192,mpi_p6,0,36.7407905827,0.0612217462622,37.1228586319,application_s,0.320828442927,12.9764110623,3.24029049237e-15,

@@ -2,7 +2,7 @@
 
 `src/implementacion_final` contiene el candidato que se presenta; `src/experimentos` contiene bancos, variantes y utilidades. El Makefile conserva los mismos objetivos mediante ambas rutas de inclusión. Compartir un archivo no significa que todas sus funciones sean parte del camino ejecutado por el candidato.
 
-La revisión didáctica del 29/09/2026 explica las instrucciones y extrae utilidades repetidas en `bench_utils.c`, además de dos auxiliares privados de generación/preparación de columnas. El mapa de lectura está en [guia_codigo.md](guia_codigo.md). Los originales medidos se preservan en `archive/src_medidos_20260928`; la comparación funcional reproducible se implementa en `scripts/verify_code_refactor.py`. El control de Layout nulo de left MPI se hace ahora antes de desreferenciarlo.
+La revisión didáctica del 29/09/2026 explica las instrucciones y extrae utilidades repetidas en `bench_utils.c`, además de dos auxiliares privados de generación/preparación de columnas. El mapa de lectura está en [guia_codigo.md](guia_codigo.md). Los originales medidos se preservan en `tests/fixtures/measured_sources`; la comparación funcional reproducible se implementa en `tests/validation/verify_code_refactor.py`. El control de Layout nulo de left MPI se hace ahora antes de desreferenciarlo.
 
 ## Implementación seleccionada
 
@@ -56,21 +56,23 @@ Los bancos MPI y LAPACK incorporan además `--test`; no se deben confundir con m
 | `precluster_local.sh` | Confirmación local b1/b4, piloto3072 y LAPACK local |
 | `cierre_local.sh` | Candidato con lanzamientos nuevos, 24 preparaciones y 168 mediciones, ambos relojes |
 
+La campaña del 03/10 se conserva en cuatro paquetes de data/raw/cluster. La transcripción independiente de comandos fue retirada. El [índice de recursos](recursos_actuales.md) enumera los registros disponibles, sin atribuirles un launcher inexistente.
+
 Los scripts `.sh` se conservan con su contenido original. Requieren Linux/WSL, comandos disponibles y afinidad adaptada. Algunos fijan CPU0 porque así se midió localmente. No se ejecutan automáticamente al regenerar la documentación.
 
 ## Análisis y publicación
 
 Los catorce `analizar_*.py` siguen las grillas de sus campañas y calculan estadísticos de CSV, no factorizaciones. `analizar_pares_cluster.py` admite tamaños del banco de pares; los demás tienen distintas restricciones de muestras, orden y formatos. Se conservan para reconstruir decisiones y contrastar el análisis nuevo. Como escriben en el directorio recibido, operarlos únicamente sobre copias de trabajo.
 
-`scripts/analyze_results.py` es la entrada consolidada: abre originales, comprueba cifras/filas/validez, verifica manifiestos de tar, separa cohortes y publica tablas y dieciséis figuras PNG/SVG (trece gráficas de datos y tres esquemas conceptuales). `publication_visuals.py` define el estilo común y las nuevas figuras; `build_documentation.py` incorpora las tablas al relato y `publication_pdf.py` genera el PDF con portada, índice navegable y fórmulas. `verify_delivery.py` comprueba procedencia, resultados clave, enlaces y consistencia de la entrega.
+`scripts/analyze_results.py` recalcula tablas y auditorías con Python estándar. La opción --figures requiere matplotlib y crea gráficas auxiliares en output/analisis/figures. El Word se edita manualmente y sus imágenes conservadas se describen en [recursos_actuales.md](recursos_actuales.md). El verificador de entrega comprueba datos y recursos; no reconstruye el Word.
 
-Los generadores documentales anteriores se conservan en `archive/docs_fuentes`. Sus rutas y dependencias corresponden al árbol antiguo; no son la entrada de publicación actual. `generar_informe_unificado.py` concatenaba informes locales después de un relato inicial, mientras que el informe nuevo se redacta de forma continua. `generar_informe_*cluster*.py` y el generador final verificaban originales de campaña y se utilizaron como contraste histórico. Las figuras antiguas permanecen en `archive/analisis_previos`; las nuevas están en `figures`.
+La publicación integral anterior está retirada. build_documentation.py solo muestra instrucciones del flujo vigente y publication_pdf.py permanece como auxiliar sin uso. No son necesarios para recalcular los datos ni para presentar el Word.
 
-El inventario exacto de todos los archivos originales, tamaños y hashes es `inventario_original.csv`; `procedencia_copias.csv` registra destino y campaña. `inventario_herramientas.csv` añade una fila por fuente, script o generador, con huella y tamaño; los snapshots históricos se identifican también en el inventario general. Así se conserva una relación exhaustiva sin convertir el relato principal en un listado de archivos.
+La entrega depurada evita inventarios de migración que enumeraban copias y archivos ya retirados. La evidencia vigente se localiza directamente en `data/raw`, y sus resúmenes regenerables están en `data/processed`.
 
 ## Antecedentes excluidos de las conclusiones actuales
 
-`archive/antecedentes/cholesky_final_hpc.c` es un prototipo previo distinto, pese a su nombre. `run_local_benchmarks.sh`, `cholesky_slurm.sh`, `benchmark_real_wsl.csv` y sus gráficas pertenecen a ese antecedente. El script Slurm contiene ejemplos de cuatro nodos y estrategias forzadas que no describen las campañas reales del servicio web ni una implementación 2D ejecutada.
+El prototipo previo y sus utilidades se retiraron de la entrega: usaban otro generador, otra validación y argumentos que no describían las campañas reales ni una implementación 2D ejecutada.
 
 `compile_docs.py` y `plot_real_data.py` de ese antecedente contienen rutas absolutas de otra estructura de trabajo. Se preservan para explicar procedencia, pero no se presentan como herramientas portables vigentes. El binario suelto anterior no se incorpora como ejecutable de la entrega. El ZIP de fuentes preparado antes del clúster se conserva como antecedente de preparación, no como fuente única del estado final.
 

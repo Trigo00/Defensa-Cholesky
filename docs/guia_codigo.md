@@ -4,7 +4,7 @@
 
 Los archivos `.c` de `src/implementacion_final/` contienen el programa que se presenta y evalúa. Los de `src/experimentos/` son bancos comparativos, el cronómetro y utilidades auxiliares. Todos contienen la versión didáctica del 29/09/2026: instrucciones separadas, comentarios en español y pequeñas funciones comunes. Los comentarios explican cada instrucción lógica; las llaves y las líneas que continúan una misma expresión comparten esa explicación. Las cabeceras de funciones describen su propósito. Los `.h` se mantienen breves: contienen las interfaces y los tipos necesarios para compilar.
 
-Los fuentes exactos anteriores están en `archive/src_medidos_20260928/`, con su Makefile y `sha256.json`. Las cuatro copias que ya tenían un formato distinto se conservan además en `archive/formato_previo_20260929`, junto con sus hashes y la comprobación de igualdad de instrucciones. Los tiempos del informe corresponden a las campañas originales, no a una nueva campaña de la versión refactorizada. Las modificaciones mantienen los algoritmos, el orden de las operaciones numéricas, los argumentos, los CSV y las fronteras de medición; esto no implica tiempos idénticos tras recompilar.
+Los fuentes exactos anteriores están en `tests/fixtures/measured_sources/`, con su Makefile y `sha256.json`. Los tiempos del informe corresponden a las campañas originales, no a una nueva campaña de la versión refactorizada. Las modificaciones mantienen los algoritmos, el orden de las operaciones numéricas, los argumentos, los CSV y las fronteras de medición; esto no implica tiempos idénticos tras recompilar.
 
 Se compartieron la conversión de argumentos, la diferencia entre factores, la generación de una columna y la preparación de la columna MPI. Se corrigió además un acceso a `d->n` anterior al control de `d == NULL` en left MPI. La validación de punteros no sustituye el contrato colectivo: los procesos deben recibir argumentos compatibles y llamar las colectivas en el mismo orden.
 
@@ -147,12 +147,12 @@ LAPACK se llama como column-major, triángulo superior. Para una entrada simétr
 En Linux/WSL con GCC, Make, MPI, LAPACKE, OpenBLAS y Python 3:
 
 ```bash
-python3 scripts/verify_code_refactor.py
+python3 tests/validation/verify_code_refactor.py
 ```
 
 El script verifica los hashes originales, compila una referencia temporal desde los fuentes conservados, compila la versión actual y compara códigos de salida, encabezados, número de filas y campos CSV no temporales. Ejecuta los bancos de prueba con P=1,2,3,4,6, el candidato con N=1,7,128, los modos `profile` y `pair`, argumentos inválidos y el cronómetro externo. Comprueba también el caso nuevo de Layout nulo. Los tiempos solo deben ser finitos y no negativos: no se exige igualdad temporal ni se infiere una aceleración.
 
-Los registros están en `docs/checks/refactor_build.log`, `refactor_equivalence.log` y `refactor_equivalence.json`. El JSON contiene los hashes de los fuentes actuales normalizando CRLF a LF para portabilidad con Git a los que corresponde la prueba. El análisis de resultados históricos sigue contrastando sus fuentes con `archive/src_medidos_20260928`, sin cambiar los CSV originales.
+Los registros históricos de la refactorización ya no se conservan en esta entrega. Al ejecutar el comando anterior se crea docs/checks con nuevos resultados. Sin ejecutarlo, no se afirma equivalencia funcional vigente. La instantánea de tests/fixtures/measured_sources conserva su manifiesto de hashes para vincular los datos históricos con sus fuentes.
 
 ## Preguntas que debes poder responder en la defensa
 

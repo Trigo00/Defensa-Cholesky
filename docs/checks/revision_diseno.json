@@ -1,9 +1,0 @@
-{
-  "date": "2026-09-29",
-  "pdf_sha256": "97ffbe0991a4151cb095ca857c06b30beeb4f650b1bdf8eefbfde5c774f32682",
-  "pages": 25,
-  "outline_entries": 21,
-  "figures": 16,
-  "visual_review": "Todas las páginas renderizadas; revisión de maquetación, figuras, fórmulas, tablas e índice.",
-  "data_verification": "verify_delivery.py: PASS; 1933 copias originales y 3242 grupos estadísticos verificados."
-}

@@ -15,4 +15,4 @@ test: $(TARGET)
 	bash tests/run_tests.sh
 
 clean:
-	rm -f $(TARGET) tests/spd_L.txt tests/rejected_L.txt
+	rm -f $(TARGET)

@@ -30,14 +30,14 @@ ceros en el superior.
 ```sh
 cd src/implementacion_con_matriz_sin_generar
 make
-mpirun -np 3 ./cholesky_app tests/spd_3x3.txt factor_L.txt --validate
+mpirun -np 2 ./cholesky_app MATRIZ.txt RESULTADO_L.txt --validate
 ```
 
 ## Demostracion rapida en Windows
 
-Edita `MATRIZ_AQUI.txt` y ejecuta con doble clic `EJECUTAR_DEMO.bat`. El script
+Edita `MATRIZ.txt` y ejecuta con doble clic `EJECUTAR_DEMO.bat`. El script
 usa dos procesos MPI, valida el resultado y deja el factor en `RESULTADO_L.txt`.
-Consulta `LEEME_PRESENTACION.md` para el formato y el guion breve de la demo.
+Consulta `PRESENTACION.md` para el formato y el guion breve de la demo.
 
 `--validate` es opcional. Calcula fuera del kernel el residuo relativo Frobenius
 `||A-LL^T||/||A||` y exige que sea finito y no mayor que `1e-12`.
@@ -60,3 +60,5 @@ El rango 0 lee y comprueba `A`, la empaqueta por propietarios cíclicos y usa
 `make test` ejecuta una SPD conocida y comprueba el rechazo de una matriz
 simétrica indefinida. Puede fijarse el lanzador con `MPIEXEC`, por ejemplo
 `MPIEXEC='mpirun -np 2' make test`.
+
+El lanzador de la demo elimina el resultado anterior antes de comenzar y limpia cualquier salida si ocurre un error. Solo anuncia éxito después de validar el factor. Las pruebas usan una carpeta temporal y no modifican MATRIZ.txt ni RESULTADO_L.txt.

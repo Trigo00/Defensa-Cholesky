@@ -10,6 +10,10 @@ cluster_lapack,36,0,not_exported,2.27491802514e-15,not_exported,6.59459925112e-1
 cluster_large,38,2,not_exported,3.24029049237e-15,not_exported,8.86621841495e-15
 cluster_pilot,53,0,not_exported,2.27491802514e-15,3.79030613921e-16,not_exported
 cluster_scalability,192,24,not_exported,2.27491802514e-15,not_exported,not_exported
+cluster_strong_8192,48,6,not_exported,3.24029049237e-15,not_exported,not_exported
+cluster_strong_pilot_16384,6,0,not_exported,4.63360532354e-15,not_exported,not_exported
+cluster_strong_pilot_8192,6,0,not_exported,3.24029049237e-15,not_exported,not_exported
+cluster_strong_trace,1,0,not_exported,3.89642258138e-16,3.79030613921e-16,not_exported
 generacion_local_20260922,236,0,not_exported,not_exported,not_exported,not_exported
 left_right_20260921,70,0,1.21308762262e-15,not_exported,not_exported,not_exported
 left_right_mpi_20260922,320,0,1.21308762262e-15,not_exported,not_exported,2.65779210291e-15

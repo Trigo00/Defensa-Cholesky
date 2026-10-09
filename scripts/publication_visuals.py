@@ -19,10 +19,12 @@ def configure():
         'axes.prop_cycle':plt.cycler(color=['#1e88e5','#e65100','#2e7d32','#8e24aa','#00897b','#c2185b']),
         'svg.hashsalt':'cholesky-20260928'})
 
-def generate(root):
+def generate(root, figure_dir=None):
+    figure_dir = figure_dir or root / "output/analisis/figures"
+    figure_dir.mkdir(parents=True, exist_ok=True)
     configure()
     def save(fig,name):
-        for ext in ('png','svg'):fig.savefig(root/'figures'/f'{name}.{ext}',dpi=200)
+        for ext in ('png','svg'):fig.savefig(figure_dir/f'{name}.{ext}',dpi=200)
         plt.close(fig)
     def box(ax,x,y,w,h,label,color='#e8eff4',size=10):
         ax.add_patch(Rectangle((x,y),w,h,facecolor=color,edgecolor='white',linewidth=1.8))

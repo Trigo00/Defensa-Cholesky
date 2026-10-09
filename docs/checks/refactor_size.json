@@ -1,6 +1,0 @@
-{
-  "before_c_tokens": 22116,
-  "after_c_tokens": 20956,
-  "reduction_percent": 5.25,
-  "measurement": "Only .c files; lexical tokens excluding comments and whitespace. Not physical lines or performance."
-}
