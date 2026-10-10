@@ -8,7 +8,7 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 def inspect_resources(root):
-    docx=root/'output/pdf/Documentacion-Cholesky-HPC.docx'
+    docx=root/'output/Documentacion/Documentacion-Cholesky-HPC.docx'
     ns={'w':'http://schemas.openxmlformats.org/wordprocessingml/2006/main',
         'r':'http://schemas.openxmlformats.org/officeDocument/2006/relationships'}
     contexts={}
@@ -41,7 +41,7 @@ def inspect_resources(root):
                     contexts.setdefault(rels[rid],(text or ' / '.join(recent[-2:]))[:180])
             if text:recent.append(text)
     lines=['# Recursos actuales de presentación y evidencia','',
-        'El [Word principal](../output/pdf/Documentacion-Cholesky-HPC.docx) es la referencia de presentación y se edita manualmente. Este índice se actualiza con el verificador de entrega. No modifica el Word ni sus imágenes.','',
+        'El [Word principal](../output/Documentacion/Documentacion-Cholesky-HPC.docx) es la referencia de presentación y se edita manualmente. Este índice se actualiza con el verificador de entrega. No modifica el Word ni sus imágenes.','',
         '## Imágenes conservadas','',
         'La correspondencia se verifica por SHA-256 del contenido, no por el nombre. El contexto se extrae del texto próximo en el XML del Word; sirve como pista de búsqueda y no certifica una ubicación visual ni una página.','',
         '| Imagen | Imagen idéntica incorporada al Word | Contexto textual próximo |','|---|---|---|']

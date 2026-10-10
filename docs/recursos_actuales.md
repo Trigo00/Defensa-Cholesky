@@ -1,6 +1,6 @@
 # Recursos actuales de presentación y evidencia
 
-El [Word principal](../output/pdf/Documentacion-Cholesky-HPC.docx) es la referencia de presentación y se edita manualmente. Este índice se actualiza con el verificador de entrega. No modifica el Word ni sus imágenes.
+El [Word principal](../output/Documentacion/Documentacion-Cholesky-HPC.docx) es la referencia de presentación y se edita manualmente. Este índice se actualiza con el verificador de entrega. No modifica el Word ni sus imágenes.
 
 ## Imágenes conservadas
 
@@ -19,20 +19,20 @@ La correspondencia se verifica por SHA-256 del contenido, no por el nombre. El c
 | [image280.png](media/image280.png) | word/media/image280.png | Con tres procesos, left tardó 54,08 ms y right 31,48 ms: left fue 1,72 veces más lento. Respecto de su propio P=1, left alcanzó 2,89x y right 2,79x. Ambos mejoraron al paralelizar  |
 | [image372.jpeg](media/image372.jpeg) | word/media/image372.jpeg | 3/3 / Cada intervalo muestra el mínimo y máximo de las tres aceleraciones calculadas por ronda. No es un intervalo de confianza. “Criterio” cuenta las rondas que cumplen simultánea |
 | [image394.jpeg](media/image394.jpeg) | word/media/image394.jpeg | WSL, Ryzen 5 2600; 6 núcleos físicos. Tamaños 512, 1024 y 2048; P=1 a 6; semilla 2026; un calentamiento y 6 repeticiones alternadas por método. Total: 216 observaciones. Centraliza |
-| [image396.jpeg](media/image396.jpeg) | word/media/image396.jpeg | Medimos directamente el intervalo desde el comienzo de las reservas hasta que L queda completa en rango 0, con MPI ya iniciado. Las fases se registran consecutivamente en ese mismo |
-| [image397.jpeg](media/image397.jpeg) | word/media/image397.jpeg | Comparamos resultados completos equivalentes y datos idénticos, sin combinar tiempos de campañas diferentes. La velocidad de la generación aislada no se traslada automáticamente al |
-| [image402.png](media/image402.png) | word/media/image402.png | Total principal: reloj de rango 0 desde reserva y preparación del reparto hasta generación distribuida, factorización y recolección completa. / Excluye lanzamiento/cierre MPI, refe |
+| [image396.jpeg](media/image396.jpeg) | word/media/image396.jpeg | Quedan fuera el lanzamiento y cierre de MPI, las referencias de prueba, la validación, la liberación de memoria y escribir resultados. Es el flujo de procesamiento, no el tiempo ex |
+| [image397.jpeg](media/image397.jpeg) | word/media/image397.jpeg | La comparación incluye resultados equivalentes y matrices idénticas. Las diferencias observadas dentro de la factorización pueden incorporar efectos del estado de memoria y de la l |
+| [image402.png](media/image402.png) | word/media/image402.png | Excluye lanzamiento/cierre MPI, referencias, validación y liberación. Las fases incluyen esperas. Se compara la mediana de totales medidos directamente. / Tiempo hasta obtener el r |
 | [image403.jpeg](media/image403.jpeg) | word/media/image403.jpeg | El total contempla los cambios de generación y desempaquetado provocados por el reparto, además del kernel. Una menor mediana aislada es un candidato para repetir, no una demostrac |
 | [image420.jpeg](media/image420.jpeg) | word/media/image420.jpeg | LAPACKE 3.12.1; OpenBLAS 0.3.32, backend Zen, un hilo comprobado. Los logs incluyen dependencias dinámicas y configuración. La optimización interna de OpenBLAS no usa necesariament |
 | [image423.jpeg](media/image423.jpeg) | word/media/image423.jpeg | Rotamos el orden de los seis métodos entre rondas; los tamaños siguen un orden fijo. No es una aleatorización completa. / WSL local, Ryzen 5 2600, seis núcleos físicos y doce proce |
-| [image425.jpeg](media/image425.jpeg) | word/media/image425.jpeg | Conclusión / La implementación MPI redujo el tiempo hasta obtener L frente al secuencial propio en varias configuraciones, pero aumentar la cantidad de procesos no produjo una mejo |
+| [image425.jpeg](media/image425.jpeg) | word/media/image425.jpeg | En N = 1024, tres y seis procesos tardan 54,69 ms y 54,54 ms: duplicar los recursos apenas cambia la latencia y reduce la eficiencia de 54,7 % a 27,4 %. Tres procesos son una elecc |
 | [image426.jpeg](media/image426.jpeg) | word/media/image426.jpeg | N=128,160,192,224,256; SEQ y MPI P=1,2,3,4,6. Una ronda descartada y siete medidas. Orden de métodos rotado; tamaños en orden creciente. Afinidad prevista: SEQ con taskset CPU0; MP |
 | [image427 - copia.png](media/image427%20-%20copia.png) | word/media/image427.png | 6256 / distintas |
 | [image427.png](media/image427.png) | word/media/image427.png | 6256 / distintas |
 | [image428.png](media/image428.png) | word/media/image428.png | Conclusión parcial / Aumentar procesos no asegura menor tiempo. En matrices pequeñas los costos adicionales compiten con el trabajo que se reparte; una configuración intermedia pue |
-| [image429.jpeg](media/image429.jpeg) | word/media/image429.jpeg | Pregunta: cuando el trabajo aumenta, ¿cómo cambia el rendimiento al pasar de uno a seis procesos y cuánto de la mejora sobrevive al medir el comando completo? / Ganancia hasta obte |
+| [image429.jpeg](media/image429.jpeg) | word/media/image429.jpeg | Cada aceleración utiliza la referencia secuencial y el reloj de su propia comparación. La eficiencia S/P expresa rendimiento relativo a esa referencia y no utilización de CPU. La e |
 | [image430.jpeg](media/image430.jpeg) | word/media/image430.jpeg | ¿El mínimo del tiempo interno sigue siendo útil para quien espera que termine el comando? La validación secuencial y el costo de lanzar MPI pueden cambiar la respuesta, especialmen |
-| [image431.png](media/image431.png) | word/media/image431.png | S externo mayor que uno indica que el comando terminó antes por mediana. Un speedup externo menor no contradice la aceleración del kernel: mide una tarea más amplia. El primer tama |
+| [image431.png](media/image431.png) | word/media/image431.png | En N = 512 y N = 1024, incluso la menor mediana externa MPI supera a la secuencial. En N = 2048 y N = 4096, seis procesos reducen el comando completo, con aceleraciones de 1,43 y 1 |
 | [image432.jpeg](media/image432.jpeg) | word/media/image432.jpeg | La rotación reduce el sesgo de posición, pero no constituye aleatorización. / Resultados formales: N = 8192 |
 | [image433.jpeg](media/image433.jpeg) | word/media/image433.jpeg | P=32 tuvo el menor tiempo mediano entre las seis configuraciones. La reducción absoluta frente a P=1 fue de 50.566130 s por factorización. El ideal T(1)/32 sería 2.003429 s; se uti |
 | [image434.jpeg](media/image434.jpeg) | word/media/image434.jpeg | Speedup y eficiencia / Figura 2. Speedup calculado con las medianas formales y referencia ideal S(P)=P. No se estiman intervalos de confianza para las razones. |

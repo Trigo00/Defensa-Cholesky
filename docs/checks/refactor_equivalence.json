@@ -1,0 +1,782 @@
+{
+  "status": "PASS",
+  "comparison_cases": 89,
+  "processes": [
+    1,
+    2,
+    3,
+    4,
+    6
+  ],
+  "numeric_csv": "Exact equality of exported non-time fields on tested cases",
+  "null_layout_regression": "PASS",
+  "timing": "Finite/nonnegative only; no performance claim",
+  "source_hash_mode": "SHA-256 after CRLF to LF normalization for Git portability",
+  "current_sources": {
+    "experimentos/bench_utils.c": "dbb538561befc4dd7b949aa31cd2b251bfd351a6848fdc60d07fc7d44ece2c6f",
+    "experimentos/bench_utils.h": "427fc14dc3b37d0b5f83ed8170b3f5da4f1e8150e695fc1429d9a260b3385970",
+    "experimentos/cholesky_left_mpi.c": "eb4a51ae512e361c906fda78437fc981e1184b22ff12609566d0106558966d64",
+    "experimentos/compare_application.c": "57c4a34e45016ab9efaaac0299aec64b73e0e36d979858c817cc10ee036c6b0b",
+    "experimentos/compare_blocks.c": "faa13d2553086017a182da41340f2ce966b56e353cb1bb175d4cba6b0e443217",
+    "experimentos/compare_generation.c": "d7c7fe317acf62b594527d32933780d43444cff2898a19c38362c84df2c5a0ff",
+    "experimentos/compare_lapack.c": "0db1e1ec2280b9e1bd5565804059d3fb1c8e6a71f584f36b14b6569000ce767d",
+    "experimentos/compare_memory.c": "20422fa9109c5bc9eb6f12fedd601fa6372d4ed991765b28bf8870f151ee8e26",
+    "experimentos/compare_mpi.c": "fdea6b2e3e3ace090e8c7c49198991c07d1dcbdc51a756da6fb14340dcab6de0",
+    "experimentos/compare_mpi_algorithms.c": "2f610e4b16d499f75b32fb2201eb51b24ef00bf86ae8a96ea5ae85751738cd02",
+    "experimentos/compare_mpi_local.c": "50bcb021a276adab4b0d21a638a75e5ff4509c71ea7055f88d1ed8f0add28207",
+    "experimentos/compare_mpi_total.c": "81a034f9250f13b898c4f51f05bf67c946568a645248e29ba0e279f309664039",
+    "experimentos/compare_seq.c": "c2fa8b4096090aff78f381952ea1430b8eecc5a9cb0185e172de314cb5584c6d",
+    "experimentos/implementacion_con_matriz_sin_generar/EJECUTAR_DEMO.bat": "ede77e56c7b0d2c3f4291f784900089c52954022f756edd5487dad21042b29ef",
+    "experimentos/implementacion_con_matriz_sin_generar/MATRIZ.txt": "1b4149b3b33668b60902ff92deb91966455a0b655473a7977db96a3d8e3f1583",
+    "experimentos/implementacion_con_matriz_sin_generar/Makefile": "5ca0a785d31cbaf2aba9452a351c507d1f59ebfd781830de967123cc5f55a0cd",
+    "experimentos/implementacion_con_matriz_sin_generar/PRESENTACION.md": "c02aae856d6d8218f87204222cb6896bb2405b93245e3fb94b1f4f70e1d858a8",
+    "experimentos/implementacion_con_matriz_sin_generar/README.md": "583a858e0b582cc03105cc67d58a6886efec6283544d33f313c9c9f95d12c4fc",
+    "experimentos/implementacion_con_matriz_sin_generar/RESULTADO_L.txt": "8ee17bad0ef747c4d6a239332c8b6909dc69d504737e7fe183d6da549964c309",
+    "experimentos/implementacion_con_matriz_sin_generar/cholesky_app": "cdc9d386c603405ce9d63171f61099f876934169e1042be32e457d889a7f2199",
+    "experimentos/implementacion_con_matriz_sin_generar/cholesky_app.c": "4cf257fedbe56418426f3fd069d7c7325f3290009c43cc17fe674fa75846c2bc",
+    "experimentos/implementacion_con_matriz_sin_generar/ejecutar_demo.sh": "2a41302f7ebd6459c3a0f69664f736dfc746518c79045c6fdb9014ef7e078648",
+    "experimentos/implementacion_con_matriz_sin_generar/matrix_io.c": "c0c1b771326aa145e4ddf22e0a574298dc0091652593151723a4a37077b1c76c",
+    "experimentos/implementacion_con_matriz_sin_generar/matrix_io.h": "28ce679e32853db447381b286f6c02ea456086f625aca6e949350c9a7527e4c3",
+    "experimentos/implementacion_con_matriz_sin_generar/tests/run_tests.sh": "899f11991b66945e8d558e5c7bce933ca5e303d4d60b7f0cee2416659a934edd",
+    "experimentos/main.c": "eccba11539e1d5bffc8f5cf21e421eaf5b7c3aed612d8cf9af49ca30ccd86398",
+    "experimentos/measure_command.c": "c254e9ff323a4a4f01c8f9996b531583eb9296cf40b1bc0aba2e62370a2372c7",
+    "implementacion_final/cholesky.c": "467b4c9112ffc3e2276da741a2be2f643009ccec593937b136240baee9f4c884",
+    "implementacion_final/cholesky.h": "9a49398890f35fbc16553c3a338f875d52d4fc42eba8a24e1c51c64865b98db1",
+    "implementacion_final/cholesky_mpi.c": "70232ce9477d0c6aa0bc9bfb1d24525425eac69660911f865602bce53fd584a7",
+    "implementacion_final/cholesky_mpi.h": "1336616c07ed421c3aca0f352545cc6c9f394e1ff7d0151f9afc2bb60b5d8a2d",
+    "implementacion_final/definiciones.txt": "d5810b794babe9095285242610d16c9376ece6ec6b5244a803e844e180fe0c4f",
+    "implementacion_final/main_candidate.c": "565dd6da301135a7fa8e06b402a9582d5072a6fa51f6e833fd158a663180db19"
+  },
+  "cases": [
+    {
+      "program": "cholesky_seq",
+      "args": [
+        "7",
+        "2",
+        "17"
+      ],
+      "processes": null,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_seq",
+      "args": [
+        "7",
+        "2",
+        "17"
+      ],
+      "processes": null,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_memory",
+      "args": [
+        "7",
+        "6",
+        "17"
+      ],
+      "processes": null,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_lapack",
+      "args": [
+        "7",
+        "2"
+      ],
+      "processes": null,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_lapack",
+      "args": [
+        "--test"
+      ],
+      "processes": null,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi",
+      "args": [
+        "--test"
+      ],
+      "processes": 1,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_local",
+      "args": [
+        "--test"
+      ],
+      "processes": 1,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_algorithms",
+      "args": [
+        "--test"
+      ],
+      "processes": 1,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_total",
+      "args": [
+        "--test"
+      ],
+      "processes": 1,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_application",
+      "args": [
+        "--test"
+      ],
+      "processes": 1,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_blocks",
+      "args": [
+        "--test"
+      ],
+      "processes": 1,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_mpi",
+      "args": [
+        "1"
+      ],
+      "processes": 1,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_mpi",
+      "args": [
+        "7"
+      ],
+      "processes": 1,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_mpi",
+      "args": [
+        "128"
+      ],
+      "processes": 1,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_generation",
+      "args": [
+        "7",
+        "2"
+      ],
+      "processes": 1,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi",
+      "args": [
+        "--test"
+      ],
+      "processes": 2,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_local",
+      "args": [
+        "--test"
+      ],
+      "processes": 2,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_algorithms",
+      "args": [
+        "--test"
+      ],
+      "processes": 2,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_total",
+      "args": [
+        "--test"
+      ],
+      "processes": 2,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_application",
+      "args": [
+        "--test"
+      ],
+      "processes": 2,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_blocks",
+      "args": [
+        "--test"
+      ],
+      "processes": 2,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_mpi",
+      "args": [
+        "1"
+      ],
+      "processes": 2,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_mpi",
+      "args": [
+        "7"
+      ],
+      "processes": 2,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_mpi",
+      "args": [
+        "128"
+      ],
+      "processes": 2,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_generation",
+      "args": [
+        "7",
+        "2"
+      ],
+      "processes": 2,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi",
+      "args": [
+        "--test"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_local",
+      "args": [
+        "--test"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_algorithms",
+      "args": [
+        "--test"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_total",
+      "args": [
+        "--test"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_application",
+      "args": [
+        "--test"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_blocks",
+      "args": [
+        "--test"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_mpi",
+      "args": [
+        "1"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_mpi",
+      "args": [
+        "7"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_mpi",
+      "args": [
+        "128"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_generation",
+      "args": [
+        "7",
+        "2"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi",
+      "args": [
+        "--test"
+      ],
+      "processes": 4,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_local",
+      "args": [
+        "--test"
+      ],
+      "processes": 4,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_algorithms",
+      "args": [
+        "--test"
+      ],
+      "processes": 4,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_total",
+      "args": [
+        "--test"
+      ],
+      "processes": 4,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_application",
+      "args": [
+        "--test"
+      ],
+      "processes": 4,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_blocks",
+      "args": [
+        "--test"
+      ],
+      "processes": 4,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_mpi",
+      "args": [
+        "1"
+      ],
+      "processes": 4,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_mpi",
+      "args": [
+        "7"
+      ],
+      "processes": 4,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_mpi",
+      "args": [
+        "128"
+      ],
+      "processes": 4,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_generation",
+      "args": [
+        "7",
+        "2"
+      ],
+      "processes": 4,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi",
+      "args": [
+        "--test"
+      ],
+      "processes": 6,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_local",
+      "args": [
+        "--test"
+      ],
+      "processes": 6,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_algorithms",
+      "args": [
+        "--test"
+      ],
+      "processes": 6,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_total",
+      "args": [
+        "--test"
+      ],
+      "processes": 6,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_application",
+      "args": [
+        "--test"
+      ],
+      "processes": 6,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_blocks",
+      "args": [
+        "--test"
+      ],
+      "processes": 6,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_mpi",
+      "args": [
+        "1"
+      ],
+      "processes": 6,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_mpi",
+      "args": [
+        "7"
+      ],
+      "processes": 6,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_mpi",
+      "args": [
+        "128"
+      ],
+      "processes": 6,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_generation",
+      "args": [
+        "7",
+        "2"
+      ],
+      "processes": 6,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_seq",
+      "args": [
+        "1"
+      ],
+      "processes": null,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_seq",
+      "args": [
+        "7"
+      ],
+      "processes": null,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_seq",
+      "args": [
+        "128"
+      ],
+      "processes": null,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_candidate_seq",
+      "args": [
+        "129"
+      ],
+      "processes": null,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi",
+      "args": [
+        "7",
+        "4"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi",
+      "args": [
+        "7",
+        "4",
+        "profile"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_local",
+      "args": [
+        "7",
+        "4"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_local",
+      "args": [
+        "7",
+        "4",
+        "profile"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_algorithms",
+      "args": [
+        "7",
+        "2"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_algorithms",
+      "args": [
+        "7",
+        "2",
+        "profile"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_mpi_total",
+      "args": [
+        "7",
+        "6"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_application",
+      "args": [
+        "7",
+        "6"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_blocks",
+      "args": [
+        "7",
+        "7"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "compare_blocks",
+      "args": [
+        "7",
+        "2",
+        "pair"
+      ],
+      "processes": 3,
+      "exit_code": 0
+    },
+    {
+      "program": "cholesky_seq",
+      "args": [
+        "0"
+      ],
+      "processes": null,
+      "exit_code": 1
+    },
+    {
+      "program": "cholesky_seq",
+      "args": [
+        "abc"
+      ],
+      "processes": null,
+      "exit_code": 1
+    },
+    {
+      "program": "compare_seq",
+      "args": [
+        "0"
+      ],
+      "processes": null,
+      "exit_code": 1
+    },
+    {
+      "program": "compare_seq",
+      "args": [
+        "abc"
+      ],
+      "processes": null,
+      "exit_code": 1
+    },
+    {
+      "program": "compare_memory",
+      "args": [
+        "0"
+      ],
+      "processes": null,
+      "exit_code": 1
+    },
+    {
+      "program": "compare_memory",
+      "args": [
+        "abc"
+      ],
+      "processes": null,
+      "exit_code": 1
+    },
+    {
+      "program": "cholesky_candidate_seq",
+      "args": [
+        "0"
+      ],
+      "processes": null,
+      "exit_code": 2
+    },
+    {
+      "program": "cholesky_candidate_seq",
+      "args": [
+        "abc"
+      ],
+      "processes": null,
+      "exit_code": 2
+    },
+    {
+      "program": "compare_lapack",
+      "args": [
+        "0"
+      ],
+      "processes": null,
+      "exit_code": 2
+    },
+    {
+      "program": "compare_lapack",
+      "args": [
+        "abc"
+      ],
+      "processes": null,
+      "exit_code": 2
+    },
+    {
+      "program": "compare_mpi",
+      "args": [
+        "0"
+      ],
+      "processes": 3,
+      "exit_code": 2
+    },
+    {
+      "program": "compare_mpi_local",
+      "args": [
+        "0"
+      ],
+      "processes": 3,
+      "exit_code": 2
+    },
+    {
+      "program": "compare_mpi_algorithms",
+      "args": [
+        "0"
+      ],
+      "processes": 3,
+      "exit_code": 2
+    },
+    {
+      "program": "compare_mpi_total",
+      "args": [
+        "0"
+      ],
+      "processes": 3,
+      "exit_code": 2
+    },
+    {
+      "program": "compare_application",
+      "args": [
+        "0"
+      ],
+      "processes": 3,
+      "exit_code": 2
+    },
+    {
+      "program": "compare_blocks",
+      "args": [
+        "0"
+      ],
+      "processes": 3,
+      "exit_code": 2
+    },
+    {
+      "program": "compare_generation",
+      "args": [
+        "0"
+      ],
+      "processes": 3,
+      "exit_code": 2
+    },
+    {
+      "program": "cholesky_candidate_mpi",
+      "args": [
+        "0"
+      ],
+      "processes": 3,
+      "exit_code": 2
+    },
+    {
+      "program": "measure_command",
+      "exit_code": 0
+    },
+    {
+      "program": "measure_command",
+      "exit_code": 7
+    }
+  ]
+}

@@ -43,7 +43,7 @@ for name,expected_hash in json.loads((measured/'sha256.json').read_text()).items
 
 resources=inspect_resources(ROOT)
 links=[]
-for p in [ROOT/'README.md',ROOT/'MANIFEST.md',*(ROOT/'docs').glob('*.md'),*(ROOT/'src/implementacion_con_matriz_sin_generar').glob('*.md')]:
+for p in [ROOT/'README.md',ROOT/'MANIFEST.md',*(ROOT/'docs').glob('*.md'),*(ROOT/'src/experimentos/implementacion_con_matriz_sin_generar').glob('*.md')]:
     for target in re.findall(r'\]\(([^)]+)\)',p.read_text(encoding='utf-8')):
         target=unquote(target.strip('<>')).split('#')[0]
         if not target or re.match(r'[a-zA-Z]+:',target):continue

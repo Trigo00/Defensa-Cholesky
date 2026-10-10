@@ -1,6 +1,6 @@
 MPICC ?= mpicc
 CFLAGS ?= -O3 -std=c11 -Wall -Wextra -Wpedantic
-HISTORICAL := ../implementacion_final
+HISTORICAL := ../../implementacion_final
 TARGET := cholesky_app
 
 .PHONY: all clean test

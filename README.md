@@ -6,7 +6,7 @@ El candidato es **right-looking en double, vector local, columnas 1D cíclicas b
 
 ## Leer el trabajo
 
-- [Documento Word principal](output/pdf/Documentacion-Cholesky-HPC.docx): versión maquetada para lectura, edición y defensa.
+- [Documento Word principal](output/Documentacion/Documentacion-Cholesky-HPC.docx): versión maquetada para lectura, edición y defensa.
 - [Inventario técnico](docs/inventario_tecnico.md) y [manifest](MANIFEST.md).
 - [Guía del código para la defensa](docs/guia_codigo.md): recorrido por todos los fuentes, índices MPI, relojes y sintaxis de C.
 - [Guía paso a paso de los experimentos](docs/guia_paso_a_paso_experimentos.md): qué archivo mostrar, cómo ejecutar cada etapa y qué significa su salida.
@@ -23,15 +23,26 @@ El candidato es **right-looking en double, vector local, columnas 1D cíclicas b
 | `data/raw/cluster/` | Nueve tar.gz originales, leídos sin extraer durante el análisis |
 | `data/processed/` | Observaciones normalizadas, cuartiles, cocientes y auditoría |
 | `docs/media/` | Imágenes actuales; correspondencia con el Word en docs/recursos_actuales.md |
-| `docs/`, `output/pdf/` | Guías y Word principal |
+| `docs/`, `output/Documentacion/` | Guías y Word principal |
 
 ## Presentación y recursos actuales
 
-- [Demo con matriz externa](src/implementacion_con_matriz_sin_generar/PRESENTACION.md): editar MATRIZ.txt y ejecutar el lanzador Windows.
+- [Demo con matriz externa](src/experimentos/implementacion_con_matriz_sin_generar/PRESENTACION.md): editar MATRIZ.txt y ejecutar el lanzador Windows.
 - [Índice de imágenes y evidencia](docs/recursos_actuales.md): imágenes conservadas y contenido verificable de los paquetes.
 - [Funciones MPI](output/Funciones%20MPI.md): colectivas y relojes del candidato.
 
 ## Recalcular y verificar
+
+Para compilar y verificar los fuentes actuales, ejecutar desde la raíz del proyecto en Linux/WSL con GCC, Make, MPI, LAPACKE y OpenBLAS instalados:
+
+```bash
+python3 tests/validation/verify_code_refactor.py
+make -C src/experimentos/implementacion_con_matriz_sin_generar test
+```
+
+La regresión compila el candidato y los bancos, ejecuta las pruebas secuenciales y compara sus resultados con los fuentes históricos para MPI P=1,2,3,4,6. Guarda el registro y el informe en `docs/checks/`. La segunda orden compila y prueba la demo con archivos temporales.
+
+Para verificar las estadísticas y los recursos de la entrega:
 
 ```bash
 python3 scripts/analyze_results.py

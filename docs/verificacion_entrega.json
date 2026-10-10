@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "verified_at_utc": "2026-10-04T02:18:26.978496+00:00",
+  "verified_at_utc": "2026-10-09T20:09:51.884628+00:00",
   "baseline_files_verified": 19,
   "summary_groups_verified": 3375,
   "formal_cluster_useful": {
@@ -12,8 +12,8 @@
   },
   "local_links_verified": 72,
   "resources": {
-    "docx_sha256": "91933b0814711b752cb29879ef98ab291ea0c179d0bdafbeb2e6d668cca56a51",
-    "docx_internal_relationships_checked": 586,
+    "docx_sha256": "ef9b2d17224781ad6617e1b86fabbfc62112492100c21a0c90360f8725707914",
+    "docx_internal_relationships_checked": 580,
     "external_images": 35,
     "unique_external_images": 34,
     "image_correspondence": [

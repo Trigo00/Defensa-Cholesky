@@ -1,7 +1,7 @@
 # Aplicación MPI de Cholesky con entrada externa
 
 Esta aplicación separa la entrada/salida del banco experimental. Compila y enlaza
-directamente `../implementacion_final/cholesky_mpi.c` y `cholesky.c`; no contiene
+directamente `../../implementacion_final/cholesky_mpi.c` y `cholesky.c`; no contiene
 otra implementación de Cholesky. La llamada seleccionada es
 `cholesky_mpi_local` con `layout_create(n, 1, MPI_COMM_WORLD)`: right-looking,
 columnas cíclicas 1D y vector local, igual que el candidato validado.
@@ -28,7 +28,7 @@ ceros en el superior.
 ## Compilación y uso
 
 ```sh
-cd src/implementacion_con_matriz_sin_generar
+cd src/experimentos/implementacion_con_matriz_sin_generar
 make
 mpirun -np 2 ./cholesky_app MATRIZ.txt RESULTADO_L.txt --validate
 ```

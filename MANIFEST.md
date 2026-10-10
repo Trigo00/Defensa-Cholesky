@@ -2,11 +2,11 @@
 
 | Ruta | Propósito |
 |---|---|
-| `output/pdf/Documentacion-Cholesky-HPC.docx` | Documento principal, editado manualmente |
+| `output/Documentacion/Documentacion-Cholesky-HPC.docx` | Documento principal, editado manualmente |
 | `docs/media/` | Imágenes conservadas para la presentación |
 | [Índice de recursos](docs/recursos_actuales.md) | Correspondencia por hash con imágenes del Word y registros de los paquetes |
 | `src/implementacion_final/` | Candidato secuencial/MPI |
-| `src/implementacion_con_matriz_sin_generar/` | Demo con matriz externa, lanzador y pruebas |
+| `src/experimentos/implementacion_con_matriz_sin_generar/` | Demo con matriz externa, lanzador y pruebas |
 | `src/experimentos/` | Bancos comparativos |
 | `tests/` | Pruebas, verificadores e instantánea histórica |
 | `data/raw/` | Evidencia original local y nueve paquetes del clúster |
