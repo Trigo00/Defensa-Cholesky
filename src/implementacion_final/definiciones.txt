@@ -1,1 +1,0 @@
-Reloj monotónico: Un reloj monotónico es un reloj que se utiliza para medir cuánto tiempo transcurre entre dos instantes, sin verse afectado por cambios en la hora del sistema.

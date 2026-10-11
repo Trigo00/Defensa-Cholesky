@@ -1,4 +1,11 @@
 /build/
+/Defensa/build/
+/Defensa/mediciones*.csv
+/Respaldo/build/
+/Respaldo/.venv/
+/Respaldo/.venv-win/
+/Respaldo/scratch/
+/Respaldo/resultados/
 /.venv/
 /.venv-win/
 /scratch/
