@@ -1,11 +1,5 @@
 # Cholesky en C: memoria, MPI y referencia LAPACK
 
-Investigación universitaria sobre cuándo el paralelismo reduce el tiempo de Cholesky y cuánto depende esa ventaja del kernel local y del reloj elegido. Se conservan experimentos locales y nueve paquetes originales del clúster: cinco campañas del 28/09 y cuatro paquetes de strong scaling del 03/10, sin mezclar sus referencias.
-
-El candidato es **right-looking en double, vector local, columnas 1D cíclicas b=1, generación distribuida y reunión en rango 0**. Se compila también una referencia secuencial desde la misma entrada. LAPACK/OpenBLAS se usa en un banco de comparación separado, con un hilo. OpenMP y ScaLAPACK son propuestas futuras, no implementaciones medidas.
-
-## Leer el trabajo
-
 - [Documento Word principal](output/Documentacion/Documentacion-Cholesky-HPC.docx): versión maquetada para lectura, edición y defensa.
 - [Inventario técnico](docs/inventario_tecnico.md) y [manifest](MANIFEST.md).
 - [Guía paso a paso de los experimentos](docs/guia_paso_a_paso_experimentos.md): qué archivo mostrar, cómo ejecutar cada etapa y qué significa su salida.
